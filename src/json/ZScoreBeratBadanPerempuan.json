@@ -1,0 +1,551 @@
+﻿[
+    {
+        "bulan": "0",
+        "SD3neg": "2.4",
+        "SD1neg": "2.8",
+        "median": "3.2",
+        "SD1pos": "3.7",
+        "SD2pos": "4.2",
+        "SD3pos": "4.8"
+    },
+    {
+        "bulan": "1",
+        "SD3neg": "3.2",
+        "SD1neg": "3.6",
+        "median": "4.2",
+        "SD1pos": "4.8",
+        "SD2pos": "5.5",
+        "SD3pos": "6.2"
+    },
+    {
+        "bulan": "2",
+        "SD3neg": "3.9",
+        "SD1neg": "4.5",
+        "median": "5.1",
+        "SD1pos": "5.8",
+        "SD2pos": "6.6",
+        "SD3pos": "7.5"
+    },
+    {
+        "bulan": "3",
+        "SD3neg": "4.5",
+        "SD1neg": "5.2",
+        "median": "5.8",
+        "SD1pos": "6.6",
+        "SD2pos": "7.5",
+        "SD3pos": "8.5"
+    },
+    {
+        "bulan": "4",
+        "SD3neg": "5",
+        "SD1neg": "5.7",
+        "median": "6.4",
+        "SD1pos": "7.3",
+        "SD2pos": "8.2",
+        "SD3pos": "9.3"
+    },
+    {
+        "bulan": "5",
+        "SD3neg": "5.4",
+        "SD1neg": "6.1",
+        "median": "6.9",
+        "SD1pos": "7.8",
+        "SD2pos": "8.8",
+        "SD3pos": "10"
+    },
+    {
+        "bulan": "6",
+        "SD3neg": "5.7",
+        "SD1neg": "6.5",
+        "median": "7.3",
+        "SD1pos": "8.2",
+        "SD2pos": "9.3",
+        "SD3pos": "10.6"
+    },
+    {
+        "bulan": "7",
+        "SD3neg": "6",
+        "SD1neg": "6.8",
+        "median": "7.6",
+        "SD1pos": "8.6",
+        "SD2pos": "9.8",
+        "SD3pos": "11.1"
+    },
+    {
+        "bulan": "8",
+        "SD3neg": "6.3",
+        "SD1neg": "7",
+        "median": "7.9",
+        "SD1pos": "9",
+        "SD2pos": "10.2",
+        "SD3pos": "11.6"
+    },
+    {
+        "bulan": "9",
+        "SD3neg": "6.5",
+        "SD1neg": "7.3",
+        "median": "8.2",
+        "SD1pos": "9.3",
+        "SD2pos": "10.5",
+        "SD3pos": "12"
+    },
+    {
+        "bulan": "10",
+        "SD3neg": "6.7",
+        "SD1neg": "7.5",
+        "median": "8.5",
+        "SD1pos": "9.6",
+        "SD2pos": "10.9",
+        "SD3pos": "12.4"
+    },
+    {
+        "bulan": "11",
+        "SD3neg": "6.9",
+        "SD1neg": "7.7",
+        "median": "8.7",
+        "SD1pos": "9.9",
+        "SD2pos": "11.2",
+        "SD3pos": "12.8"
+    },
+    {
+        "bulan": "12",
+        "SD3neg": "7",
+        "SD1neg": "7.9",
+        "median": "8.9",
+        "SD1pos": "10.1",
+        "SD2pos": "11.5",
+        "SD3pos": "13.1"
+    },
+    {
+        "bulan": "13",
+        "SD3neg": "7.2",
+        "SD1neg": "8.1",
+        "median": "9.2",
+        "SD1pos": "10.4",
+        "SD2pos": "11.8",
+        "SD3pos": "13.5"
+    },
+    {
+        "bulan": "14",
+        "SD3neg": "7.4",
+        "SD1neg": "8.3",
+        "median": "9.4",
+        "SD1pos": "10.6",
+        "SD2pos": "12.1",
+        "SD3pos": "13.8"
+    },
+    {
+        "bulan": "15",
+        "SD3neg": "7.6",
+        "SD1neg": "8.5",
+        "median": "9.6",
+        "SD1pos": "10.9",
+        "SD2pos": "12.4",
+        "SD3pos": "14.1"
+    },
+    {
+        "bulan": "16",
+        "SD3neg": "7.7",
+        "SD1neg": "8.7",
+        "median": "9.8",
+        "SD1pos": "11.1",
+        "SD2pos": "12.6",
+        "SD3pos": "14.5"
+    },
+    {
+        "bulan": "17",
+        "SD3neg": "7.9",
+        "SD1neg": "8.9",
+        "median": "10",
+        "SD1pos": "11.4",
+        "SD2pos": "12.9",
+        "SD3pos": "14.8"
+    },
+    {
+        "bulan": "18",
+        "SD3neg": "8.1",
+        "SD1neg": "9.1",
+        "median": "10.2",
+        "SD1pos": "11.6",
+        "SD2pos": "13.2",
+        "SD3pos": "15.1"
+    },
+    {
+        "bulan": "19",
+        "SD3neg": "8.2",
+        "SD1neg": "9.2",
+        "median": "10.4",
+        "SD1pos": "11.8",
+        "SD2pos": "13.5",
+        "SD3pos": "15.4"
+    },
+    {
+        "bulan": "20",
+        "SD3neg": "8.4",
+        "SD1neg": "9.4",
+        "median": "10.6",
+        "SD1pos": "12.1",
+        "SD2pos": "13.7",
+        "SD3pos": "15.7"
+    },
+    {
+        "bulan": "21",
+        "SD3neg": "8.6",
+        "SD1neg": "9.6",
+        "median": "10.9",
+        "SD1pos": "12.3",
+        "SD2pos": "14",
+        "SD3pos": "16"
+    },
+    {
+        "bulan": "22",
+        "SD3neg": "8.7",
+        "SD1neg": "9.8",
+        "median": "11.1",
+        "SD1pos": "12.5",
+        "SD2pos": "14.3",
+        "SD3pos": "16.4"
+    },
+    {
+        "bulan": "23",
+        "SD3neg": "8.9",
+        "SD1neg": "10",
+        "median": "11.3",
+        "SD1pos": "12.8",
+        "SD2pos": "14.6",
+        "SD3pos": "16.7"
+    },
+    {
+        "bulan": "24",
+        "SD3neg": "9",
+        "SD1neg": "10.2",
+        "median": "11.5",
+        "SD1pos": "13",
+        "SD2pos": "14.8",
+        "SD3pos": "17"
+    },
+    {
+        "bulan": "25",
+        "SD3neg": "9.2",
+        "SD1neg": "10.3",
+        "median": "11.7",
+        "SD1pos": "13.3",
+        "SD2pos": "15.1",
+        "SD3pos": "17.3"
+    },
+    {
+        "bulan": "26",
+        "SD3neg": "9.4",
+        "SD1neg": "10.5",
+        "median": "11.9",
+        "SD1pos": "13.5",
+        "SD2pos": "15.4",
+        "SD3pos": "17.7"
+    },
+    {
+        "bulan": "27",
+        "SD3neg": "9.5",
+        "SD1neg": "10.7",
+        "median": "12.1",
+        "SD1pos": "13.7",
+        "SD2pos": "15.7",
+        "SD3pos": "18"
+    },
+    {
+        "bulan": "28",
+        "SD3neg": "9.7",
+        "SD1neg": "10.9",
+        "median": "12.3",
+        "SD1pos": "14",
+        "SD2pos": "16",
+        "SD3pos": "18.3"
+    },
+    {
+        "bulan": "29",
+        "SD3neg": "9.8",
+        "SD1neg": "11.1",
+        "median": "12.5",
+        "SD1pos": "14.2",
+        "SD2pos": "16.2",
+        "SD3pos": "18.7"
+    },
+    {
+        "bulan": "30",
+        "SD3neg": "10",
+        "SD1neg": "11.2",
+        "median": "12.7",
+        "SD1pos": "14.4",
+        "SD2pos": "16.5",
+        "SD3pos": "19"
+    },
+    {
+        "bulan": "31",
+        "SD3neg": "10.1",
+        "SD1neg": "11.4",
+        "median": "12.9",
+        "SD1pos": "14.7",
+        "SD2pos": "16.8",
+        "SD3pos": "19.3"
+    },
+    {
+        "bulan": "32",
+        "SD3neg": "10.3",
+        "SD1neg": "11.6",
+        "median": "13.1",
+        "SD1pos": "14.9",
+        "SD2pos": "17.1",
+        "SD3pos": "19.6"
+    },
+    {
+        "bulan": "33",
+        "SD3neg": "10.4",
+        "SD1neg": "11.7",
+        "median": "13.3",
+        "SD1pos": "15.1",
+        "SD2pos": "17.3",
+        "SD3pos": "20"
+    },
+    {
+        "bulan": "34",
+        "SD3neg": "10.5",
+        "SD1neg": "11.9",
+        "median": "13.5",
+        "SD1pos": "15.4",
+        "SD2pos": "17.6",
+        "SD3pos": "20.3"
+    },
+    {
+        "bulan": "35",
+        "SD3neg": "10.7",
+        "SD1neg": "12",
+        "median": "13.7",
+        "SD1pos": "15.6",
+        "SD2pos": "17.9",
+        "SD3pos": "20.6"
+    },
+    {
+        "bulan": "36",
+        "SD3neg": "10.8",
+        "SD1neg": "12.2",
+        "median": "13.9",
+        "SD1pos": "15.8",
+        "SD2pos": "18.1",
+        "SD3pos": "20.9"
+    },
+    {
+        "bulan": "37",
+        "SD3neg": "10.9",
+        "SD1neg": "12.4",
+        "median": "14",
+        "SD1pos": "16",
+        "SD2pos": "18.4",
+        "SD3pos": "21.3"
+    },
+    {
+        "bulan": "38",
+        "SD3neg": "11.1",
+        "SD1neg": "12.5",
+        "median": "14.2",
+        "SD1pos": "16.3",
+        "SD2pos": "18.7",
+        "SD3pos": "21.6"
+    },
+    {
+        "bulan": "39",
+        "SD3neg": "11.2",
+        "SD1neg": "12.7",
+        "median": "14.4",
+        "SD1pos": "16.5",
+        "SD2pos": "19",
+        "SD3pos": "22"
+    },
+    {
+        "bulan": "40",
+        "SD3neg": "11.3",
+        "SD1neg": "12.8",
+        "median": "14.6",
+        "SD1pos": "16.7",
+        "SD2pos": "19.2",
+        "SD3pos": "22.3"
+    },
+    {
+        "bulan": "41",
+        "SD3neg": "11.5",
+        "SD1neg": "13",
+        "median": "14.8",
+        "SD1pos": "16.9",
+        "SD2pos": "19.5",
+        "SD3pos": "22.7"
+    },
+    {
+        "bulan": "42",
+        "SD3neg": "11.6",
+        "SD1neg": "13.1",
+        "median": "15",
+        "SD1pos": "17.2",
+        "SD2pos": "19.8",
+        "SD3pos": "23"
+    },
+    {
+        "bulan": "43",
+        "SD3neg": "11.7",
+        "SD1neg": "13.3",
+        "median": "15.2",
+        "SD1pos": "17.4",
+        "SD2pos": "20.1",
+        "SD3pos": "23.4"
+    },
+    {
+        "bulan": "44",
+        "SD3neg": "11.8",
+        "SD1neg": "13.4",
+        "median": "15.3",
+        "SD1pos": "17.6",
+        "SD2pos": "20.4",
+        "SD3pos": "23.7"
+    },
+    {
+        "bulan": "45",
+        "SD3neg": "12",
+        "SD1neg": "13.6",
+        "median": "15.5",
+        "SD1pos": "17.8",
+        "SD2pos": "20.7",
+        "SD3pos": "24.1"
+    },
+    {
+        "bulan": "46",
+        "SD3neg": "12.1",
+        "SD1neg": "13.7",
+        "median": "15.7",
+        "SD1pos": "18.1",
+        "SD2pos": "20.9",
+        "SD3pos": "24.5"
+    },
+    {
+        "bulan": "47",
+        "SD3neg": "12.2",
+        "SD1neg": "13.9",
+        "median": "15.9",
+        "SD1pos": "18.3",
+        "SD2pos": "21.2",
+        "SD3pos": "24.8"
+    },
+    {
+        "bulan": "48",
+        "SD3neg": "12.3",
+        "SD1neg": "14",
+        "median": "16.1",
+        "SD1pos": "18.5",
+        "SD2pos": "21.5",
+        "SD3pos": "25.2"
+    },
+    {
+        "bulan": "49",
+        "SD3neg": "12.4",
+        "SD1neg": "14.2",
+        "median": "16.3",
+        "SD1pos": "18.8",
+        "SD2pos": "21.8",
+        "SD3pos": "25.5"
+    },
+    {
+        "bulan": "50",
+        "SD3neg": "12.6",
+        "SD1neg": "14.3",
+        "median": "16.4",
+        "SD1pos": "19",
+        "SD2pos": "22.1",
+        "SD3pos": "25.9"
+    },
+    {
+        "bulan": "51",
+        "SD3neg": "12.7",
+        "SD1neg": "14.5",
+        "median": "16.6",
+        "SD1pos": "19.2",
+        "SD2pos": "22.4",
+        "SD3pos": "26.3"
+    },
+    {
+        "bulan": "52",
+        "SD3neg": "12.8",
+        "SD1neg": "14.6",
+        "median": "16.8",
+        "SD1pos": "19.4",
+        "SD2pos": "22.6",
+        "SD3pos": "26.6"
+    },
+    {
+        "bulan": "53",
+        "SD3neg": "12.9",
+        "SD1neg": "14.8",
+        "median": "17",
+        "SD1pos": "19.7",
+        "SD2pos": "22.9",
+        "SD3pos": "27"
+    },
+    {
+        "bulan": "54",
+        "SD3neg": "13",
+        "SD1neg": "14.9",
+        "median": "17.2",
+        "SD1pos": "19.9",
+        "SD2pos": "23.2",
+        "SD3pos": "27.4"
+    },
+    {
+        "bulan": "55",
+        "SD3neg": "13.2",
+        "SD1neg": "15.1",
+        "median": "17.3",
+        "SD1pos": "20.1",
+        "SD2pos": "23.5",
+        "SD3pos": "27.7"
+    },
+    {
+        "bulan": "56",
+        "SD3neg": "13.3",
+        "SD1neg": "15.2",
+        "median": "17.5",
+        "SD1pos": "20.3",
+        "SD2pos": "23.8",
+        "SD3pos": "28.1"
+    },
+    {
+        "bulan": "57",
+        "SD3neg": "13.4",
+        "SD1neg": "15.3",
+        "median": "17.7",
+        "SD1pos": "20.6",
+        "SD2pos": "24.1",
+        "SD3pos": "28.5"
+    },
+    {
+        "bulan": "58",
+        "SD3neg": "13.5",
+        "SD1neg": "15.5",
+        "median": "17.9",
+        "SD1pos": "20.8",
+        "SD2pos": "24.4",
+        "SD3pos": "28.8"
+    },
+    {
+        "bulan": "59",
+        "SD3neg": "13.6",
+        "SD1neg": "15.6",
+        "median": "18",
+        "SD1pos": "21",
+        "SD2pos": "24.6",
+        "SD3pos": "29.2"
+    },
+    {
+        "bulan": "60",
+        "SD3neg": "13.7",
+        "SD1neg": "15.8",
+        "median": "18.2",
+        "SD1pos": "21.2",
+        "SD2pos": "24.9",
+        "SD3pos": "29.5"
+    }
+]
