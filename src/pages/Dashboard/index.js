@@ -13,9 +13,13 @@ import Carousel from 'react-bootstrap/Carousel';
 import bayi from "../../assets/img/bayi_1.png";
 import footerImage from "../../assets/img/powered_by_telkom.svg";
 
-
+const tableContainerStyle = {
+  borderRadius: '20px', // Set the desired border radius value
+  overflow: 'hidden', // Ensure that the border radius is applied correctly
+};
 
 const BackgroundComponent = () => {
+
   const backgroundStyles = {
     position: "absolute",
     top: 80,
@@ -26,6 +30,28 @@ const BackgroundComponent = () => {
     background: `url(${bg_dashboard}) no-repeat center`,
     backgroundSize: '100vw auto',
     borderRadius: "0 0 50px 50px",
+    boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.19)"
+  };
+  return <div style={backgroundStyles} />;
+};
+
+const paginationConfig = {
+  pageSize: 7,
+  hideOnSinglePage: true,
+  showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+};
+
+const BackgroundComponent2 = () => {
+
+  const backgroundStyles = {
+    position: "fixed",
+    top: 80,
+    left: -5,
+    width: "100vw",
+    height: '100%',
+    zIndex: -10000,
+    background: `url(${bg_dashboard}) no-repeat center`,
+    backgroundSize: '100vw auto',
     boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.19)"
   };
   return <div style={backgroundStyles} />;
@@ -152,7 +178,7 @@ export default function Dashboard() {
               Detail
             </button>
           </Link>
-          {/* <button
+          <button
             type="button"
             className="button_dashboard"
             onClick={() => {
@@ -161,7 +187,7 @@ export default function Dashboard() {
             }}
           >
             Update
-          </button> */}
+          </button>
           {user && user.user.role !== "ORANG_TUA" && (
             <button
               className="button_dashboard"
@@ -178,43 +204,53 @@ export default function Dashboard() {
 
   return (
     <>
-      <BackgroundComponent />
       <Navbar isLogin />
-      <Row className="justify-content-center align-items-center d-flex p-4" style={{ height: "400px", padding: "30px" }}>
-        <Col sm="6" style={{ width: "400px" }}>
-          <h6 className="dashboard">Hallo</h6>
-          <h6 className="dashboard">{user && user.user.name}</h6>
-          <h5 style={{ color: "#B14444" }}>Selamat Datang Kembali</h5>
-          <button class="cssbuttons-io-button" onClick={() => setIsOpenModalInputDataAnak(true)}
-            type="button">Tambah Anak
-            <div class="icon">
-              <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M31 7C31 3.41015 28.0899 0.5 24.5 0.5C20.9101 0.5 18 3.41015 18 7V17.75H7.25C3.66015 17.75 0.75 20.6601 0.75 24.25C0.75 27.8398 3.66015 30.75 7.25 30.75H18V41.5C18 45.0899 20.9101 48 24.5 48C28.0899 48 31 45.0899 31 41.5V30.75H41.75C45.3399 30.75 48.25 27.8399 48.25 24.25C48.25 20.6601 45.3399 17.75 41.75 17.75H31V7Z" fill="#FF9999" />
-              </svg>
-            </div>
-          </button>
-        </Col>
-        <Col sm="6" style={{ width: "200px" }}>
-          {data.length > 0 && (
-            <Carousel>
-              {data.map((item, index) => (
-                <Carousel.Item interval={1000} style={{ justifyContent: "center", padding: "10px" }} key={index}>
-                  <Link to={`/dashboard/detail/${item.id}`}>
-                    <img className="d-block w-100" src={bayi} alt="Slide" />
-                    <h6 style={{ position: "absolute", top: 260, left: 20, color: "white" }}>
-                      {item.nama}
-                    </h6>
-                    <h6 style={{ position: "absolute", top: 280, left: 20, color: "white" }}>
-                      {`${moment().diff(moment(item.tanggal_lahir), "month")} Bulan`}
-                    </h6>
-                  </Link>
-                </Carousel.Item>
-              ))}
-            </Carousel>
-          )}
-        </Col>
-      </Row>
-      <Row className="justify-content-center d-flex">
+      {user && user.user.role === "ORANG_TUA" && (
+        <>
+          <BackgroundComponent />
+          <Row className="justify-content-center align-items-center d-flex p-4" style={{ height: "400px", padding: "30px" }}>
+            <Col sm="6" style={{ width: "400px" }}>
+              <h6 className="dashboard">Hallo</h6>
+              <h6 className="dashboard">{user && user.user.name}</h6>
+              <h5 style={{ color: "#B14444" }}>Selamat Datang Kembali</h5>
+              <button class="cssbuttons-io-button" onClick={() => setIsOpenModalInputDataAnak(true)}
+                type="button">Tambah Anak
+                <div class="icon">
+                  <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M31 7C31 3.41015 28.0899 0.5 24.5 0.5C20.9101 0.5 18 3.41015 18 7V17.75H7.25C3.66015 17.75 0.75 20.6601 0.75 24.25C0.75 27.8398 3.66015 30.75 7.25 30.75H18V41.5C18 45.0899 20.9101 48 24.5 48C28.0899 48 31 45.0899 31 41.5V30.75H41.75C45.3399 30.75 48.25 27.8399 48.25 24.25C48.25 20.6601 45.3399 17.75 41.75 17.75H31V7Z" fill="#FF9999" />
+                  </svg>
+                </div>
+              </button>
+            </Col>
+
+            <Col sm="6" style={{ width: "200px" }}>
+              {data.length > 0 && (
+                <Carousel>
+                  {data.map((item, index) => (
+                    <Carousel.Item interval={1000} style={{ justifyContent: "center", padding: "10px" }} key={index}>
+                      <Link to={`/dashboard/detail/${item.id}`}>
+                        <img className="d-block w-100" src={bayi} alt="Slide" />
+                        <h6 style={{ position: "absolute", top: 260, left: 20, color: "white" }}>
+                          {item.nama}
+                        </h6>
+                        <h6 style={{ position: "absolute", top: 280, left: 20, color: "white" }}>
+                          {`${moment().diff(moment(item.tanggal_lahir), "month")} Bulan`}
+                        </h6>
+                      </Link>
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
+              )}
+            </Col>
+          </Row>
+        </>
+
+      )}
+      {user && user.user.role === "TENAGA_KESEHATAN" && (
+        <BackgroundComponent2 />
+      )}
+
+      <Row className="justify-content-center d-flex" style={{ margin: "50px 0px 50px 0px" }}>
         {/* <Col span={24}>
           <Navigation
             breadcrumb={[
@@ -228,15 +264,22 @@ export default function Dashboard() {
 
         <Row className="align-items-center">
           <Col span={24}>
-            <Table
-              columns={columns}
-              dataSource={data}
-              loading={isLoading}
-              pagination={{ pageSize: 7 }}
-            />
-
-
-
+          <div style={tableContainerStyle}>
+      {data.length > 0 ? (
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={paginationConfig}
+        />
+      ) : (
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+          locale={{ emptyText: 'No data available' }}
+        />
+      )}
+    </div>
           </Col>
         </Row>
       </Row>

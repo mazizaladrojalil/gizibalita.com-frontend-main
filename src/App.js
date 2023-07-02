@@ -75,7 +75,7 @@ function App() {
         <Route path="/forum/detail/:id" element={<DetailForum />} />
         <Route path="/my-forum" element={<MyPost />} />
         <Route path="/dashboard/detail/:id" element={<Detail />} />
-        <Route path="/tenaga-kesehatan/dashboard" element={<Post />} />
+        <Route path="/tenaga-kesehatan/dashboard" element={<Dashboard />} />
         <Route path="/tenaga-kesehatan/detail/:id" element={<DetailForum />} />
         <Route path="/artikel" element={<Artikel />} />
 

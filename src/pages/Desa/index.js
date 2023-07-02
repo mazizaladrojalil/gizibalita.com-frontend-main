@@ -105,6 +105,7 @@ export default function Desa() {
       )
       .then((response) => {
         setData(response.data.data);
+        console.log(data);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -151,6 +152,8 @@ export default function Desa() {
       });
   }
 
+  const berat = [0, 0, 0];
+
   return (
     <>
       {contextHolder}
@@ -173,6 +176,7 @@ export default function Desa() {
                       <h2>BERAT</h2>
                     </Row>
                     <Table dataSource={dataSourceBerat} columns={columns} />
+
                   </Col>
                   <Col span={7}>
                     <Row justify="center">
@@ -198,6 +202,7 @@ export default function Desa() {
             <Spin size="large" spinning={isLoading} />
           </Col>
         )}
+
         <Col span={24} style={{ marginTop: 50 }}>
           <Form
             onFinish={onFinish}
@@ -205,6 +210,39 @@ export default function Desa() {
             name="form_export_data"
             layout="horizontal"
           >
+            {/* {data.map((value) => {
+              return (
+                <Col key={value} span={24}>
+                  <Row>
+                    <h1>{value.nama_posyandu}</h1>
+                  </Row>
+                  <Row key={value} justify="space-between">
+                    <Col span={7}>
+                      <Row justify="center">
+                        <h2>BERAT</h2>
+                      </Row>
+                      <Table dataSource={dataSourceBerat} columns={columns} />
+
+                    </Col>
+                    <Col span={7}>
+                      <Row justify="center">
+                        <h2>TINGGI</h2>
+                      </Row>
+                      <Table dataSource={dataSourceTinggi} columns={columns} />
+                    </Col>
+                    <Col span={7}>
+                      <Row justify="center">
+                        <h2>LINGKAR KEPALA</h2>
+                      </Row>
+                      <Table
+                        dataSource={dataSourceLingkarKepala}
+                        columns={columns}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+              )
+            })} */}
             <Form.Item
               label="Periode Waktu berdasarkan bulan & tahun pengukuran"
               name="waktu"
