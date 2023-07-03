@@ -79,6 +79,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
        
         {/* Role Orang_tua */}
+<<<<<<< HEAD
         <Route element={<RequireAuth allowedRoles={[ROLES.OT]}/>}>
           <Route path="/dashboard" element={
             <Dashboard />
@@ -91,6 +92,18 @@ function App() {
           <Route path="/tenaga-kesehatan/detail/:id" element={<DetailForum />} />
           <Route path="/artikel" element={<Artikel />} />
         </Route>
+=======
+        <Route path="/dashboard" element={
+          <Dashboard />
+        } />
+        <Route path="/forum" element={<Post />} />
+        <Route path="/forum/detail/:id" element={<DetailForum />} />
+        <Route path="/my-forum" element={<MyPost />} />
+        <Route path="/dashboard/detail/:id" element={<Detail />} />
+        <Route path="/tenaga-kesehatan/dashboard" element={<Dashboard />} />
+        <Route path="/tenaga-kesehatan/detail/:id" element={<DetailForum />} />
+        <Route path="/artikel" element={<Artikel />} />
+>>>>>>> 6cb4c935601bd972add77ec3e8936af367380082
 
           {/* Role Admin */}
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>

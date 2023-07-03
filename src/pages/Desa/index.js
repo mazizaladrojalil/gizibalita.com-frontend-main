@@ -50,7 +50,12 @@ export default function Desa() {
       )
       .then((response) => {
         setData(response.data.data);
+<<<<<<< HEAD
         setIsLoading(true);
+=======
+        console.log(data);
+        setIsLoading(false);
+>>>>>>> 6cb4c935601bd972add77ec3e8936af367380082
       })
       .catch((err) => {
         setIsLoading(false);
@@ -95,7 +100,13 @@ export default function Desa() {
         console.log("Validate Failed:", info);
       });
   }
+<<<<<<< HEAD
   
+=======
+
+  const berat = [0, 0, 0];
+
+>>>>>>> 6cb4c935601bd972add77ec3e8936af367380082
   return (
     <>
       {contextHolder}
@@ -124,9 +135,27 @@ export default function Desa() {
                     <Row justify="start">
                       <h5 style={{color:"rgba(177, 68, 68, 1)"}}>BERAT</h5>
                     </Row>
+<<<<<<< HEAD
                     
                     <Table 
                       data={Berat(value.id_posyandu,data)} 
+=======
+                    <Table dataSource={dataSourceBerat} columns={columns} />
+
+                  </Col>
+                  <Col span={7}>
+                    <Row justify="center">
+                      <h2>TINGGI</h2>
+                    </Row>
+                    <Table dataSource={dataSourceTinggi} columns={columns} />
+                  </Col>
+                  <Col span={7}>
+                    <Row justify="center">
+                      <h2>LINGKAR KEPALA</h2>
+                    </Row>
+                    <Table
+                      dataSource={dataSourceLingkarKepala}
+>>>>>>> 6cb4c935601bd972add77ec3e8936af367380082
                       columns={columns}
                       initialState={{
                         pageSize: 5,
@@ -169,6 +198,7 @@ export default function Desa() {
             <Spin size="large" spinning={isLoading} />
           </Col>
         )}
+
         <Col span={24} style={{ marginTop: 50 }}>
           <Form
             onFinish={onFinish}
@@ -176,6 +206,39 @@ export default function Desa() {
             name="form_export_data"
             layout="horizontal"
           >
+            {/* {data.map((value) => {
+              return (
+                <Col key={value} span={24}>
+                  <Row>
+                    <h1>{value.nama_posyandu}</h1>
+                  </Row>
+                  <Row key={value} justify="space-between">
+                    <Col span={7}>
+                      <Row justify="center">
+                        <h2>BERAT</h2>
+                      </Row>
+                      <Table dataSource={dataSourceBerat} columns={columns} />
+
+                    </Col>
+                    <Col span={7}>
+                      <Row justify="center">
+                        <h2>TINGGI</h2>
+                      </Row>
+                      <Table dataSource={dataSourceTinggi} columns={columns} />
+                    </Col>
+                    <Col span={7}>
+                      <Row justify="center">
+                        <h2>LINGKAR KEPALA</h2>
+                      </Row>
+                      <Table
+                        dataSource={dataSourceLingkarKepala}
+                        columns={columns}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+              )
+            })} */}
             <Form.Item
               label="Periode Waktu berdasarkan bulan & tahun pengukuran"
               name="waktu"
