@@ -692,9 +692,6 @@ export default function Detail() {
       });
   }
 
-
-
-
   const columns = [
     {
       title: "Tanggal Pengukuran",
@@ -745,38 +742,24 @@ export default function Detail() {
       key: "statusLK",
       dataIndex: ["statistik", "lingkar_kepala"],
     },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="middle">
+    // {
+    //   title: "Action",
+    //   key: "action",
+    //   render: (_, record) => (
+    //     <Space size="middle">
 
-          {user && user.user.role !== "ORANG_TUA" && (
-            <>
-              <button
-                type="button"
-                className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                onClick={() => deletePerkembanganAnak(record.id)}
-              >
-                Delete
-              </button>
-              <button
-                type="button"
-                className="text-black hover:text-black border border-black hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-black font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-black dark:text-black dark:hover:text-black dark:hover:bg-yellow-400 dark:focus:ring-yellow-900"
-                onClick={() => {
-                  setDataPerkembanganAnak(record);
-                  setIsOpenModalUpdatePerkembanganAnak(true);
-                }}
-              >
-                Update
-              </button>
-            </>
-
-
-          )}
-        </Space>
-      ),
-    },
+    //       {user && user.user.role !== "ORANG_TUA" && (
+    //         <button
+    //           type="button"
+    //           className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+    //           onClick={() => deletePerkembanganAnak(record.id)}
+    //         >
+    //           Delete
+    //         </button>
+    //       )}
+    //     </Space>
+    //   ),
+    // },
   ];
 
   const [activeContent, setActiveContent] = useState('Content 1');

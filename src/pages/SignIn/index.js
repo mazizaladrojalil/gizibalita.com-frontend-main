@@ -7,7 +7,6 @@ import { MailOutlined, KeyOutlined } from '@ant-design/icons';
 import logo from './GiziBalita_logo.png';
 import background from './login_bg.svg';
 import banner from './banner.svg';
-import { Colors } from "chart.js";
 
 const BackgroundComponent = () => {
   const backgroundStyles = {
@@ -116,7 +115,7 @@ export default function SignIn(props) {
         });
     }
 
-    else {
+    if (true) {
       axios
         .post(`${process.env.REACT_APP_BASE_URL}/api/auth/orang-tua/login`, {
           email: values.email,
@@ -269,136 +268,6 @@ export default function SignIn(props) {
                     <button
                       type="submit"
                       className="button__"
-                      style={{ fontSize: '22px', height: 50, borderRadius: '20px', marginBottom: '5px' }}
-                    >
-                      LOGIN
-                    </button>
-
-
-                  </Form.Item>
-
-
-                </Form>
-              </Col>
-              <Col align="center">
-                <p>
-                  Tidak punya akun? <Link to="/sign-up">Daftar</Link>,
-                </p>
-                <p>
-                  atau Login sebagai <Link to="/sign-in/admin"> Admin</Link>, <Link to="/sign-in/kader-posyandu">Kader</Link>, <Link to="/sign-in/desa">Desa</Link>, <Link to="/sign-in/tenaga-kesehatan">Tenaga kesehatan</Link>
-                </p>
-              </Col>
-            </Row>
-          </Row>
-
-          <Row
-            style={{
-              width: "50%",
-              height: "90%",
-              background: `url(${banner}) no-repeat center`,
-              backgroundSize: '700px',
-              borderRadius: 10,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-
-          >
-
-          </Row>
-        </Row>
-      ) : null}
-
-      {kaderPosyandu === true ? (
-        <Row
-          style={{
-            // background: `${
-            //   TenagaKesehatan || Desa
-            //     ? "linear-gradient(42deg,#090979,#00d4ff)"
-            //     : "linear-gradient(-135deg,#c850c0,#4158d0)"
-            // }`,
-            background: `${TenagaKesehatan || Desa
-              ? "rgba(1, 0, 0, 0)"
-              : "rgba(0, 0, 0, 0)"
-              }`,
-            height: "100vh",
-          }}
-          justify="center"
-          align="middle"
-        >
-          <Row
-            style={{
-              width: "50%",
-              height: "100%",
-              borderRadius: 10,
-            }}
-            justify="center"
-            align="middle"
-          >
-            <Row justify="center" align="middle" style={{ width: '700px', gap: "20px" }}>
-              <Col>
-                {/* Logo */}
-                <img src={logo}
-                  alt="Image"
-                  style={{
-                    width: "200px",
-                    height: "auto",
-                    marginBottom: "10px",
-                  }} />
-              </Col>
-              <Col span={20} justify="center" align="middle">
-                <h3 style={{ color: "#CE4343" }}>Kader Posyandu</h3>
-              </Col>
-              <Col span={20}>
-                <Form
-                  name="basic"
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
-                  autoComplete="off"
-                  layout="vertical"
-                  style={{ fontSize: "20px" }}
-                >
-                  <h5 className="label">Email</h5>
-                  <Form.Item
-                    name="email"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Email masih kosong!",
-                      },
-                      {
-                        type: "email",
-                        message: "Email belum sesuai!",
-                      },
-                    ]}
-                  >
-                    <Input id="input_signIn" placeholder="user@email.com" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }} >
-                      <MailOutlined style={{ marginRight: '8px' }} />
-                      |
-                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
-                  </Form.Item>
-
-                  <h5 className="label">Password</h5>
-                  <Form.Item
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Password masih kosong!",
-                      },
-                    ]}
-                  >
-                    <Input.Password id="input_signIn" placeholder="password" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }}>
-                      <KeyOutlined style={{ marginRight: '8px' }} />
-                      |
-                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
-                  </Form.Item>
-
-
-                  <Form.Item>
-                    <button
-                      type="submit"
-                      className="button__"
                       style={{ fontSize: '22px', height: 50, borderRadius: '20px', marginBottom: '20px' }}
                     >
                       LOGIN
@@ -406,247 +275,6 @@ export default function SignIn(props) {
 
 
                   </Form.Item>
-                </Form>
-              </Col>
-            </Row>
-          </Row>
-
-          <Row
-            style={{
-              width: "50%",
-              height: "90%",
-              background: `url(${banner}) no-repeat center`,
-              backgroundSize: '700px',
-              borderRadius: 10,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-
-          >
-
-          </Row>
-        </Row>
-      ) : null}
-
-      {Desa === true ? (
-        <Row
-          style={{
-            // background: `${
-            //   TenagaKesehatan || Desa
-            //     ? "linear-gradient(42deg,#090979,#00d4ff)"
-            //     : "linear-gradient(-135deg,#c850c0,#4158d0)"
-            // }`,
-            background: `${TenagaKesehatan || Desa
-              ? "rgba(1, 0, 0, 0)"
-              : "rgba(0, 0, 0, 0)"
-              }`,
-            height: "100vh",
-          }}
-          justify="center"
-          align="middle"
-        >
-          <Row
-            style={{
-              width: "50%",
-              height: "100%",
-              borderRadius: 10,
-            }}
-            justify="center"
-            align="middle"
-          >
-            <Row justify="center" align="middle" style={{ width: '700px' }}>
-              <Col>
-                {/* Logo */}
-                <img src={logo}
-                  alt="Image"
-                  style={{
-                    width: "200px",
-                    height: "auto",
-                    marginBottom: "10px",
-                  }} />
-              </Col>
-              <h5 style={{ color: "#CE4343", fontWeight: "700", marginTop: "30px" }}>Desa</h5>
-              <Col span={20}>
-                <Form
-                  name="basic"
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
-                  autoComplete="off"
-                  layout="vertical"
-                  style={{ fontSize: "20px" }}
-                >
-                  <h5 className="label">Email</h5>
-                  <Form.Item
-                    name="email"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Email masih kosong!",
-                      },
-                      {
-                        type: "email",
-                        message: "Email belum sesuai!",
-                      },
-                    ]}
-                  >
-                    <Input id="input_signIn" placeholder="user@email.com" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }} >
-                      <MailOutlined style={{ marginRight: '8px' }} />
-                      |
-                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
-                  </Form.Item>
-
-                  <h5 className="label">Password</h5>
-                  <Form.Item
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Password masih kosong!",
-                      },
-                    ]}
-                  >
-                    <Input.Password id="input_signIn" placeholder="password" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }}>
-                      <KeyOutlined style={{ marginRight: '8px' }} />
-                      |
-                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
-                  </Form.Item>
-
-
-                  <Form.Item>
-                    <button
-                      type="submit"
-                      className="button__"
-                      style={{ fontSize: '22px', height: 50, borderRadius: '20px', marginBottom: '20px' }}
-                    >
-                      LOGIN
-                    </button>
-
-
-                  </Form.Item>
-                </Form>
-              </Col>
-            </Row>
-          </Row>
-
-          <Row
-            style={{
-              width: "50%",
-              height: "90%",
-              background: `url(${banner}) no-repeat center`,
-              backgroundSize: '700px',
-              borderRadius: 10,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-
-          >
-
-          </Row>
-        </Row>
-      ) : null}
-
-      {TenagaKesehatan === true ? (
-        <Row
-          style={{
-            // background: `${
-            //   TenagaKesehatan || Desa
-            //     ? "linear-gradient(42deg,#090979,#00d4ff)"
-            //     : "linear-gradient(-135deg,#c850c0,#4158d0)"
-            // }`,
-            background: `${TenagaKesehatan || Desa
-              ? "rgba(1, 0, 0, 0)"
-              : "rgba(0, 0, 0, 0)"
-              }`,
-            height: "100vh",
-          }}
-          justify="center"
-          align="middle"
-        >
-          <Row
-            style={{
-              width: "50%",
-              height: "100%",
-              borderRadius: 10,
-            }}
-            justify="center"
-            align="middle"
-          >
-            <Row justify="center" align="middle" style={{ width: '700px' }}>
-              <Col>
-                {/* Logo */}
-                <img src={logo}
-                  alt="Image"
-                  style={{
-                    width: "200px",
-                    height: "auto",
-                    marginBottom: "10px",
-                  }} />
-              </Col>
-              <Col span={20}>
-                <Form
-                  name="basic"
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
-                  autoComplete="off"
-                  layout="vertical"
-                  style={{ fontSize: "20px" }}
-                >
-                  <h5 className="label">Email</h5>
-                  <Form.Item
-                    name="email"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Email masih kosong!",
-                      },
-                      {
-                        type: "email",
-                        message: "Email belum sesuai!",
-                      },
-                    ]}
-                  >
-                    <Input id="input_signIn" placeholder="user@email.com" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }} >
-                      <MailOutlined style={{ marginRight: '8px' }} />
-                      |
-                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
-                  </Form.Item>
-
-                  <h5 className="label">Password</h5>
-                  <Form.Item
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Password masih kosong!",
-                      },
-                    ]}
-                  >
-                    <Input.Password id="input_signIn" placeholder="password" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }}>
-                      <KeyOutlined style={{ marginRight: '8px' }} />
-                      |
-                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
-                  </Form.Item>
-
-
-                  <Form.Item>
-                    <button
-                      type="submit"
-                      className="button__"
-                      style={{ fontSize: '22px', height: 50, borderRadius: '20px', marginBottom: '20px' }}
-                    >
-                      LOGIN
-                    </button>
-
-
-                  </Form.Item>
-
-                  <Col span={30} align="center" justify="center">
-                    <p>
-                      Login sebagai <Link to="/sign-in"> Orang tua</Link>, <Link to="/sign-in/kader-posyandu">Kader</Link>, <Link to="/sign-in/admin">Admin</Link>
-                    </p>
-                  </Col>
                 </Form>
               </Col>
               <Col>
@@ -675,7 +303,6 @@ export default function SignIn(props) {
         </Row>
       ) : null}
 
-<<<<<<< HEAD
       {kaderPosyandu === true ? (
        <Row
           style={{
@@ -1005,11 +632,6 @@ export default function SignIn(props) {
             //     ? "linear-gradient(42deg,#090979,#00d4ff)"
             //     : "linear-gradient(-135deg,#c850c0,#4158d0)"
             // }`,
-=======
-      {admin === true ? (
-        <Row
-          style={{
->>>>>>> 6cb4c935601bd972add77ec3e8936af367380082
             background: `${TenagaKesehatan || Desa
               ? "rgba(1, 0, 0, 0)"
               : "rgba(0, 0, 0, 0)"
@@ -1028,13 +650,8 @@ export default function SignIn(props) {
             justify="center"
             align="middle"
           >
-<<<<<<< HEAD
             <Row justify="center" align="middle" style={{ width: '700px' }}>
               <Col>
-=======
-            <Row justify="center" align="middle" style={{ width: '700px', gap: "20px" }}>
-              <Col span={20} justify="center" align="middle">
->>>>>>> 6cb4c935601bd972add77ec3e8936af367380082
                 {/* Logo */}
                 <img src={logo}
                   alt="Image"
@@ -1044,10 +661,6 @@ export default function SignIn(props) {
                     marginBottom: "10px",
                   }} />
               </Col>
-              <Col span={20} justify="center" align="middle">
-                <h3 style={{ color: "#CE4343" }}>Admin</h3>
-              </Col>
-
               <Col span={20}>
                 <Form
                   name="basic"
@@ -1105,11 +718,6 @@ export default function SignIn(props) {
 
 
                   </Form.Item>
-                  <Col span={30} align="center" justify="center">
-                    <p>
-                      Login sebagai <Link to="/sign-in"> Orang tua</Link>, <Link to="/sign-in/kader-posyandu">Kader</Link>, <Link to="/sign-in/desa">Desa</Link>
-                    </p>
-                  </Col>
                 </Form>
               </Col>
               <Col>
