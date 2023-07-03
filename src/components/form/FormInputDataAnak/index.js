@@ -106,6 +106,7 @@ export default function FormInputDataAnak(props) {
               });
               setTimeout(() => {
                 onCancel();
+                window.location.reload()
                 fetch();
               }, 1000);
             })

@@ -10,11 +10,21 @@ import SignUp from "./pages/SignUp";
 import Post from "./pages/Post";
 import MyPost from "./pages/MyPost";
 import NotFound from "./pages/NotFound";
-import AdminDashboard from "./pages/AdminDashboard";
+import DashboardAdmin from "./pages/AdminDashboard";
 import Artikel from "./pages/Artikel";
+import PosyanduDashboard from "./pages/Posyandu";
+import DetailPosyandu  from './pages/Posyandu/DetailPosyandu'
+import DashboardLayout from "./components/layout/Dashboard/DashboardLayout";
+import { ROUTES } from "./utilities/Routes";
+import RequireAuth from "./utilities/RequireAuth";
 
-
-
+const ROLES = {
+  'Desa': "DESA",
+  'Posyandu': "KADER_POSYANDU",
+  'Admin': "ADMIN",
+  'OT': "orang_tua",
+  'TK' : "tenaga_kesahatan"
+}
 function App() {
   return (
 
@@ -67,23 +77,37 @@ function App() {
           }
         />
         <Route path="/sign-up" element={<SignUp />} />
+       
         {/* Role Orang_tua */}
-        <Route path="/dashboard" element={
-          <Dashboard />
-        } />
-        <Route path="/forum" element={<Post />} />
-        <Route path="/forum/detail/:id" element={<DetailForum />} />
-        <Route path="/my-forum" element={<MyPost />} />
-        <Route path="/dashboard/detail/:id" element={<Detail />} />
-        <Route path="/tenaga-kesehatan/dashboard" element={<Post />} />
-        <Route path="/tenaga-kesehatan/detail/:id" element={<DetailForum />} />
-        <Route path="/artikel" element={<Artikel />} />
+        <Route element={<RequireAuth allowedRoles={[ROLES.OT]}/>}>
+          <Route path="/dashboard" element={
+            <Dashboard />
+          } />
+          <Route path="/forum" element={<Post />} />
+          <Route path="/forum/detail/:id" element={<DetailForum />} />
+          <Route path="/my-forum" element={<MyPost />} />
+          <Route path="/dashboard/detail/:id" element={<Detail />} />
+          <Route path="/tenaga-kesehatan/dashboard" element={<Post />} />
+          <Route path="/tenaga-kesehatan/detail/:id" element={<DetailForum />} />
+          <Route path="/artikel" element={<Artikel />} />
+        </Route>
 
-        {/* Role Admin */}
-        <Route path="/dashboard/admin" element={<AdminDashboard />} />
+          {/* Role Admin */}
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>
+            <Route path="/dashboard/admin" element={<DashboardAdmin />} />
+            {/* <Route path="/dashboard/admin" element={<DashboardLayout />}>*/}
+          </Route>
 
-        {/* Role Desa */}
-        <Route path="/desa/dashboard" element={<Desa />} />
+          {/* Role Kader Posyandu */}
+          <Route element={<RequireAuth allowedRoles={[ROLES.Posyandu]}/>}>
+            <Route path="/posyandu/dashboard/" element={<PosyanduDashboard />} />
+            <Route path="/posyandu/dashboard/detail/:id" element={<DetailPosyandu />} />
+          </Route>
+
+          {/* Role Desa */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.Desa]}/>}>
+          <Route path="/desa/dashboard" element={<Desa />} />
+        </Route>
 
         <Route path="/*" element={<NotFound />} />
       </Routes>

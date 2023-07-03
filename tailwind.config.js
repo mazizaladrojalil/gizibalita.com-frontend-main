@@ -2,7 +2,14 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+     extend: {
+            maxWidth: {
+                'dashboard-content': 'calc(100% - 15rem)',
+            },
+            maxHeight: {
+                'sidebar-content': 'calc(100vh - 144px)',
+            },
+        },
   },
   plugins: [],
 };

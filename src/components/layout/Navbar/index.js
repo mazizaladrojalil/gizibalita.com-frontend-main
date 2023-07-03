@@ -59,6 +59,11 @@ export default function NavbarComp(props) {
     login_data = JSON.parse(`${localStorage.getItem("login_data")}`);
   }
   const { isLogin } = props;
+  const { admin } = props;
+  const { posyandu } = props;
+  const { desa } = props;
+  const { kader } = props;
+  const { tenkes } = props;
   let navigate = useNavigate();
   // eslint-disable-next-line
   const [user, setUser] = useState(login_data);
@@ -141,17 +146,37 @@ export default function NavbarComp(props) {
             }} /></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-start" style={{ backgroundColor: "#FFB4B4" }}>
-            <Nav className="mx-auto align-items-center">
-              <Nav.Link href="/dashboard" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
-                <h6 className="nav-link-text">Home</h6>
-              </Nav.Link>
-              <Nav.Link href="/artikel" className={`nav-link ${activeLink === '/' ? 'active' : ''}`}>
-                <h6 className="nav-link-text">Artikel</h6>
-              </Nav.Link>
-              <Nav.Link href="/forum" className={`nav-link ${activeLink === '/forum' ? 'active' : ''}`}>
-                <h6 className="nav-link-text">Form</h6>
-              </Nav.Link>
-            </Nav>
+            {
+              !desa && !kader &&
+              <Nav className="mx-auto align-items-center">
+                <Nav.Link href="/dashboard" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Home</h6>
+                </Nav.Link>
+                <Nav.Link href="/artikel" className={`nav-link ${activeLink === '/' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Artikel</h6>
+                </Nav.Link>
+                <Nav.Link href="/forum" className={`nav-link ${activeLink === '/forum' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Form</h6>
+                </Nav.Link>
+              
+              </Nav>
+            }
+             {
+                desa &&
+                  <Nav className="mx-auto">
+                    <Nav.Link href="/desa/dashboard" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                      <h6 className="nav-link-text">Home</h6>
+                    </Nav.Link>
+                  </Nav>
+              }
+              {
+                kader &&
+                  <Nav className="mx-auto">
+                    <Nav.Link href="/posyandu/dashboard/" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                      <h6 className="nav-link-text">Home</h6>
+                    </Nav.Link>
+                  </Nav>
+              }
             <Row justify="start" align="middle">
               <Col>
                 <Row justify="end" style={{ fontWeight: "bold" }}>
@@ -199,6 +224,88 @@ export default function NavbarComp(props) {
     );
   }
 
+  if(admin){
+     <Navbar style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FFB4B4', // Replace with your custom color
+        color: '#ffffff', // Replace with your custom text color
+        height: "80px",
+        paddingTop: "20px"
+      }} expand="lg">
+        <Container>
+          <Navbar.Brand href="#home"><img src={Logo}
+            alt="Image"
+            style={{
+              width: "180px",
+              height: "auto",
+              marginBottom: "10px",
+            }} /></Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-start" style={{ backgroundColor: "#FFB4B4" }}>
+            { desa &&
+              <Nav className="mx-auto align-items-center">
+                <Nav.Link href="/dashboard" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Home</h6>
+                </Nav.Link>
+                <Nav.Link href="/artikel" className={`nav-link ${activeLink === '/' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Input Data</h6>
+                </Nav.Link>
+                <Nav.Link href="/forum" className={`nav-link ${activeLink === '/forum' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Desa</h6>
+                </Nav.Link>
+              
+              </Nav>
+            }
+            { posyandu &&
+              <Nav className="mx-auto align-items-center">
+                <Nav.Link href="/dashboard" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Home</h6>
+                </Nav.Link>
+                <Nav.Link href="/artikel" className={`nav-link ${activeLink === '/' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Input Data</h6>
+                </Nav.Link>
+                <Nav.Link href="/forum" className={`nav-link ${activeLink === '/forum' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Posyandu</h6>
+                </Nav.Link>
+              
+              </Nav>
+            }
+            { kader &&
+              <Nav className="mx-auto align-items-center">
+                <Nav.Link href="/dashboard" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Home</h6>
+                </Nav.Link>
+                <Nav.Link href="/artikel" className={`nav-link ${activeLink === '/' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Register Akun</h6>
+                </Nav.Link>
+                <Nav.Link href="/forum" className={`nav-link ${activeLink === '/forum' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Kader Posyandu</h6>
+                </Nav.Link>
+              
+              </Nav>
+            }
+            { tenkes &&
+              <Nav className="mx-auto align-items-center">
+                <Nav.Link href="/dashboard" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Home</h6>
+                </Nav.Link>
+                <Nav.Link href="/artikel" className={`nav-link ${activeLink === '/' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Register Akun</h6>
+                </Nav.Link>
+                <Nav.Link href="/forum" className={`nav-link ${activeLink === '/forum' ? 'active' : ''}`}>
+                  <h6 className="nav-link-text">Tenaga Kesehatan</h6>
+                </Nav.Link>
+              
+              </Nav>
+            }
+          </Navbar.Collapse>
+
+
+        </Container>
+      </Navbar >
+  }
   return (
     // <Row className="container" justify="center" align="middle" style={{ backgroundColor: "#f5f5f5" }}>
     //     <Col span={10}>

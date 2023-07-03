@@ -1,9 +1,23 @@
-import { Button, Col, DatePicker, Form, message, Row, Spin, Table } from "antd";
+import { Button, Col, DatePicker, Form, message, Row, Spin } from "antd";
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
+import bg_dashboard from "../../assets/img/bg-dashboard.svg";
+import Table, { SelectColumnFilter } from '../../components/layout/Table'
+import { Berat, Tinggi, Lingkar } from "../../utilities/Berat";
 
+const BackgroundComponent = () => {
+  const backgroundStyles = {
+    // position: "absolute",
+    // width: "100%",
+    // height: "100%",
+    // background: `url(${bg_dashboard}) center`,
+    // backgroundSize: 'contain',
+    position: "center",
+  };
+  return <div style={backgroundStyles} />;
+};
 export default function Desa() {
   let login_data;
   if (typeof window !== "undefined") {
@@ -15,88 +29,19 @@ export default function Desa() {
   const [messageApi, contextHolder] = message.useMessage();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const dataSourceBerat = [
-    {
-      key: "1",
-      kategori: "OBESITAS",
-      total: 2,
-    },
-    {
-      key: "2",
-      kategori: "GEMUK",
-      total: 3,
-    },
-    {
-      key: "3",
-      kategori: "NORMAL",
-      total: 2,
-    },
-    {
-      key: "4",
-      kategori: "KURUS",
-      total: 5,
-    },
-    {
-      key: "5",
-      kategori: "SANGAT KURUS",
-      total: 1,
-    },
-  ];
-
-  const dataSourceTinggi = [
-    {
-      key: "1",
-      kategori: "TINGGI",
-      total: 2,
-    },
-    {
-      key: "2",
-      kategori: "NORMAL",
-      total: 3,
-    },
-    {
-      key: "3",
-      kategori: "PENDEK",
-      total: 2,
-    },
-    {
-      key: "4",
-      kategori: "SANGAT PENDEK",
-      total: 5,
-    },
-  ];
-
-  const dataSourceLingkarKepala = [
-    {
-      key: "1",
-      kategori: "MAKROSEFALI",
-      total: 2,
-    },
-    {
-      key: "2",
-      kategori: "NORMAL",
-      total: 3,
-    },
-    {
-      key: "3",
-      kategori: "MIKROSEFALI",
-      total: 2,
-    },
-  ];
-
-  const columns = [
-    {
-      title: "Kategori",
-      dataIndex: "kategori",
-      key: "kategori",
-    },
-    {
-      title: "Total",
-      dataIndex: "total",
-      key: "total",
-    },
-  ];
+  console.log(user);
+  const columns = useMemo(() => {
+    return [
+      {
+        Header: 'Kategori',
+        accessor: 'kategori',
+      },
+      {
+        Header: 'Total',
+        accessor: 'total',
+      },
+    ];
+  }, []);
 
   useEffect(() => {
     axios
@@ -105,7 +50,7 @@ export default function Desa() {
       )
       .then((response) => {
         setData(response.data.data);
-        setIsLoading(false);
+        setIsLoading(true);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -150,43 +95,69 @@ export default function Desa() {
         console.log("Validate Failed:", info);
       });
   }
-
+  
   return (
     <>
       {contextHolder}
-      <Navbar isLogin />
+      <Navbar isLogin desa/>
+      {/* <BackgroundComponent /> */}
+      <div className="bg-fixed bg-cover bg-bottom dash-bg"/>
       <Row
-        style={{ marginTop: 50 }}
+        style={{ marginTop: "46px" }}
         className="container"
         justify="space-between"
       >
-        {!isLoading ? (
+        { isLoading ? (
           data.map((value) => {
             return (
-              <Col key={value} span={24}>
-                <Row>
-                  <h1>{value.nama_posyandu}</h1>
-                </Row>
+              <Col 
+              key={value} 
+              span={24}
+              style={{ marginTop: "10px", marginBottom: "50px" }}
+              >
+                <Col span={24} style={{ marginTop: 5 }}>
+                  <h1 style={{ justifyContent: 'center', display: "flex", textTransform: "uppercase", color: "#7F7B7B", fontSize: "28px" }}
+                    >{value.nama_posyandu}</h1>
+                </Col>
                 <Row key={value} justify="space-between">
                   <Col span={7}>
-                    <Row justify="center">
-                      <h2>BERAT</h2>
+                    <Row justify="start">
+                      <h5 style={{color:"rgba(177, 68, 68, 1)"}}>BERAT</h5>
                     </Row>
-                    <Table dataSource={dataSourceBerat} columns={columns} />
-                  </Col>
-                  <Col span={7}>
-                    <Row justify="center">
-                      <h2>TINGGI</h2>
-                    </Row>
-                    <Table dataSource={dataSourceTinggi} columns={columns} />
-                  </Col>
-                  <Col span={7}>
-                    <Row justify="center">
-                      <h2>LINGKAR KEPALA</h2>
-                    </Row>
-                    <Table
-                      dataSource={dataSourceLingkarKepala}
+                    
+                    <Table 
+                      data={Berat(value.id_posyandu,data)} 
                       columns={columns}
+                      initialState={{
+                        pageSize: 5,
+                      }}
+                      noSearch
+                    />
+                  </Col>
+                  <Col span={7}>
+                    <Row justify="start">
+                       <h5 style={{color:"rgba(177, 68, 68, 1)"}}>TINGGI</h5>
+                    </Row>
+                   <Table 
+                      data={Tinggi(value.id_posyandu,data)} 
+                      columns={columns}
+                      initialState={{
+                        pageSize: 5,
+                      }}
+                      noSearch
+                    />
+                  </Col>
+                  <Col span={7}>
+                    <Row justify="start">
+                      <h5 style={{color:"rgba(177, 68, 68, 1)"}}>LINGKAR KEPALA</h5>
+                    </Row>
+                    <Table 
+                      data={Lingkar(value.id_posyandu,data)} 
+                      columns={columns}
+                      initialState={{
+                        pageSize: 5,
+                      }}
+                      noSearch
                     />
                   </Col>
                 </Row>
@@ -208,6 +179,8 @@ export default function Desa() {
             <Form.Item
               label="Periode Waktu berdasarkan bulan & tahun pengukuran"
               name="waktu"
+              style={{ justifyContent: 'start', display: "flex", color: "#7F7B7B", fontSize: "28px" }}
+                    
               rules={[
                 {
                   required: true,
@@ -219,9 +192,12 @@ export default function Desa() {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              {/* <Button type="secondary" htmlType="submit"class="button">
                 Export CSV
-              </Button>
+              </Button> */}
+              <button class="button" type="submit">
+                Export CSV
+              </button>
             </Form.Item>
           </Form>
         </Col>

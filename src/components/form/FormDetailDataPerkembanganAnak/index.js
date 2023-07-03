@@ -9,8 +9,7 @@ import {
   Row,
 } from "antd";
 import moment from "moment";
-import React, { useState } from "react";
-// import { dataBeratBadanByUmur } from "../../../json/berat_badan_by_umur";
+import React, { useEffect, useState } from "react";
 import dataBeratBadanByUmurPria from "../../../json/ZScoreBeratBadanLakiLaki.json";
 import dataBeratBadanByUmurPerempuan from "../../../json/ZScoreBeratBadanPerempuan.json";
 import dataTinggiBadanByUmurPria from "../../../json/ZScorePanjangBadanLakiLaki.json";
@@ -25,12 +24,12 @@ import {
 import axios from "axios";
 import { monthDiff } from "../../../utilities/calculateMonth";
 
-export default function FormInputPerkembanganAnak(props) {
+export default function FormDetailPerkembanganAnak(props) {
   let login_data;
   if (typeof window !== "undefined") {
     login_data = JSON.parse(`${localStorage.getItem("login_data")}`);
   }
-  const { isOpen, onCancel, data, idAnak, fetch } = props;
+  const { isOpen, onCancel, data, profil, fetch } = props;
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   // eslint-disable-next-line
@@ -38,47 +37,50 @@ export default function FormInputPerkembanganAnak(props) {
   const [zScoreBB, setZScoreBB] = useState(0);
   const [zScoreTB, setZScoreTB] = useState(0);
   const [zScoreLK, setZScoreLK] = useState(0);
-  const [tanggalPengukuran, setTanggalPengukuran] = useState("");
+  const [tanggalPengukuran, setTanggalPengukuran] = useState(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      form.setFieldsValue({
+        tanggalPengukuran: moment(data.date),
+        beratBadan: data.berat,
+        tinggiBadan: data.tinggi,
+        lingkarKepala: data.lingkar_kepala,
+      });
+      handleZScore(data.berat);
+      handleZScoreTinggiBadan(data.tinggi);
+      handleZScoreLingkarKepala(data.lingkar_kepala);
+    }
+    // eslint-disable-next-line
+  }, [isOpen, data]);
 
   const handleZScore = (beratBadan) => {
-    if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
+    const datePengukuran = form.getFieldValue(tanggalPengukuran);
+
+    if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
-      if (data.gender === "LAKI_LAKI") {
+      const determineMonth = `${
+        monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
+      }`;
+
+      if (profil.gender === "LAKI_LAKI") {
         dataBeratBadanByUmurPria.forEach((item) => {
-          if (
-            item.bulan ===
-            `${monthDiff(
-              moment(data.tanggal_lahir),
-              moment(tanggalPengukuran)
-            )}`
-          ) {
+          if (item.bulan === determineMonth) {
             antropologiData = item;
           }
         });
 
-        if (
-          antropologiData.bulan ===
-          `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
-        ) {
+        if (antropologiData?.bulan === determineMonth) {
           setZScoreBB(determineAmbangBatas(beratBadan, antropologiData));
         }
       } else {
         dataBeratBadanByUmurPerempuan.forEach((item) => {
-          if (
-            item.bulan ===
-            `${monthDiff(
-              moment(data.tanggal_lahir),
-              moment(tanggalPengukuran)
-            )}`
-          ) {
+          if (item.bulan === determineMonth) {
             antropologiData = item;
           }
         });
 
-        if (
-          antropologiData.bulan ===
-          `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
-        ) {
+        if (antropologiData?.bulan === determineMonth) {
           setZScoreBB(determineAmbangBatas(beratBadan, antropologiData));
         }
       }
@@ -88,46 +90,33 @@ export default function FormInputPerkembanganAnak(props) {
   };
 
   const handleZScoreTinggiBadan = (tinggiBadan) => {
-    if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
+    const datePengukuran = form.getFieldValue(tanggalPengukuran);
+    if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
+      const determineMonth = `${
+        monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
+      }`;
+
       if (data.gender === "LAKI_LAKI") {
         dataTinggiBadanByUmurPria.forEach((item) => {
-          if (
-            item.bulan ===
-            `${monthDiff(
-              moment(data.tanggal_lahir),
-              moment(tanggalPengukuran)
-            )}`
-          ) {
+          if (item.bulan === determineMonth) {
             antropologiData = item;
           }
         });
 
-        if (
-          antropologiData.bulan ===
-          `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
-        ) {
+        if (antropologiData?.bulan === determineMonth) {
           setZScoreTB(
             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
           );
         }
       } else {
         dataTinggiBadanByUmurPerempuan.forEach((item) => {
-          if (
-            item.bulan ===
-            `${monthDiff(
-              moment(data.tanggal_lahir),
-              moment(tanggalPengukuran)
-            )}`
-          ) {
+          if (item.bulan === determineMonth) {
             antropologiData = item;
           }
         });
 
-        if (
-          antropologiData.bulan ===
-          `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
-        ) {
+        if (antropologiData?.bulan === determineMonth) {
           setZScoreTB(
             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
           );
@@ -139,46 +128,34 @@ export default function FormInputPerkembanganAnak(props) {
   };
 
   const handleZScoreLingkarKepala = (lingkarKepala) => {
-    if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
+    const datePengukuran = form.getFieldValue(tanggalPengukuran);
+
+    if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
+      const determineMonth = `${
+        monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
+      }`;
+
       if (data.gender === "LAKI_LAKI") {
         dataLingkarKepalaByUmurPria.forEach((item) => {
-          if (
-            item.bulan ===
-            `${monthDiff(
-              moment(data.tanggal_lahir),
-              moment(tanggalPengukuran)
-            )}`
-          ) {
+          if (item.bulan === determineMonth) {
             antropologiData = item;
           }
         });
 
-        if (
-          antropologiData.bulan ===
-          `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
-        ) {
+        if (antropologiData?.bulan === determineMonth) {
           setZScoreLK(
             determineAmbangBatasLingkarKepala(lingkarKepala, antropologiData)
           );
         }
       } else {
         dataLingkarKepalaByUmurPerempuan.forEach((item) => {
-          if (
-            item.bulan ===
-            `${monthDiff(
-              moment(data.tanggal_lahir),
-              moment(tanggalPengukuran)
-            )}`
-          ) {
+          if (item.bulan === determineMonth) {
             antropologiData = item;
           }
         });
 
-        if (
-          antropologiData.bulan ===
-          `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
-        ) {
+        if (antropologiData?.bulan === determineMonth) {
           setZScoreLK(
             determineAmbangBatasLingkarKepala(lingkarKepala, antropologiData)
           );
@@ -197,13 +174,12 @@ export default function FormInputPerkembanganAnak(props) {
 
         if (user && user.user.role === "KADER_POSYANDU") {
           axios
-            .post(
-              `${process.env.REACT_APP_BASE_URL}/api/posyandu/statistik-anak`,
+            .put(
+              `${process.env.REACT_APP_BASE_URL}/api/posyandu/statistik-anak/${data.id}`,
               {
-                id_anak: parseInt(idAnak),
-                berat: values.beratBadan,
-                tinggi: values.tinggiBadan,
-                lingkar_kepala: values.lingkarKepala,
+                berat: parseFloat(values.beratBadan),
+                tinggi: parseFloat(values.tinggiBadan),
+                lingkar_kepala: parseFloat(values.lingkarKepala),
                 date: moment(values.tanggalPengukuran).format("YYYY-MM-DD"),
                 z_score_berat: zScoreBB,
                 z_score_tinggi: zScoreTB,
@@ -221,7 +197,6 @@ export default function FormInputPerkembanganAnak(props) {
               setTimeout(() => {
                 onCancel();
                 fetch();
-                window.location.reload()
               }, 1000);
             })
             .catch((err) => {
@@ -238,13 +213,12 @@ export default function FormInputPerkembanganAnak(props) {
 
         if (user && user.user.role === "ORANG_TUA") {
           axios
-            .post(
-              `${process.env.REACT_APP_BASE_URL}/api/orang-tua/statistik-anak`,
+            .put(
+              `${process.env.REACT_APP_BASE_URL}/api/orang-tua/statistik-anak/${data.id}`,
               {
-                id_anak: parseInt(idAnak),
-                berat: values.beratBadan,
-                tinggi: values.tinggiBadan,
-                lingkar_kepala: values.lingkarKepala,
+                berat: parseFloat(values.beratBadan),
+                tinggi: parseFloat(values.tinggiBadan),
+                lingkar_kepala: parseFloat(values.lingkarKepala),
                 date: moment(values.tanggalPengukuran).format("YYYY-MM-DD"),
                 z_score_berat: zScoreBB,
                 z_score_tinggi: zScoreTB,
@@ -280,30 +254,23 @@ export default function FormInputPerkembanganAnak(props) {
         console.log("Validate Failed:", info);
       });
   }
-
+  console.log(profil)
+  console.log(data)
   return (
     <>
       {contextHolder}
       <Modal
         open={isOpen}
         onCancel={onCancel}
-        title="Input Data Perkembangan Anak"
+        title="Update Data Perkembangan Anak"
         footer={[
           <button
             key="back"
             type="button"
             onClick={onCancel}
-            className="batal_btn"
+            className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-md px-3 py-2 text-center mr-6 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
           >
-            Batal
-          </button>,
-          <button
-            key="submit"
-            type="submit"
-            onClick={onOK}
-            className="simpan_btn"
-          >
-            Simpan
+            Kembali
           </button>,
         ]}
       >
@@ -314,30 +281,33 @@ export default function FormInputPerkembanganAnak(props) {
                 <Row>
                   <Col span={5}>Nama Anak</Col>
                   <Col span={1}>:</Col>
-                  <Col span={18}>{data ? data.nama : null}</Col>
+                  <Col span={18}>{profil ? profil.nama : null}</Col>
                 </Row>
                 <Row>
                   <Col span={5}>Jenis Kelamin</Col>
                   <Col span={1}>:</Col>
-                  <Col span={18}>{data ? data.gender : null}</Col>
+                  <Col span={18}>{profil ? profil.gender : null}</Col>
                 </Row>
                 <Row>
                   <Col span={5}>Tanggal Lahir</Col>
                   <Col span={1}>:</Col>
-                  <Col span={18}>{data ? data.tanggal_lahir : null}</Col>
+                  <Col span={18}>{profil ? profil.tanggal_lahir : null}</Col>
+                </Row>
+                  <Row>
+                  <Col span={5}>Berat Badan</Col>
+                  <Col span={1}>:</Col>
+                  <Col span={18}>{data ? data.berat : null}</Col>
                 </Row>
               </Col>
             </Row>
-            <Form
+            {/* <Form
               form={form}
-              name="form_input_perkembangan_anak"
+              name="form_update_perkembangan_anak"
               layout="vertical"
-              
             >
               <Form.Item
                 label="Tanggal Pengukuran"
                 name="tanggalPengukuran"
-                style={{fontSize:"14px"}}
                 rules={[
                   {
                     required: true,
@@ -355,12 +325,7 @@ export default function FormInputPerkembanganAnak(props) {
               <Form.Item
                 label="Berat Badan"
                 name="beratBadan"
-                rules={[
-                  {
-                    required: true,
-                    message: "Berat Badan masih kosong!",
-                  },
-                ]}
+                valuePropName
               >
                 <InputNumber min={0} onChange={handleZScore} />
               </Form.Item>
@@ -421,7 +386,7 @@ export default function FormInputPerkembanganAnak(props) {
                   disabled
                 />
               </Form.Item>
-            </Form>
+            </Form> */}
           </Col>
         </Row>
       </Modal>

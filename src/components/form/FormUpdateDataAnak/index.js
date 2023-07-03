@@ -24,7 +24,6 @@ export default function FormUpdateDataAnak(props) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const [dataOrangTua, setDataOrangTua] = useState([]);
-
   useEffect(() => {
     if (user.user.role !== "ORANG_TUA") {
       axios
@@ -32,7 +31,7 @@ export default function FormUpdateDataAnak(props) {
           headers: { Authorization: `Bearer ${user.token.value}` },
         })
         .then((response) => {
-          setDataOrangTua(response.data.data.data);
+          setDataOrangTua(response.data.data);
         })
         .catch((err) => {
           console.log(err);
@@ -120,6 +119,7 @@ export default function FormUpdateDataAnak(props) {
               });
               setTimeout(() => {
                 onCancel();
+                window.location.reload()
                 fetch();
               }, 1000);
             })
@@ -139,6 +139,7 @@ export default function FormUpdateDataAnak(props) {
         console.log("Validate Failed:", info);
       });
   }
+  console.log(dataOrangTua)
 
   return (
     <>
@@ -153,7 +154,7 @@ export default function FormUpdateDataAnak(props) {
               key="back"
               type="button"
               onClick={onCancel}
-              className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-md px-3 py-2 text-center mr-6 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+              className="batal_btn"
             >
               Batal
             </button>,
@@ -161,7 +162,7 @@ export default function FormUpdateDataAnak(props) {
               key="submit"
               type="submit"
               onClick={onOK}
-              className="simpant_btn"
+              className="simpan_btn"
             >
               Simpan
             </button>,

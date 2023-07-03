@@ -104,7 +104,7 @@ export default function SignIn(props) {
             JSON.stringify(response.data.data)
           );
           setTimeout(() => {
-            navigate("/dashboard");
+            navigate("/posyandu/dashboard/");
           }, 1000);
         })
         .catch((error) => {
@@ -304,9 +304,17 @@ export default function SignIn(props) {
       ) : null}
 
       {kaderPosyandu === true ? (
-        <Row
+       <Row
           style={{
-            background: "linear-gradient(42deg,#090979,#00d4ff)",
+            // background: `${
+            //   TenagaKesehatan || Desa
+            //     ? "linear-gradient(42deg,#090979,#00d4ff)"
+            //     : "linear-gradient(-135deg,#c850c0,#4158d0)"
+            // }`,
+            background: `${TenagaKesehatan || Desa
+              ? "rgba(1, 0, 0, 0)"
+              : "rgba(0, 0, 0, 0)"
+              }`,
             height: "100vh",
           }}
           justify="center"
@@ -314,18 +322,23 @@ export default function SignIn(props) {
         >
           <Row
             style={{
-              width: "30%",
-              height: "85%",
-              background: "white",
+              width: "50%",
+              height: "100%",
               borderRadius: 10,
             }}
             justify="center"
             align="middle"
           >
-            <Row justify="center" align="middle">
-              <Col className="mb-8">
-                <h1 className="font-bold text-2xl  text-center">Welcome Back!</h1>
-                <div className="text-sm text-gray-400">Login sebagai Kader Posyandu</div>
+            <Row justify="center" align="middle" style={{ width: '700px' }}>
+              <Col>
+                {/* Logo */}
+                <img src={logo}
+                  alt="Image"
+                  style={{
+                    width: "200px",
+                    height: "auto",
+                    marginBottom: "10px",
+                  }} />
               </Col>
               <Col span={20}>
                 <Form
@@ -334,9 +347,10 @@ export default function SignIn(props) {
                   onFinishFailed={onFinishFailed}
                   autoComplete="off"
                   layout="vertical"
+                  style={{ fontSize: "20px" }}
                 >
+                  <h5 className="label">Email</h5>
                   <Form.Item
-                    label="Email"
                     name="email"
                     rules={[
                       {
@@ -349,11 +363,14 @@ export default function SignIn(props) {
                       },
                     ]}
                   >
-                    <Input placeholder="user@email.com" />
+                    <Input id="input_signIn" placeholder="user@email.com" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }} >
+                      <MailOutlined style={{ marginRight: '8px' }} />
+                      |
+                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
                   </Form.Item>
 
+                  <h5 className="label">Password</h5>
                   <Form.Item
-                    label="Password"
                     name="password"
                     rules={[
                       {
@@ -362,20 +379,48 @@ export default function SignIn(props) {
                       },
                     ]}
                   >
-                    <Input.Password placeholder="password" />
+                    <Input.Password id="input_signIn" placeholder="password" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }}>
+                      <KeyOutlined style={{ marginRight: '8px' }} />
+                      |
+                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
                   </Form.Item>
+
 
                   <Form.Item>
                     <button
                       type="submit"
-                      className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      className="button__"
+                      style={{ fontSize: '22px', height: 50, borderRadius: '20px', marginBottom: '20px' }}
                     >
-                      Login
+                      LOGIN
                     </button>
+
+
                   </Form.Item>
                 </Form>
               </Col>
+              <Col>
+                <p>
+                  Tidak punya akun? <Link to="/sign-up">Daftar</Link>
+                </p>
+              </Col>
             </Row>
+          </Row>
+
+          <Row
+            style={{
+              width: "50%",
+              height: "90%",
+              background: `url(${banner}) no-repeat center`,
+              backgroundSize: '700px',
+              borderRadius: 10,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+
+          >
+
           </Row>
         </Row>
       ) : null}
@@ -383,7 +428,15 @@ export default function SignIn(props) {
       {Desa === true ? (
         <Row
           style={{
-            background: "linear-gradient(42deg,#090979,#00d4ff)",
+            // background: `${
+            //   TenagaKesehatan || Desa
+            //     ? "linear-gradient(42deg,#090979,#00d4ff)"
+            //     : "linear-gradient(-135deg,#c850c0,#4158d0)"
+            // }`,
+            background: `${TenagaKesehatan || Desa
+              ? "rgba(1, 0, 0, 0)"
+              : "rgba(0, 0, 0, 0)"
+              }`,
             height: "100vh",
           }}
           justify="center"
@@ -391,18 +444,23 @@ export default function SignIn(props) {
         >
           <Row
             style={{
-              width: "30%",
-              height: "85%",
-              background: "white",
+              width: "50%",
+              height: "100%",
               borderRadius: 10,
             }}
             justify="center"
             align="middle"
           >
-            <Row justify="center" align="middle">
+            <Row justify="center" align="middle" style={{ width: '700px' }}>
               <Col>
-                <h1 className="font-bold text-2xl my-5">Welcome back</h1>
-                <p>login sebagai Desa</p>
+                {/* Logo */}
+                <img src={logo}
+                  alt="Image"
+                  style={{
+                    width: "200px",
+                    height: "auto",
+                    marginBottom: "10px",
+                  }} />
               </Col>
               <Col span={20}>
                 <Form
@@ -411,9 +469,10 @@ export default function SignIn(props) {
                   onFinishFailed={onFinishFailed}
                   autoComplete="off"
                   layout="vertical"
+                  style={{ fontSize: "20px" }}
                 >
+                  <h5 className="label">Email</h5>
                   <Form.Item
-                    label="Email"
                     name="email"
                     rules={[
                       {
@@ -426,11 +485,14 @@ export default function SignIn(props) {
                       },
                     ]}
                   >
-                    <Input placeholder="user@email.com" />
+                    <Input id="input_signIn" placeholder="user@email.com" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }} >
+                      <MailOutlined style={{ marginRight: '8px' }} />
+                      |
+                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
                   </Form.Item>
 
+                  <h5 className="label">Password</h5>
                   <Form.Item
-                    label="Password"
                     name="password"
                     rules={[
                       {
@@ -439,20 +501,48 @@ export default function SignIn(props) {
                       },
                     ]}
                   >
-                    <Input.Password placeholder="password" />
+                    <Input.Password id="input_signIn" placeholder="password" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }}>
+                      <KeyOutlined style={{ marginRight: '8px' }} />
+                      |
+                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
                   </Form.Item>
+
 
                   <Form.Item>
                     <button
                       type="submit"
-                      className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      className="button__"
+                      style={{ fontSize: '22px', height: 50, borderRadius: '20px', marginBottom: '20px' }}
                     >
-                      Login
+                      LOGIN
                     </button>
+
+
                   </Form.Item>
                 </Form>
               </Col>
+              <Col>
+                <p>
+                  Tidak punya akun? <Link to="/sign-up">Daftar</Link>
+                </p>
+              </Col>
             </Row>
+          </Row>
+
+          <Row
+            style={{
+              width: "50%",
+              height: "90%",
+              background: `url(${banner}) no-repeat center`,
+              backgroundSize: '700px',
+              borderRadius: 10,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+
+          >
+
           </Row>
         </Row>
       ) : null}
@@ -537,7 +627,15 @@ export default function SignIn(props) {
       {admin === true ? (
         <Row
           style={{
-            background: "linear-gradient(42deg,#090979,#00d4ff)",
+            // background: `${
+            //   TenagaKesehatan || Desa
+            //     ? "linear-gradient(42deg,#090979,#00d4ff)"
+            //     : "linear-gradient(-135deg,#c850c0,#4158d0)"
+            // }`,
+            background: `${TenagaKesehatan || Desa
+              ? "rgba(1, 0, 0, 0)"
+              : "rgba(0, 0, 0, 0)"
+              }`,
             height: "100vh",
           }}
           justify="center"
@@ -545,18 +643,23 @@ export default function SignIn(props) {
         >
           <Row
             style={{
-              width: "30%",
-              height: "85%",
-              background: "white",
+              width: "50%",
+              height: "100%",
               borderRadius: 10,
             }}
             justify="center"
             align="middle"
           >
-            <Row justify="center" align="middle">
+            <Row justify="center" align="middle" style={{ width: '700px' }}>
               <Col>
-                <h1 className="font-bold text-2xl my-5">Welcome back</h1>
-                <p>login sebagai Admin</p>
+                {/* Logo */}
+                <img src={logo}
+                  alt="Image"
+                  style={{
+                    width: "200px",
+                    height: "auto",
+                    marginBottom: "10px",
+                  }} />
               </Col>
               <Col span={20}>
                 <Form
@@ -565,9 +668,10 @@ export default function SignIn(props) {
                   onFinishFailed={onFinishFailed}
                   autoComplete="off"
                   layout="vertical"
+                  style={{ fontSize: "20px" }}
                 >
+                  <h5 className="label">Email</h5>
                   <Form.Item
-                    label="Email"
                     name="email"
                     rules={[
                       {
@@ -580,11 +684,14 @@ export default function SignIn(props) {
                       },
                     ]}
                   >
-                    <Input placeholder="user@email.com" />
+                    <Input id="input_signIn" placeholder="user@email.com" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }} >
+                      <MailOutlined style={{ marginRight: '8px' }} />
+                      |
+                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
                   </Form.Item>
 
+                  <h5 className="label">Password</h5>
                   <Form.Item
-                    label="Password"
                     name="password"
                     rules={[
                       {
@@ -593,20 +700,48 @@ export default function SignIn(props) {
                       },
                     ]}
                   >
-                    <Input.Password placeholder="password" />
+                    <Input.Password id="input_signIn" placeholder="password" prefix={<span style={{ display: 'flex', alignItems: 'center', marginRight: '4px' }}>
+                      <KeyOutlined style={{ marginRight: '8px' }} />
+                      |
+                    </span>} style={{ borderRadius: "20px", height: 50, display: 'flex', alignItems: 'center' }} />
                   </Form.Item>
+
 
                   <Form.Item>
                     <button
                       type="submit"
-                      className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      className="button__"
+                      style={{ fontSize: '22px', height: 50, borderRadius: '20px', marginBottom: '20px' }}
                     >
-                      Login
+                      LOGIN
                     </button>
+
+
                   </Form.Item>
                 </Form>
               </Col>
+              <Col>
+                <p>
+                  Tidak punya akun? <Link to="/sign-up">Daftar</Link>
+                </p>
+              </Col>
             </Row>
+          </Row>
+
+          <Row
+            style={{
+              width: "50%",
+              height: "90%",
+              background: `url(${banner}) no-repeat center`,
+              backgroundSize: '700px',
+              borderRadius: 10,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+
+          >
+
           </Row>
         </Row>
       ) : null}
