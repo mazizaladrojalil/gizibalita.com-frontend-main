@@ -22,8 +22,8 @@ const ROLES = {
   'Desa': "DESA",
   'Posyandu': "KADER_POSYANDU",
   'Admin': "ADMIN",
-  'OT': "orang_tua",
-  'TK' : "tenaga_kesahatan"
+  'OT': "ORANG_TUA",
+  'TK' : "TENAGA_KESEHATAN"
 }
 function App() {
   return (
@@ -100,8 +100,8 @@ function App() {
 
           {/* Role Kader Posyandu */}
           <Route element={<RequireAuth allowedRoles={[ROLES.Posyandu]}/>}>
-            <Route path="/posyandu/dashboard/" element={<PosyanduDashboard />} />
-            <Route path="/posyandu/dashboard/detail/:id" element={<DetailPosyandu />} />
+            <Route path="/kader-posyandu/dashboard/" element={<PosyanduDashboard />} />
+            <Route path="/kader-posyandu/dashboard/detail/:id" element={<DetailPosyandu />} />
           </Route>
 
           {/* Role Desa */}

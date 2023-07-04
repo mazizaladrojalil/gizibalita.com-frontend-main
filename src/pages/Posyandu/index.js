@@ -130,13 +130,14 @@ const PosyanduDashboard = () => {
         accessor: 'aksi',
         Cell: ({ row }) => {
           const id = row.original.id;
+          console.log(id)
           const data = row.original;
           return (
             <>
               <div style={{justifyContent:"space-between", display:"flex"}}>
                   <button 
                     class="btnDetail" 
-                    onClick={(e) => navigate(`/posyandu/dashboard/detail/${id}`)}
+                    onClick={(e) => navigate(`/kader-posyandu/dashboard/detail/${id}`)}
                   >
                       Detail
                   </button>

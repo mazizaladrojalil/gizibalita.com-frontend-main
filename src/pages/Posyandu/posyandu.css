@@ -86,7 +86,7 @@
   --hover-text: #86bb65;
   color: #ffffff;
   font-weight: bold;
-  width: 30%;
+  width: 40%;
   border: 1px solid var(--bg);
   border-radius: 10px;
   padding: 0.8em 2em;
@@ -109,7 +109,7 @@
   --hover-text: #b41318;
   color: #ffffff;
   font-weight: bold;
-  width: 30%;
+  width: 40%;
   border: 1px solid var(--bg);
   border-radius: 10px;
   padding: 0.8em 2em;

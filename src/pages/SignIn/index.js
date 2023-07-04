@@ -104,7 +104,7 @@ export default function SignIn(props) {
             JSON.stringify(response.data.data)
           );
           setTimeout(() => {
-            navigate("/posyandu/dashboard/");
+            navigate("/kader-posyandu/dashboard/");
           }, 1000);
         })
         .catch((error) => {

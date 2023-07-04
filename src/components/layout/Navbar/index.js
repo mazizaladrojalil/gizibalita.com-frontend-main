@@ -164,7 +164,7 @@ export default function NavbarComp(props) {
              {
                 desa &&
                   <Nav className="mx-auto">
-                    <Nav.Link href="/desa/dashboard" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                    <Nav.Link href="/desa/dashboard" className={`nav-link ${activeLink === '/desa/dashboard"' ? 'active' : ''}`}>
                       <h6 className="nav-link-text">Home</h6>
                     </Nav.Link>
                   </Nav>
@@ -172,7 +172,7 @@ export default function NavbarComp(props) {
               {
                 kader &&
                   <Nav className="mx-auto">
-                    <Nav.Link href="/posyandu/dashboard/" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                    <Nav.Link href="/kader-posyandu/dasboard" className={`nav-link ${activeLink === '/kader-posyandu/dasboard' ? 'active' : ''}`}>
                       <h6 className="nav-link-text">Home</h6>
                     </Nav.Link>
                   </Nav>

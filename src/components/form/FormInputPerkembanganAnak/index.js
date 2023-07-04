@@ -194,7 +194,7 @@ export default function FormInputPerkembanganAnak(props) {
       .validateFields()
       .then((values) => {
         form.resetFields();
-
+        console.log(values)
         if (user && user.user.role === "KADER_POSYANDU") {
           axios
             .post(

@@ -112,8 +112,6 @@ export default function DetailPosyandu() {
 
   // const labels = Array.from(Array(61).keys());
 
-  console.log(dataAnak)
-  console.log(data)
   const labels = Array.from(Array(61).keys());
   function datasetChart(type) {
     const dataset = [];
@@ -717,14 +715,14 @@ export default function DetailPosyandu() {
       },
       {
         Header: "Umur",
-        accessor: "umur",
-        Cell: ({ row }) => {
-          const tanggalPengukuran = row.original.date;
+        accessor: "date",
+        Cell: ({ value, row }) => {
+          const tglPengukuran = row.original.date;
           return (
             <span>
               {`${monthDiff(
                 moment(dataAnak.tanggal_lahir),
-                moment(tanggalPengukuran)
+                moment(tglPengukuran)
               )} Bulan`}
             </span>
           );
@@ -808,22 +806,13 @@ export default function DetailPosyandu() {
           return (
             <>
               <div style={{justifyContent:"space-between", display:"flex"}}>
-                  <button 
-                    class="btnDetail" 
-                    onClick={() => {
-                      setDataPerkembanganAnakDetail(data);
-                      setIsOpenModalDetailPerkembanganAnak(true);
-                    }}
-                  >
-                      Detail
-                  </button>
                 {/* </Link> */}
                
                 <button 
                   type="button" 
                   class="buttonUpdate"
                   onClick={() => {
-                    setDataPerkembanganAnak(data);
+                    setDataPerkembanganAnak(dataAksi);
                     setIsOpenModalUpdatePerkembanganAnak(true);
                   }}
                 >
@@ -841,7 +830,7 @@ export default function DetailPosyandu() {
                       onOk: () => {
                         axios
                           .delete(
-                            `${process.env.REACT_APP_BASE_URL}/api/posyandu/data-anak/${id}`,
+                            `${process.env.REACT_APP_BASE_URL}/api/posyandu/statistik-anak/${id}`,
                             {
                               headers: {
                                 Authorization: `Bearer ${user.token.value}`,
@@ -866,9 +855,6 @@ export default function DetailPosyandu() {
                               type: "error",
                               content: "Data gagal dihapus",
                           });
-                            setTimeout(() => {
-                              window.location.reload();
-                            }, 1000);
                           });
                       },
                     })
@@ -895,8 +881,6 @@ export default function DetailPosyandu() {
       }
     ];
   }, []);
-  console.log(data);
-  console.log(dataAnak);
   const [activeContent, setActiveContent] = useState('Content 1');
 
   const handleButtonClick = (content) => {
@@ -1010,13 +994,6 @@ export default function DetailPosyandu() {
       <FormUpdatePerkembanganAnak
         isOpen={isOpenModalUpdatePerkembanganAnak}
         onCancel={() => setIsOpenModalUpdatePerkembanganAnak(false)}
-        fetch={() => setRefreshKey((oldKey) => oldKey + 1)}
-        data={dataPerkembanganAnak}
-        profil={dataAnak}
-      />
-      <FormDetailPerkembanganAnak
-        isOpen={isOpenModalDetailPerkembanganAnak}
-        onCancel={() => setIsOpenModalDetailPerkembanganAnak(false)}
         fetch={() => setRefreshKey((oldKey) => oldKey + 1)}
         data={dataPerkembanganAnak}
         profil={dataAnak}
