@@ -3,9 +3,6 @@ export function Berat(posyandu, data) {
     data.map((item) => {
         if(item.id_posyandu === posyandu){
              kategoriBerat.push({
-                kategori : "OBESITAS",
-                total : item.berat_badan.obesitas
-            },{
                 kategori : "NORMAL",
                 total : item.berat_badan.normal
             }, {

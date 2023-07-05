@@ -1,33 +1,32 @@
-import { MdOutlineSpaceDashboard } from 'react-icons/md';
-import { BsPersonLinesFill, BsJournalCheck } from 'react-icons/bs';
-import { ImUserTie } from 'react-icons/im';
-import { TbReportSearch, TbCash, TbReceipt } from 'react-icons/tb';
-import { IoReceiptOutline } from 'react-icons/io5';
-import { ROUTES } from '../../../utilities/Routes';
-
+import { BsPersonLinesFill, BsTextRight } from 'react-icons/bs';
 export const sidebarlink = [
     {
-        title: 'Main Menu',
+        title: 'Input Data',
         links: [
             {
-                title: 'Dashboard',
-                path: ROUTES.DASHBOARD,
-                icon: MdOutlineSpaceDashboard,
+                title: 'Desa',
+                path: 'desa',
+                icon: BsTextRight,
+            },
+            {
+                title: 'Posyandu',
+                path: 'posyandu',
+                icon: BsTextRight,
             },
         ],
     },
     {
-        title: 'Data Master',
+        title: 'Register Akun',
         links: [
             {
-                title: 'Pelanggan',
-                path: ROUTES.PELANGGAN,
+                title: 'Kader Posyandu',
+                path: 'kader-posyandu',
                 icon: BsPersonLinesFill,
             },
             {
-                title: 'Rekening',
-                path: ROUTES.REKENING + '/transfer',
-                icon: BsJournalCheck,
+                title: 'Tenaga Kesehatan',
+                path: 'tenaga-kesehatan',
+                icon: BsPersonLinesFill,
             },
         ],
     },

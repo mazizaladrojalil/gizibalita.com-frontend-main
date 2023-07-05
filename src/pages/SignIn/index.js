@@ -162,7 +162,7 @@ export default function SignIn(props) {
             JSON.stringify(response.data.data)
           );
           setTimeout(() => {
-            navigate("/dashboard/admin");
+            navigate("/admin/dashboard/");
           }, 1000);
         })
         .catch((error) => {

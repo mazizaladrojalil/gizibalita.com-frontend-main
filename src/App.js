@@ -10,13 +10,13 @@ import SignUp from "./pages/SignUp";
 import Post from "./pages/Post";
 import MyPost from "./pages/MyPost";
 import NotFound from "./pages/NotFound";
-import DashboardAdmin from "./pages/AdminDashboard";
 import Artikel from "./pages/Artikel";
 import PosyanduDashboard from "./pages/Posyandu";
 import DetailPosyandu  from './pages/Posyandu/DetailPosyandu'
 import DashboardLayout from "./components/layout/Dashboard/DashboardLayout";
-import { ROUTES } from "./utilities/Routes";
 import RequireAuth from "./utilities/RequireAuth";
+import LandingPageAdmin from "./pages/Admin/index";
+import DesaPage from "./pages/Admin/Desa/DesaPage";
 
 const ROLES = {
   'Desa': "DESA",
@@ -24,6 +24,10 @@ const ROLES = {
   'Admin': "ADMIN",
   'OT': "ORANG_TUA",
   'TK' : "TENAGA_KESEHATAN"
+}
+
+const ROUTES = {
+  'DESAROUTE': "desa", 
 }
 function App() {
   return (
@@ -92,12 +96,6 @@ function App() {
           <Route path="/artikel" element={<Artikel />} />
         </Route>
 
-          {/* Role Admin */}
-          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>
-            <Route path="/dashboard/admin" element={<DashboardAdmin />} />
-            {/* <Route path="/dashboard/admin" element={<DashboardLayout />}>*/}
-          </Route>
-
           {/* Role Kader Posyandu */}
           <Route element={<RequireAuth allowedRoles={[ROLES.Posyandu]}/>}>
             <Route path="/kader-posyandu/dashboard/" element={<PosyanduDashboard />} />
@@ -107,6 +105,13 @@ function App() {
           {/* Role Desa */}
         <Route element={<RequireAuth allowedRoles={[ROLES.Desa]}/>}>
           <Route path="/desa/dashboard" element={<Desa />} />
+        </Route>
+        
+        {/* Role Admin */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>
+          <Route path="/admin/dashboard/" element={<DashboardLayout />} >
+              <Route path={ROUTES.DESAROUTE} element={<DesaPage />} />
+          </Route>
         </Route>
 
         <Route path="/*" element={<NotFound />} />
