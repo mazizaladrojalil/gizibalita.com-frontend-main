@@ -1,6 +1,7 @@
 import { Button, Col, Form, Input, message, Row, Select } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Container from 'react-bootstrap/Container';
 
 export default function RegisterTenagaKesehatan() {
   const [form] = Form.useForm();
@@ -14,14 +15,14 @@ export default function RegisterTenagaKesehatan() {
       .then((response) => {
         setDataSource(response.data.data);
       })
-      .catch((err) => {});
+      .catch((err) => { });
 
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/api/desa`)
       .then((response) => {
         setDataDesa(response.data.data);
       })
-      .catch((err) => {});
+      .catch((err) => { });
     // eslint-disable-next-line
   }, []);
 
@@ -58,6 +59,9 @@ export default function RegisterTenagaKesehatan() {
 
   return (
     <>
+    <Container fluid style={{ backgroundColor: "white", padding:"20px", borderRadius:"20px" }}>
+    <h1 style={{fontSize:"20px", textAlign:"center", margin:"20px 0px 25px 0px"}}>Registrasi Tenaga Kesehatan</h1>
+        {contextHolder}
       {contextHolder}
       <Row justify="center">
         <Col span={12}>
@@ -194,6 +198,7 @@ export default function RegisterTenagaKesehatan() {
           </Form>
         </Col>
       </Row>
+      </Container>
     </>
   );
 }

@@ -29,3 +29,8 @@
   background-size: cover;
   background-position: center;
 }
+
+.sm\:rounded-full {
+  border-radius: 2px!important;
+}
+

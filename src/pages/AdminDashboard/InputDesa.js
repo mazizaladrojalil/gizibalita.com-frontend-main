@@ -1,6 +1,7 @@
 import { Button, Col, Form, Input, message, Row, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Container from 'react-bootstrap/Container';
 
 export default function InputDesa() {
   const [form] = Form.useForm();
@@ -30,7 +31,7 @@ export default function InputDesa() {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <Button onClick={() => deleteDesa(record.id)} type="dashed" danger>
+        <Button className="button_delete" onClick={() => deleteDesa(record.id)} type="dashed" danger>
           Delete
         </Button>
       ),
@@ -71,49 +72,58 @@ export default function InputDesa() {
 
   return (
     <>
-      {contextHolder}
-      <Row justify="space-between">
-        <Col span={7}>
-          <Form
-            form={form}
-            name="basic"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-            layout="horizontal"
-          >
-            <Form.Item
-              label="Nama Desa"
-              name="desa"
-              rules={[
-                {
-                  required: true,
-                  message: "Nama Desa masih kosong!",
-                },
-              ]}
+      <Container fluid style={{ backgroundColor: "white", padding: "20px", borderRadius: "20px" }}>
+        {contextHolder}
+        <Row justify="space-between">
+          <Col sm={24}>
+            <Form
+              form={form}
+              name="basic"
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+              autoComplete="off"
+              layout="horizontal"
             >
-              <Input />
-            </Form.Item>
+              <Form.Item
+                style={{ Width: "100%" }}
+                label="Nama Desa"
+                name="desa"
+                rules={[
+                  {
+                    required: true,
+                    message: "Nama Desa masih kosong!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Col span={24}>
+                {!isLoading && (
+                  <Table
+                    title={() => <h1>Daftar Desa</h1>}
+                    dataSource={dataSource}
+                    columns={columns}
+                    loading={isLoading}
+                    pagination={{ pageSize: 5 }}
+                  />
+                )}
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Kirim
-              </Button>
-            </Form.Item>
-          </Form>
-        </Col>
-        <Col span={15}>
-          {!isLoading && (
-            <Table
-              title={() => <h1>Daftar Desa</h1>}
-              dataSource={dataSource}
-              columns={columns}
-              loading={isLoading}
-              pagination={{ pageSize: 5 }}
-            />
-          )}
-        </Col>
-      </Row>
+              </Col>
+
+              <Col span={24} align="center">
+                <Form.Item>
+                  <Button type="primary" htmlType="submit">
+                    Kirim
+                  </Button>
+                </Form.Item>
+              </Col>
+
+
+            </Form>
+          </Col>
+
+        </Row>
+      </Container>
     </>
   );
 }

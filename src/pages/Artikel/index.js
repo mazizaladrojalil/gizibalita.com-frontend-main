@@ -121,9 +121,10 @@ export default function Artikel() {
                   <><Col sm="12" className="d-flex justify-content-end">
                     <Card style={{ width: '18rem', marginBottom: "20px"}}>
                       <Card.Body>
-                        <Card.Title>{item.title}</Card.Title>
+                        <Card.Title>{item.judul}</Card.Title>
+                        {console.log(item)}
                         <Card.Text>
-                          {item.snippet}
+                          {item.penulis}
                         </Card.Text>
                         <Card.Link href={item.link}>Baca selengkapnya</Card.Link>
                       </Card.Body>

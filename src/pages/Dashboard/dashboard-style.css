@@ -27,7 +27,7 @@
 }
 
 .cssbuttons-io-button {
-    background: #FF9999;
+    background: #FF9999!important;
     color: white;
     font-family: inherit;
     padding: 0.35em;
@@ -47,36 +47,37 @@
 }
 
 .cssbuttons-io-button .icon {
-    background: white;
-    margin-left: 1em;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 2.2em;
-    width: 2.2em;
-    border-radius: 0.7em;
-    box-shadow: 0.1em 0.1em 0.6em 0.2em #f78989;
-    right: 0.3em;
+    background: white!important;
+    margin-left: 1em!important;
+    position: absolute!important;
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important;
+    height: 2.2em!important;
+    width: 2.2em!important;
+    border-radius: 0.7em!important;
+    box-shadow: 0.1em 0.1em 0.6em 0.2em #f78989!important;
+    right: 0.3em!important;
     transition: all 0.3s;
+    font-size: medium;
 }
 
 .cssbuttons-io-button:hover .icon {
-    width: calc(100% - 0.6em);
+    width: calc(100% - 0.6em)!important;
 }
 
 .cssbuttons-io-button .icon svg {
-    width: 1.1em;
-    transition: transform 0.3s;
-    color: #FF9999;
+    width: 1.1em!important;
+    transition: transform 0.3s!important;
+    color: #FF9999!important;
 }
 
 .cssbuttons-io-button:hover .icon svg {
-    transform: translateX(0.1em);
+    transform: translateX(0.1em)!important;
 }
 
 .cssbuttons-io-button:active .icon {
-    transform: scale(0.95);
+    transform: scale(0.95)!important;
 }
 
 .dashboard {

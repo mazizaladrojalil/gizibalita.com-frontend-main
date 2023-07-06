@@ -31,147 +31,42 @@ export default function SignIn(props) {
   const [role, setRole] = useState(0);
 
   const onFinish = (values) => {
-    if (TenagaKesehatan) {
-      axios
-        .post(
-          `${process.env.REACT_APP_BASE_URL}/api/auth/tenaga-kesehatan/login`,
-          {
-            email: values.email,
-            password: values.password,
-          }
-        )
-        .then((response) => {
-          messageApi.open({
-            type: "success",
-            content: "Berhasil Login",
-          });
-          localStorage.setItem(
-            "login_data",
-            JSON.stringify(response.data.data)
-          );
-          setTimeout(() => {
-            navigate("/tenaga-kesehatan/dashboard");
-          }, 1000);
-        })
-        .catch((error) => {
-          messageApi.open({
-            type: "error",
-            content: "Email dan Password belum sesuai",
-          });
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/api/auth/login`, {
+        email: values.email,
+        password: values.password,
+      })
+      .then((response) => {
+        const role_user = response.data.data.user.role;
+        messageApi.open({
+          type: "success",
+          content: "Berhasil Login",
         });
-    }
-
-    if (Desa) {
-      axios
-        .post(`${process.env.REACT_APP_BASE_URL}/api/auth/desa/login`, {
-          email: values.email,
-          password: values.password,
-        })
-        .then((response) => {
-          messageApi.open({
-            type: "success",
-            content: "Berhasil Login",
-          });
-          localStorage.setItem(
-            "login_data",
-            JSON.stringify(response.data.data)
-          );
-          setTimeout(() => {
-            navigate("/desa/dashboard");
-          }, 1000);
-        })
-        .catch((error) => {
-          messageApi.open({
-            type: "error",
-            content: "Email dan Password belum sesuai",
-          });
-        });
-    }
-
-    if (values && kaderPosyandu === true) {
-      axios
-        .post(`${process.env.REACT_APP_BASE_URL}/api/auth/posyandu/login`, {
-          email: values.email,
-          password: values.password,
-        })
-        .then((response) => {
-          messageApi.open({
-            type: "success",
-            content: "Berhasil Login",
-          });
-          localStorage.setItem(
-            "login_data",
-            JSON.stringify(response.data.data)
-          );
-          setTimeout(() => {
+        localStorage.setItem(
+          "login_data",
+          JSON.stringify(response.data.data)
+        );
+        setTimeout(() => {
+          // if else role user
+          if (role_user === "ORANG_TUA") {
+            navigate("/dashboard/");
+          } else if (role_user === "KADER_POSYANDU") {
             navigate("/kader-posyandu/dashboard/");
-          }, 1000);
-        })
-        .catch((error) => {
-          messageApi.open({
-            type: "error",
-            content: "Email dan Password belum sesuai",
-          });
+          } else if (role_user === "TENAGA_KESEHATAN") {
+            navigate("/tenaga-kesehatan/dashboard");
+          } else if (role_user === "DESA") {
+            navigate("/desa/dashboard");
+          } else if (role_user === "ADMIN") {
+            navigate("/admin/dashboard/desa");
+          }
+        }, 1000);
+      })
+      .catch((error) => {
+        messageApi.open({
+          type: "error",
+          content: "Email dan Password belum sesuai",
         });
-    }
-
-    if (true) {
-      axios
-        .post(`${process.env.REACT_APP_BASE_URL}/api/auth/orang-tua/login`, {
-          email: values.email,
-          password: values.password,
-        })
-        .then((response) => {
-          const role_user = response.data.data.user.role;
-          messageApi.open({
-            type: "success",
-            content: "Berhasil Login",
-          });
-          localStorage.setItem(
-            "login_data",
-            JSON.stringify(response.data.data)
-          );
-          setTimeout(() => {
-            // if else role user
-            if (role_user === "ORANG_TUA") {
-              navigate("/dashboard/");
-            }
-          }, 1000);
-        })
-        .catch((error) => {
-          messageApi.open({
-            type: "error",
-            content: "Email dan Password belum sesuai",
-          });
-        });
-    }
-
-    if (admin) {
-      axios
-        .post(`${process.env.REACT_APP_BASE_URL}/api/auth/admin/login`, {
-          email: values.email,
-          password: values.password,
-        })
-        .then((response) => {
-          messageApi.open({
-            type: "success",
-            content: "Berhasil Login",
-          });
-          localStorage.setItem(
-            "login_data",
-            JSON.stringify(response.data.data)
-          );
-          setTimeout(() => {
-            navigate("/admin/dashboard/");
-          }, 1000);
-        })
-        .catch((error) => {
-          messageApi.open({
-            type: "error",
-            content: "Email dan Password belum sesuai",
-          });
-        });
-    }
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -304,7 +199,7 @@ export default function SignIn(props) {
       ) : null}
 
       {kaderPosyandu === true ? (
-       <Row
+        <Row
           style={{
             // background: `${
             //   TenagaKesehatan || Desa

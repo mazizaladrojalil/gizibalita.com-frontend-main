@@ -8,8 +8,29 @@ import Navigation from "../../components/layout/Navigation";
 import avatar from "../../assets/icon/user.png";
 import "./forum-style.css";
 import footerImage from "../../assets/img/powered_by_telkom.svg";
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
+
 
 export default function DetailForum() {
+
+  const convertToGoodString = (str) => {
+    // Remove underscores and split the string into an array of words
+    const words = str.split('_');
+
+    // Capitalize the first letter of each word and convert the rest to lowercase
+    const capitalizedWords = words.map((word) => {
+      const firstLetter = word.charAt(0).toUpperCase();
+      const restOfWord = word.slice(1).toLowerCase();
+      return firstLetter + restOfWord;
+    });
+
+    // Join the words back together with spaces
+    const goodString = capitalizedWords.join(' ');
+
+    return goodString;
+  };
+
   let { id } = useParams();
   let login_data;
   if (typeof window !== "undefined") {
@@ -72,43 +93,49 @@ export default function DetailForum() {
   const onFinishFailed = (values) => {
     console.log(values);
   };
+  const lastItem = comment.slice(-1)[0];
+  // const roleLastComment = convertToGoodString(lastItem.role);
 
   return (
     <>
       <Navbar isLogin />
       <Row>
-        <Col>
+        <Col sm={24}>
           <Spin size="large" spinning={isLoading} />
         </Col>
         {!isLoading && (
-          <Col span={24}>
-            <div style={{ margin: "20px", padding: "20px", width: "max-fit-content", borderRadius: "20px" }}>
-              <div className="flex items-start px-4 py-6">
-
-                <div className="">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-semibold text-gray-900 -mt-1">
-                      {detailPost.title}
-                    </h2>
-                    <small className="text-sm text-gray-700">
-                      {moment(detailPost.time).format("DD MMMM YYYY")}
-                    </small>
+          <Col sm={24} style={{ display: "flex", justifyContent: "center" }}>
+            <Container className="shadow-lg" style={{ backgroundColor: "#FCDEDE",marginTop:"50px", marginRight: "50px", width: "1500px", borderRadius: "30px" }}>
+              <div style={{ margin: "20px", padding: "20px", width: "max-fit-content", borderRadius: "20px" }}>
+                <div className="flex items-start px-4 py-6">
+                  <div className="card-form-question" style={{ width: "1000px", fontSize: "16px" }}>
+                    <div className="flex items-center justify-between" >
+                      <h2 className="font-semibold text-gray-900 -mt-1" style={{ fontSize: "30px" }}>
+                        {detailPost.title} - {moment(detailPost.time).format("DD MMMM YYYY")}
+                      </h2>
+                    </div>
+                    <p className="text-gray-800">
+                      {detailPost.nama} -  
+                      <span className="text-red-600"> 
+                        {detailPost.role === "ORANG_TUA"
+                          ? " orang tua"
+                          : " tenaga kesehatan"}
+                      </span>
+                      
+                    </p>
+                    <p className="mt-3 text-gray-700 text-sm">
+                      {detailPost.content}
+                    </p>
+                    {/* <div style={{ height: "1px", backgroundColor: "black", margin: "10px 0 10px 0" }}></div>
+                    <h2>
+                      
+                      {console.log(comment.slice(-1)[0])}
+                      <p style={{fontWeight:"normal"}}>Terakhir dibalas oleh {(comment.slice(-1)[0]).nama} - {(comment.slice(-1)[0]).role}</p>
+                    </h2> */}
                   </div>
-                  <p className="text-gray-800">
-                    {detailPost.nama} (
-                    <span className="text-blue-600">
-                      {detailPost.role === "ORANG_TUA"
-                        ? "orang tua"
-                        : "tenaga kesehatan"}
-                    </span>
-                    )
-                  </p>
-                  <p className="mt-3 text-gray-700 text-sm">
-                    {detailPost.content}
-                  </p>
                 </div>
               </div>
-            </div>
+            </Container>
           </Col>
         )}
 
@@ -122,27 +149,35 @@ export default function DetailForum() {
               autoComplete="off"
               layout="horizontal"
             >
-              <Form.Item
-                label="Comment"
-                name="comment"
-                rules={[
-                  {
-                    required: true,
-                    message: "comment masih kosong!",
-                  },
-                ]}
-              >
-                <Input.TextArea rows={3} />
-              </Form.Item>
-
-              <Form.Item>
+              <Container className="shadow-lg" fluid style={{ width:"1200px",backgroundColor: "transparent", padding: "20px", border: "2px solid", borderColor: "#FCDEDE", borderRadius: "20px" }}>
+                <Col sm={24}>
+                  <Form.Item
+                    label="Comment"
+                    name="comment"
+                    rules={[
+                      {
+                        required: true,
+                        message: "comment masih kosong!",
+                      },
+                    ]}
+                    labelCol={{ style: { fontSize: '25px' } }}
+                  >
+                    <Input.TextArea rows={2} />
+                  </Form.Item>
+                </Col>
+                <Form.Item>
                 <button
                   type="submit"
-                  className="simpan_btn"
+                  className="button_kirim"
                 >
                   Kirim
                 </button>
               </Form.Item>
+
+
+              </Container>
+
+              
             </Form>
           </div>
 
@@ -150,15 +185,14 @@ export default function DetailForum() {
           <Row justify={"center"}>
             {comment.map((item) => {
               return (
-                <Col span={6}
+                <Col span={12}
                   key={item}
-                  style={{ margin: "20px", padding: "20px", width: "500px", borderRadius: "20px" }}
-                  className="flex bg-gray-100 shadow-lg rounded-lg"
+                  style={{ margin: "30px", padding: "20px", width: "1000px", borderRadius: "20px", backgroundColor: "#FCDEDE" }}
+                  className="flex shadow-lg rounded-lg"
                 >
                   <div className="flex items-start px-4 py-6">
-
-                    <div className="w-20">
-                      <div className="flex items-center justify-between">
+                    <div className="w-100" >
+                      <div className="flex items-center justify-between" >
                         <h2 className="text-sm font-medium text-gray-700 mt-1">
                           {item.nama}
                         </h2>

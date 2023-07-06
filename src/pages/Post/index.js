@@ -54,6 +54,7 @@ export default function Post() {
 
   return (
     <>
+    
       <Navbar isLogin />
       <Row justify="center">
         {/* <Col span={24}>

@@ -7,7 +7,6 @@ const DashboardAdmin = () => {
   return (
     <>
       {contextHolder}
-      <Navbar isLogin admin/>
     </>
   )
 }

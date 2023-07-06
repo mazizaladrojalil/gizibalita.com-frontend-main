@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import useOnClickOutside from "../../../utilities/useOnClickOutside";
 import { FaBars } from 'react-icons/fa';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { AiOutlineMail } from 'react-icons/ai';
@@ -10,17 +9,17 @@ const Navbar = ({ navbarLink }) => {
 
     return (
         <div
-            style={{background: "#ffb4b4"}}
+            style={{ background: "#ffb4b4" }}
             className={`flex mt-12 ml-20 justify-between max-h-[60px] w-full duration-300 pr-32 pl-8 py-4 shadow-sm z-10`}
         >
             <div>
                 <img src={Logo}
-                  alt="Image"
-                  style={{
-                    width: "100px",
-                    height: "auto",
-                    marginBottom: "10px",
-                  }} />
+                    alt="Image"
+                    style={{
+                        width: "100px",
+                        height: "auto",
+                        marginBottom: "10px",
+                    }} />
             </div>
             <div className="flex gap-4">
                 {

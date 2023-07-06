@@ -1,4 +1,4 @@
-import DesaPage from "./Desa/DesaPage";
+import DesaPage from "../AdminDashboard/InputDesa";
 
 export {
     DesaPage
