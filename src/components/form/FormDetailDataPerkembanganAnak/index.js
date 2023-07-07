@@ -16,6 +16,8 @@ import dataTinggiBadanByUmurPria from "../../../json/ZScorePanjangBadanLakiLaki.
 import dataTinggiBadanByUmurPerempuan from "../../../json/ZScorePanjangBadanPerempuan.json";
 import dataLingkarKepalaByUmurPria from "../../../json/ZScoreLingkarKepalaLakiLaki.json";
 import dataLingkarKepalaByUmurPerempuan from "../../../json/ZScoreLingkarKepalaPerempuan.json";
+import dataBeratTinggiBadanPria from "../../../json/ZScoreBeratTinggiBadanLaki.json";
+import dataBeratTinggiBadanPerempuan from "../../json/ZScoreBeratTinggiBadanPeremupuan.json";
 import {
   determineAmbangBatas,
   determineAmbangBatasLingkarKepala,
@@ -59,9 +61,8 @@ export default function FormDetailPerkembanganAnak(props) {
 
     if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
-      const determineMonth = `${
-        monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
-      }`;
+      const determineMonth = `${monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
+        }`;
 
       if (profil.gender === "LAKI_LAKI") {
         dataBeratBadanByUmurPria.forEach((item) => {
@@ -93,9 +94,8 @@ export default function FormDetailPerkembanganAnak(props) {
     const datePengukuran = form.getFieldValue(tanggalPengukuran);
     if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
-      const determineMonth = `${
-        monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
-      }`;
+      const determineMonth = `${monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
+        }`;
 
       if (data.gender === "LAKI_LAKI") {
         dataTinggiBadanByUmurPria.forEach((item) => {
@@ -132,9 +132,8 @@ export default function FormDetailPerkembanganAnak(props) {
 
     if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
-      const determineMonth = `${
-        monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
-      }`;
+      const determineMonth = `${monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
+        }`;
 
       if (data.gender === "LAKI_LAKI") {
         dataLingkarKepalaByUmurPria.forEach((item) => {
@@ -165,6 +164,51 @@ export default function FormDetailPerkembanganAnak(props) {
       setZScoreLK(0);
     }
   };
+
+  // Status Gizi Anak
+  const handleZScoreBeratTinggiBadan = (beratTinggiBadan) => {
+    const datePengukuran = form.getFieldValue(tanggalPengukuran);
+    if (datePengukuran !== null && datePengukuran !== "") {
+      let antropologiData = null;
+
+      if (data.gender === "LAKI_LAKI") {
+        dataBeratTinggiBadanPria.forEach((item) => {
+
+          // condition anak umur 0 - 24 bulan
+          if (true) {
+            antropologiData = item;
+          }
+
+          // condition anak umur 25 - 60
+          else if (true) {
+
+          }
+
+        });
+
+        if (antropologiData?.bulan === determineMonth) {
+          setZScoreTB(
+            determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
+          );
+        }
+      } else {
+        dataTinggiBadanByUmurPerempuan.forEach((item) => {
+          if (item.bulan === determineMonth) {
+            antropologiData = item;
+          }
+        });
+
+        if (antropologiData?.bulan === determineMonth) {
+          setZScoreTB(
+            determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
+          );
+        }
+      }
+    } else {
+      setZScoreTB(0);
+    }
+  };
+
 
   function onOK() {
     form
@@ -293,7 +337,7 @@ export default function FormDetailPerkembanganAnak(props) {
                   <Col span={1}>:</Col>
                   <Col span={18}>{profil ? profil.tanggal_lahir : null}</Col>
                 </Row>
-                  <Row>
+                <Row>
                   <Col span={5}>Berat Badan</Col>
                   <Col span={1}>:</Col>
                   <Col span={18}>{data ? data.berat : null}</Col>
