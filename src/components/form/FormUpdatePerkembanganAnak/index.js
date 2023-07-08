@@ -55,6 +55,7 @@ export default function FormUpdatePerkembanganAnak(props) {
     // eslint-disable-next-line
   }, [isOpen, data]);
   console.log(data)
+
   const handleZScore = (beratBadan) => {
     const datePengukuran = form.getFieldValue(tanggalPengukuran);
 
@@ -68,8 +69,11 @@ export default function FormUpdatePerkembanganAnak(props) {
         dataBeratBadanByUmurPria.forEach((item) => {
           if (item.bulan === determineMonth) {
             antropologiData = item;
+            console.log("test1",data)
           }
+          
         });
+        
 
         if (antropologiData?.bulan === determineMonth) {
           setZScoreBB(determineAmbangBatas(beratBadan, antropologiData));

@@ -9,7 +9,7 @@ import {
   Row,
 } from "antd";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { dataBeratBadanByUmur } from "../../../json/berat_badan_by_umur";
 import dataBeratBadanByUmurPria from "../../../json/ZScoreBeratBadanLakiLaki.json";
 import dataBeratBadanByUmurPerempuan from "../../../json/ZScoreBeratBadanPerempuan.json";
@@ -38,6 +38,7 @@ export default function FormInputPerkembanganAnak(props) {
   const [zScoreBB, setZScoreBB] = useState(0);
   const [zScoreTB, setZScoreTB] = useState(0);
   const [zScoreLK, setZScoreLK] = useState(0);
+  const [zScoreBBPB, setZScoreBBPB] = useState(0);
   const [tanggalPengukuran, setTanggalPengukuran] = useState("");
 
   const handleZScore = (beratBadan) => {
@@ -86,6 +87,59 @@ export default function FormInputPerkembanganAnak(props) {
       setZScoreBB(0);
     }
   };
+
+  // useEffect(() => {
+  //   if (zScoreTB !== null && zScoreBB !== null) {
+  //     if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
+  //       let antropologiData = null;
+  //       if (data.gender === "LAKI_LAKI") {
+  //         dataTinggiBadanByUmurPria.forEach((item) => {
+  //           if (
+  //             item.bulan ===
+  //             `${monthDiff(
+  //               moment(data.tanggal_lahir),
+  //               moment(tanggalPengukuran)
+  //             )}`
+  //           ) {
+  //             antropologiData = item;
+  //           }
+  //         });
+
+  //         if (
+  //           antropologiData.bulan ===
+  //           `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
+  //         ) {
+  //           setZScoreTB(
+  //             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
+  //           );
+  //         }
+  //       } else {
+  //         dataTinggiBadanByUmurPerempuan.forEach((item) => {
+  //           if (
+  //             item.bulan ===
+  //             `${monthDiff(
+  //               moment(data.tanggal_lahir),
+  //               moment(tanggalPengukuran)
+  //             )}`
+  //           ) {
+  //             antropologiData = item;
+  //           }
+  //         });
+
+  //         if (
+  //           antropologiData.bulan ===
+  //           `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
+  //         ) {
+  //           setZScoreTB(
+  //             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
+  //           );
+  //         }
+  //       }
+  //     } else {
+  //       setZScoreTB(0);
+  //     }
+  //   }
+  // }, [zScoreTB, zScoreBB])
 
   const handleZScoreTinggiBadan = (tinggiBadan) => {
     if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
@@ -174,7 +228,6 @@ export default function FormInputPerkembanganAnak(props) {
             antropologiData = item;
           }
         });
-
         if (
           antropologiData.bulan ===
           `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
@@ -332,12 +385,12 @@ export default function FormInputPerkembanganAnak(props) {
               form={form}
               name="form_input_perkembangan_anak"
               layout="vertical"
-              
+
             >
               <Form.Item
                 label="Tanggal Pengukuran"
                 name="tanggalPengukuran"
-                style={{fontSize:"14px"}}
+                style={{ fontSize: "14px" }}
                 rules={[
                   {
                     required: true,

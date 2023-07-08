@@ -51,7 +51,7 @@ export default function Artikel() {
     function fetchDataAnak() {
 
       axios
-        .get(`${process.env.REACT_APP_BASE_URL}/api/artikel`, {
+        .get(`${process.env.REACT_APP_BASE_URL}/api/reminder`, {
           headers: { Authorization: `Bearer ${user.token.value}` },
         })
         .then((response) => {

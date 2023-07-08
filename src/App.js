@@ -21,6 +21,7 @@ import PosyanduInput from "./pages/AdminDashboard/InputPosyandu";
 import InputPosyandu from "./pages/AdminDashboard/InputPosyandu";
 import RegisterKaderPosyandu from "./pages/AdminDashboard/RegisterKaderPosyandu.js";
 import RegisterTenkes from "./pages/AdminDashboard/RegisterTenagaKesehatan";
+import InputAcara from "./pages/Desa/input_acara";
 
 const ROLES = {
   'Desa': "DESA",
@@ -109,6 +110,7 @@ function App() {
 
         {/* Role Desa */}
         <Route element={<RequireAuth allowedRoles={[ROLES.Desa]} />}>
+          <Route path="/desa/reminder" element={<InputAcara />} />
           <Route path="/desa/dashboard" element={<Desa />} />
         </Route>
 
@@ -126,6 +128,7 @@ function App() {
         </Route>
         <Route path="/tenaga-kesehatan/detail/:id" element={<DetailForum />} />
         <Route path="/artikel" element={<Artikel />} />
+
         <Route path="/*" element={<NotFound />} />
 
         <Route path="/*" element={<NotFound />} />

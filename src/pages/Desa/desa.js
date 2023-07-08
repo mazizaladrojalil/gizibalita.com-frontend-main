@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, message, Spin } from "antd";
+import { Button, DatePicker, Form, message, Spin, Select } from "antd";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useMemo, useState } from "react";
@@ -9,6 +9,7 @@ import { Berat, Tinggi, Lingkar } from "../../utilities/Berat";
 import { Container, Col, Row } from "react-bootstrap";
 import bg_desa from "../../assets/img/bg-desa.svg";
 import './desa-style.css';
+import Link from "antd/lib/typography/Link";
 
 const BackgroundComponent = () => {
   const backgroundStyles = {
@@ -75,6 +76,7 @@ export default function Desa() {
           desa: user.user.id_desa,
           bulan: moment(values.waktu).format("MM"),
           tahun: moment(values.waktu).format("YYYY"),
+          id: values.posyandu,
         };
 
         axios
@@ -101,6 +103,7 @@ export default function Desa() {
         console.log("Validate Failed:", info);
       });
   }
+
 
   return (
     <>
@@ -202,15 +205,53 @@ export default function Desa() {
                 <DatePicker picker="month" />
               </Form.Item>
 
+              <Form.Item
+                style={{ justifyContent: 'start', display: "flex", color: "#7F7B7B", fontSize: "28px" }}
+                label="Pilih Posyandu"
+                name="posyandu"
+                rules={[
+                  {
+                    required: false,
+                    message: "Desa masih kosong!",
+                  },
+                ]}
+              >
+                <Select listHeight={100} optionFilterProp="children" showSearch style={{ width: "400px" }}>
+                  {data.map((item) => (
+                    <>
+                      <Select.Option key={item.id_posyandu} value={item.id_posyandu}>
+                        {item.nama_posyandu}
+                      </Select.Option>
+
+                    </>
+                  ))}
+                  <Select.Option key="all" value={null}>
+                    Semua
+                  </Select.Option>
+                </Select>
+              </Form.Item>
+
               <Form.Item>
                 {/* <Button type="secondary" htmlType="submit"class="button">
                 Export CSV
               </Button> */}
-                <button class="button" type="submit">
+                <button class="btn-desa" type="submit">
                   Export CSV
                 </button>
+
+
+                  <Link href="/desa/reminder" type="button">
+                    <a className="btn-desa">
+                      Tambah reminder
+                    </a>
+                  </Link>
+
+
+
               </Form.Item>
+
             </Form>
+
           </Col>
         </Container>
 

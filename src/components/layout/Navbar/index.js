@@ -170,6 +170,16 @@ export default function NavbarComp(props) {
                   </Nav.Link>
                 </>
               )}
+              {user.user.role === "DESA" && (
+                <>
+                  <Nav.Link href="/desa/dashboard" className={`nav-link ${activeLink === '/dashboard' ? 'active' : ''}`}>
+                    <h6 className="nav-link-text">Home</h6>
+                  </Nav.Link>
+                  <Nav.Link href="/desa/reminder" className={`nav-link ${activeLink === '/forum' ? 'active' : ''}`}>
+                    <h6 className="nav-link-text">Event</h6>
+                  </Nav.Link>
+                </>
+              )}
 
             </Nav>
 
