@@ -741,6 +741,10 @@ export default function Detail() {
       title: "Status - LK/U",
       key: "statusLK",
       dataIndex: ["statistik", "lingkar_kepala"],
+    },{
+      title: "Status - Gizi",
+      key: "statusGizi",
+      dataIndex: ["statistik", "gizi"],
     },
     // {
     //   title: "Action",

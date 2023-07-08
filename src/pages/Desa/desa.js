@@ -114,12 +114,11 @@ export default function Desa() {
 
       <Row
         style={{ marginTop: "46px" }}
-        className="container"
         justify="space-between"
         align="center"
 
       >
-        <Container align="center" >
+        <div style={{padding:"50px"}}  align="center" >
           {isLoading ? (
             data.map((value) => {
               return (
@@ -253,7 +252,7 @@ export default function Desa() {
             </Form>
 
           </Col>
-        </Container>
+        </div >
 
       </Row>
     </>

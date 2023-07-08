@@ -17,9 +17,14 @@ import dataTinggiBadanByUmurPria from "../../../json/ZScorePanjangBadanLakiLaki.
 import dataTinggiBadanByUmurPerempuan from "../../../json/ZScorePanjangBadanPerempuan.json";
 import dataLingkarKepalaByUmurPria from "../../../json/ZScoreLingkarKepalaLakiLaki.json";
 import dataLingkarKepalaByUmurPerempuan from "../../../json/ZScoreLingkarKepalaPerempuan.json";
+import dataBeratTinggiBadanPria24Bulan from "../../../json/ZScoreBeratTinggiBadanLakiLaki24.json";
+import dataBeratTinggiBadanPria60Bulan from "../../../json/ZScoreBeratTinggiBadanLakiLaki60.json";
+import dataBeratTinggiBadanPerempuan24Bulan from "../../../json/ZScoreBeratTinggiBadanPerempuan24.json";
+import dataBeratTinggiBadanPerempuan60Bulan from "../../../json/ZScoreBeratTinggiBadanPerempuan60.json";
 import {
   determineAmbangBatas,
   determineAmbangBatasLingkarKepala,
+  determineAmbangBatasPBBB,
   determineAmbangBatasTinggiBadan,
 } from "../../../utilities/determineAmbangBatas";
 import axios from "axios";
@@ -88,58 +93,68 @@ export default function FormInputPerkembanganAnak(props) {
     }
   };
 
-  // useEffect(() => {
-  //   if (zScoreTB !== null && zScoreBB !== null) {
-  //     if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
-  //       let antropologiData = null;
-  //       if (data.gender === "LAKI_LAKI") {
-  //         dataTinggiBadanByUmurPria.forEach((item) => {
-  //           if (
-  //             item.bulan ===
-  //             `${monthDiff(
-  //               moment(data.tanggal_lahir),
-  //               moment(tanggalPengukuran)
-  //             )}`
-  //           ) {
-  //             antropologiData = item;
-  //           }
-  //         });
-
-  //         if (
-  //           antropologiData.bulan ===
-  //           `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
-  //         ) {
-  //           setZScoreTB(
-  //             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
-  //           );
-  //         }
-  //       } else {
-  //         dataTinggiBadanByUmurPerempuan.forEach((item) => {
-  //           if (
-  //             item.bulan ===
-  //             `${monthDiff(
-  //               moment(data.tanggal_lahir),
-  //               moment(tanggalPengukuran)
-  //             )}`
-  //           ) {
-  //             antropologiData = item;
-  //           }
-  //         });
-
-  //         if (
-  //           antropologiData.bulan ===
-  //           `${monthDiff(moment(data.tanggal_lahir), moment(tanggalPengukuran))}`
-  //         ) {
-  //           setZScoreTB(
-  //             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
-  //           );
-  //         }
-  //       }
-  //     } else {
-  //       setZScoreTB(0);
-  //     }
-  //   }
-  // }, [zScoreTB, zScoreBB])
+  useEffect(() => {
+    if (zScoreTB !== null && zScoreBB !== null) {
+      if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
+        let antropologiData = null;
+        let umurAnak = `${monthDiff(
+          moment(data.tanggal_lahir),
+          moment(tanggalPengukuran)
+        )}`;
+        if (data.gender === "LAKI_LAKI") {
+          if (umurAnak >= 0 && umurAnak <= 24) {
+            dataBeratTinggiBadanPria24Bulan.forEach((item) => {
+              if (item.pb === data.tinggiBadan) {
+                antropologiData = item;
+              }
+            })
+            if (antropologiData.pb === data.tinggiBadan) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(data.tinggiBadan, data.beratBadan, antropologiData)
+              );
+            }
+          } else if (umurAnak > 24 && umurAnak <= 60) {
+            dataBeratTinggiBadanPria60Bulan.forEach((item) => {
+              if (item.pb === data.tinggiBadan) {
+                antropologiData = item;
+              }
+            })
+            if (antropologiData.pb === data.tinggiBadan) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(data.tinggiBadan, data.beratBadan, antropologiData)
+              );
+            }
+          }
+        } else {
+          if (umurAnak >= 0 && umurAnak <= 24) {
+            dataBeratTinggiBadanPerempuan24Bulan.forEach((item) => {
+              if (item.pb === data.tinggiBadan) {
+                antropologiData = item;
+              }
+            })
+            if (antropologiData.pb === data.tinggiBadan) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(data.tinggiBadan, data.beratBadan, antropologiData)
+              );
+            }
+          } else if (umurAnak > 24 && umurAnak <= 60) {
+            dataBeratTinggiBadanPerempuan60Bulan.forEach((item) => {
+              if (item.pb === data.tinggiBadan) {
+                antropologiData = item;
+              }
+            })
+            if (antropologiData.pb === data.tinggiBadan) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(data.tinggiBadan, data.beratBadan, antropologiData)
+              );
+            }
+          }
+        }
+      } else {
+        setZScoreTB(0);
+      }
+    }
+  }, [zScoreTB, zScoreBB])
 
   const handleZScoreTinggiBadan = (tinggiBadan) => {
     if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
@@ -261,12 +276,14 @@ export default function FormInputPerkembanganAnak(props) {
                 z_score_berat: zScoreBB,
                 z_score_tinggi: zScoreTB,
                 z_score_lingkar_kepala: zScoreLK,
+                z_score_gizi : zScoreBBPB
               },
               {
                 headers: { Authorization: `Bearer ${user.token.value}` },
               }
             )
             .then((response) => {
+              console.log("test", zScoreBBPB);
               messageApi.open({
                 type: "success",
                 content: "Data berhasil tersimpan",
@@ -302,12 +319,14 @@ export default function FormInputPerkembanganAnak(props) {
                 z_score_berat: zScoreBB,
                 z_score_tinggi: zScoreTB,
                 z_score_lingkar_kepala: zScoreLK,
+                z_score_gizi : zScoreBBPB,
               },
               {
                 headers: { Authorization: `Bearer ${user.token.value}` },
               }
             )
             .then((response) => {
+              
               messageApi.open({
                 type: "success",
                 content: "Data berhasil tersimpan",

@@ -20,6 +20,7 @@ import {
   determineAmbangBatas,
   determineAmbangBatasLingkarKepala,
   determineAmbangBatasTinggiBadan,
+  determineAmbangBBPB,
 } from "../../../utilities/determineAmbangBatas";
 import axios from "axios";
 import { monthDiff } from "../../../utilities/calculateMonth";
