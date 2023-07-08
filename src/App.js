@@ -21,7 +21,6 @@ import PosyanduInput from "./pages/AdminDashboard/InputPosyandu";
 import InputPosyandu from "./pages/AdminDashboard/InputPosyandu";
 import RegisterKaderPosyandu from "./pages/AdminDashboard/RegisterKaderPosyandu.js";
 import RegisterTenkes from "./pages/AdminDashboard/RegisterTenagaKesehatan";
-import ArtikelAdmin from "./pages/AdminDashboard/ArtikelAdmin"
 
 const ROLES = {
   'Desa': "DESA",
@@ -36,7 +35,6 @@ const ROUTES = {
   'POSYANDUROUTE': "posyandu",
   'REGISTPOSYANDU': "kader-posyandu",
   'REGISTTENKES': "tenaga-kesehatan",
-  'ARTIKEL': "artikel"
 }
 function App() {
   return (
@@ -121,7 +119,6 @@ function App() {
             <Route path={ROUTES.POSYANDUROUTE} element={<InputPosyandu />} />
             <Route path={ROUTES.REGISTPOSYANDU} element={<RegisterKaderPosyandu />} />
             <Route path={ROUTES.REGISTTENKES} element={<RegisterTenkes />} />
-             <Route path={ROUTES.ARTIKEL} element={<ArtikelAdmin />} />
           </Route>
         </Route>
         <Route element={<RequireAuth allowedRoles={[ROLES.TK]} />}>
