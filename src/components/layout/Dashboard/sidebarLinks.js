@@ -1,4 +1,5 @@
 import { BsPersonLinesFill, BsTextRight } from 'react-icons/bs';
+import { FaRegPaperPlane } from "react-icons/fa";
 export const sidebarlink = [
     {
         title: 'Input Data',
@@ -12,6 +13,11 @@ export const sidebarlink = [
                 title: 'Posyandu',
                 path: 'posyandu',
                 icon: BsTextRight,
+            },
+            {
+                title: 'Artikel',
+                path: 'artikel',
+                icon: FaRegPaperPlane,
             },
         ],
     },

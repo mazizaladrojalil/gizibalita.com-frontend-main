@@ -30,39 +30,42 @@ export default function FormInputDataExcel(props) {
       .then((values) => {
         form.resetFields();
         console.log(values);
-        console.log(excelFile);
+        if(excelFile){
+          let formData = new FormData();
+          formData.append('file', values.file);
 
-        if (user && user.user.role === "KADER_POSYANDU") {
-          axios
-            .post(
-              `${process.env.REACT_APP_BASE_URL}/api/posyandu/data-anak-excel`, excelFile,
-              {
-                headers: { 
-                    Authorization: `Bearer ${user.token.value}`,
-                    'Content-Type': 'multipart/form',
-                },
-              }
-            )
-            .then((response) => {
-              messageApi.open({
-                type: "success",
-                content: "Data berhasil diupload",
+          if (user && user.user.role === "KADER_POSYANDU") {
+            axios
+              .post(
+                `${process.env.REACT_APP_BASE_URL}/api/posyandu/data-anak-excel`, formData,
+                {
+                  headers: { 
+                      Authorization: `Bearer ${user.token.value}`,
+                      'Content-Type': 'multipart/form',
+                  },
+                }
+              )
+              .then((response) => {
+                messageApi.open({
+                  type: "success",
+                  content: "Data berhasil diupload",
+                });
+                setTimeout(() => {
+                  onCancel();
+                  fetch();
+                }, 2000);
+              })
+              .catch((err) => {
+                console.log(err);
+                messageApi.open({
+                  type: "error",
+                  content: "Data gagal diupload",
+                });
+                setTimeout(() => {
+                  onCancel();
+                }, 20000);
               });
-              setTimeout(() => {
-                onCancel();
-                fetch();
-              }, 2000);
-            })
-            .catch((err) => {
-              console.log(err);
-              messageApi.open({
-                type: "error",
-                content: "Data gagal diupload",
-              });
-              setTimeout(() => {
-                onCancel();
-              }, 20000);
-            });
+          }
         }
       })
       .catch((info) => {

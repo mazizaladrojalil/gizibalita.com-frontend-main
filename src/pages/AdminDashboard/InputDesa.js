@@ -2,11 +2,13 @@ import { Button, Col, Form, Input, message, Row, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Container from 'react-bootstrap/Container';
+import { FiRotateCcw } from "react-icons/fi";
 
 export default function InputDesa() {
   const [form] = Form.useForm();
   const [refreshKey, setRefreshKey] = useState(0);
   const [dataSource, setDataSource] = useState([]);
+  const [dataSourceCounter, setDataSourceCounter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -43,6 +45,7 @@ export default function InputDesa() {
       .get(`${process.env.REACT_APP_BASE_URL}/api/desa`)
       .then((response) => {
         setDataSource(response.data.data);
+        setDataSourceCounter(response.data.data);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -100,7 +103,32 @@ export default function InputDesa() {
               <Col span={24}>
                 {!isLoading && (
                   <Table
-                    title={() => <h1>Daftar Desa</h1>}
+                    // title={() => <h1>Daftar Desa</h1>}
+                    title={
+                      () => (
+                        <div className="flex justify-between items-center">
+                          <div className="flex justify-start items-center">
+                            <h2 className="text-sm font-semibold">Daftar Desa</h2>
+                          </div>
+                           <div className="flex justify-end items-center">
+                            <Button onClick={() => setDataSource(dataSourceCounter)}>
+                              <FiRotateCcw size={20}/>
+                            </Button>
+                            <Input onChange={
+                              (e) => {
+                                setDataSource(dataSource.filter(
+                                  (item) => {
+                                    return item.name.includes(e.target.value)
+                                  }
+                                ))
+                                
+                              }
+                            }/>
+                          </div>
+                        </div>
+
+                      )
+                    }
                     dataSource={dataSource}
                     columns={columns}
                     loading={isLoading}
