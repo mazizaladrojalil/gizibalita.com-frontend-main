@@ -18,3 +18,14 @@ export const formatDate2 = (date) => {
   });
   return formattedDate;
 };
+
+export  function limitWords(text, limit) {
+  var words = text.trim().split(" ");
+  var limitedText = words.slice(0, limit).join(" ");
+  
+  if (words.length > limit) {
+    limitedText += "...";
+  }
+  
+  return limitedText;
+}

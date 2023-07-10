@@ -18,6 +18,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import FormUpdateDataArtikel from "../../components/form/FormUpdateDataArtikel";
 import { formatDate2 } from "../../utilities/Format";
 import { FiRotateCcw } from "react-icons/fi";
+import ReactSelect from 'react-select';
 
 export default function ArtikelAdmin() {
   let login_data;
@@ -29,29 +30,55 @@ export default function ArtikelAdmin() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [messageApi, contextHolder] = message.useMessage();
   const [imageFile, setImageFile] = useState(null);
+  const [dataKategori, setDataKategori] = useState([]);
   const [dataSource, setDataSource] = useState([]);
-  const [dataSourceCounter, setDataSourceCounter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dataArtikel, setDataArtikel] = useState(null);
   const [valueContent, setValueContent] = useState('');
   const [statePage, setStatePage] = useState('');
+  const [isOpenModalUpdateDataArtikel, setIsOpenModalUpdateDataArtikel] = useState(false);
+  const [searchText, setSearchedText] = useState("");
 
-   const [isOpenModalUpdateDataArtikel, setIsOpenModalUpdateDataArtikel] = useState(false);
+  const [statePageKateogries, setStatePageKateogries] = useState(false);
+  
    const onFinish = (values) => {
     console.log(values);
-    if(imageFile){
-      let formData = new FormData();
-      formData.append('judul', values.judul);
-      formData.append('kategori', values.kategori);
-      formData.append('penulis', values.penulis);
-      formData.append('content', valueContent);
-      formData.append('image', imageFile);
+    if(!statePageKateogries){
+      if(imageFile){
+        let formData = new FormData();
+        formData.append('judul', values.judul);
+        formData.append('kategori', values.kategori);
+        formData.append('penulis', values.penulis);
+        formData.append('content', valueContent);
+        formData.append('image', imageFile);
 
-      console.log(formData)
+        console.log(formData)
+        axios
+        .post(`${process.env.REACT_APP_BASE_URL}/api/artikel`,formData,{
+            headers: { Authorization: `Bearer ${user.token.value}` },
+            'Content-Type': 'multipart/form',
+        })
+        .then((response) => {
+          setRefreshKey((oldKey) => oldKey + 1);
+          messageApi.open({
+            type: "success",
+            content: "Data berhasil tersimpan",
+          })
+          form.resetFields();
+          setValueContent('');
+          setImageFile(null)
+        })
+        .catch((err) => {
+          messageApi.open({
+            type: "error",
+            content: "Data gagal tersimpan",
+          });
+        });
+      }
+    } else {
       axios
-      .post(`${process.env.REACT_APP_BASE_URL}/api/artikel`,formData,{
+      .post(`${process.env.REACT_APP_BASE_URL}/api/kategori`,values,{
           headers: { Authorization: `Bearer ${user.token.value}` },
-          'Content-Type': 'multipart/form',
       })
       .then((response) => {
         setRefreshKey((oldKey) => oldKey + 1);
@@ -70,6 +97,7 @@ export default function ArtikelAdmin() {
         });
       });
     }
+    
   };
 
   const onFinishFailed = (values) => {
@@ -81,6 +109,10 @@ export default function ArtikelAdmin() {
       title: "Judul Berita",
       dataIndex: "judul",
       key: "judul",
+       filteredValue: [searchText],
+      onFilter: (value, record) => {
+        return String(record.judul).toLowerCase().includes(value.toLowerCase())
+      }
     },
      {
       title: "Tanggal Upload",
@@ -138,9 +170,23 @@ export default function ArtikelAdmin() {
       
       .then((response) => {
         setDataSource(response.data.data);
-        setDataSourceCounter(response.data.data);
         setIsLoading(false);
         setStatePage("Artikel");
+        setStatePageKateogries(false)
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/api/kategori`,
+      {
+          headers: { Authorization: `Bearer ${user.token.value}` },
+      })
+      
+      .then((response) => {
+        setDataKategori(response.data.data);
+        setIsLoading(false);
+        setStatePageKateogries(false);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -173,25 +219,6 @@ export default function ArtikelAdmin() {
         });
       });
   }
-
-  const kategoris = [
-    {
-      nama : "Stungting",
-      value : "Stungting"
-    },
-    {
-      nama : "Ibu",
-      value : "Ibu"
-    },
-    {
-      nama : "Anak",
-      value : "Anak"
-    },
-    {
-      nama : "Asuransi",
-      value : "Asuransi"
-    }
-  ];
 
   return (
     <>
@@ -239,51 +266,84 @@ export default function ArtikelAdmin() {
                     },
                   ]}
                 >
-                  <Select listHeight={100} optionFilterProp="children" showSearch placeholder="Pilih Kategori">
-                    {kategoris.map((item) => (
-                      <Select.Option key={item.value} value={item.value}>
-                        {item.nama}
+                  <Select size="4" listHeight={100} optionFilterProp="children" showSearch placeholder="Pilih Kategori">
+
+                    <Select.Option value="add">
+                      <Button onClick={() => {
+                        setStatePageKateogries(true)
+                        
+                      }}>Tambah Kategori</Button>
+                    </Select.Option>
+
+                    {
+                      statePageKateogries ?  
+                      <Select.Option>
+                      </Select.Option> :
+                    dataKategori.map((item) => (
+                     
+                      <Select.Option key={item.id} value={item.name} >
+                        {item.name}
                       </Select.Option>
-                    ))}
+                    ))
+                    }
                   </Select>
                 </Form.Item>
-
-                <Form.Item
-                  style={{ Width: "100%" }}
-                  label="Judul"
-                  name="judul"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Judul masih kosong!",
-                    },
-                  ]}
-                >
-                  <Input placeholder="Masukkan judul"/>
-                </Form.Item>
-                <Form.Item
-                  style={{ Width: "100%" }}
-                  label="Nama penulis"
-                  name="penulis"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Penulis masih kosong!",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  style={{ Width: "100%" }}
-                  label="Unggah cover artikel"
-                  name="image"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Cover masih kosong!",
-                    },
-                  ]}
+                {
+                  statePageKateogries &&
+                  <Form.Item
+                    style={{ Width: "100%" }}
+                    label="Tambah Kategori"
+                    name="name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Nama Kategori masih kosong!",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Masukkan Nama Kategori"/>
+                  </Form.Item>
+                }
+                
+                {
+                  !statePageKateogries &&
+                  <div>
+                    <Form.Item
+                    style={{ Width: "100%" }}
+                    label="Judul"
+                    name="judul"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Judul masih kosong!",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Masukkan judul"/>
+                  </Form.Item>
+                  <Form.Item
+                    style={{ Width: "100%" }}
+                    label="Nama penulis"
+                    name="penulis"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Penulis masih kosong!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    style={{ Width: "100%" }}
+                    label="Unggah cover artikel"
+                    name="image"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Cover masih kosong!",
+                      },
+                    ]}
                 >
                 
                 <div className="flex justify-center items-center w-full">
@@ -344,6 +404,9 @@ export default function ArtikelAdmin() {
                   
                 </Form.Item>
                 <ReactQuill theme="snow" value={valueContent} onChange={setValueContent} />;
+                  </div>
+                }
+                  
                 
                 <Col span={24} align="center">
                   <Form.Item>
@@ -351,8 +414,17 @@ export default function ArtikelAdmin() {
                       Kirim
                     </button> */}
                     <Button type="primary" htmlType="submit">
-                      Kirim
+                      {statePageKateogries ? "Tambah" : "Kirim"}
                     </Button>
+                    {
+                      statePageKateogries &&
+                      <Button type="primary" htmlType="submit" onClick={() => {
+                        setStatePageKateogries(false)
+                      }}>
+                        Batal
+                      </Button>
+                    }
+                    
                   </Form.Item>
                 </Col>
               </Form>
@@ -366,19 +438,12 @@ export default function ArtikelAdmin() {
                             <h2 className="text-sm font-semibold">Daftar Posyandu</h2>
                           </div>
                            <div className="flex justify-end items-center">
-                            <Button onClick={() => setDataSource(dataSourceCounter)}>
-                              <FiRotateCcw size={20}/>
-                            </Button>
-                            <Input onChange={
-                              (e) => {
-                                setDataSource(dataSource.filter(
-                                  (item) => {
-                                    return item.judul.toLowerCase().includes(e.target.value.toLowerCase())
-                                  }
-                                ))
-                                
-                              }
-                            }/>
+                             <Input.Search
+                              placeholder="Search here ..."
+                              onSearch={(value) => {
+                                setSearchedText(value)
+                              }}
+                            />
                           </div>
                         </div>
 
@@ -406,3 +471,39 @@ export default function ArtikelAdmin() {
     </>
   );
 }
+
+
+// function ArtikelAdmin() {
+//   const [selectedOption, setSelectedOption] = useState('');
+//   const [showPopup, setShowPopup] = useState(false);
+
+//   const handleOptionChange = (e) => {
+//     setSelectedOption(e.target.value);
+//     setShowPopup(true);
+//   };
+
+//   const handlePopupClose = () => {
+//     setShowPopup(false);
+//   };
+
+//   return (
+//     <div>
+//       <h1>Pilih Opsi</h1>
+//       <select value={selectedOption} onChange={handleOptionChange}>
+//         <option value="">Pilih</option>
+//         <option value="option1">Opsi 1</option>
+//         <option value="option2">Opsi 2</option>
+//         <option value="option3">Opsi 3</option>
+//       </select>
+//       {showPopup && (
+//         <div>
+//           <h2>Pop-up</h2>
+//           <p>Anda memilih opsi: {selectedOption}</p>
+//           <button onClick={handlePopupClose}>Tutup</button>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default ArtikelAdmin;

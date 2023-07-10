@@ -9,7 +9,7 @@ import bg_dashboard from "../../assets/img/bg-dashboard.svg";
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import headline_news from "../../assets/img/headline-artikel.png";
-import { formatDate2 } from '../../utilities/Format';
+import { formatDate2, limitWords } from '../../utilities/Format';
 
 
 
@@ -43,25 +43,13 @@ export default function Artikel() {
   const [isOpenModalUpdateDataAnak, setIsOpenModalUpdateDataAnak] =
     useState(false);
   const [data, setData] = useState([]);
-  const [dataArtikel, setDataArtikel] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
   const [dataAnak, setDataAnak] = useState(null);
+  const [dataSorted, setDataSorted] = useState([]);
+  const [dataKategori, setDataKategori] =  useState([]);
 
   useEffect(() => {
-
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}/api/artikel`,
-      {
-          headers: { Authorization: `Bearer ${user.token.value}` },
-      })
-      
-      .then((response) => {
-        setDataArtikel(response.data.data);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-      });
     function fetchDataAnak() {
 
       axios
@@ -69,12 +57,7 @@ export default function Artikel() {
           headers: { Authorization: `Bearer ${user.token.value}` },
         })
         .then((response) => {
-          // const sortedData = response.data.data.sort((a, b) =>
-          //   b.created_at.localeCompare(a.created_at)
-          // );
-          const sortedData = response.data.data;
-          console.log(sortedData);
-          setData(sortedData);
+          setData(response.data.data);
           setIsLoading(false);
         })
         .catch((err) => {
@@ -88,26 +71,112 @@ export default function Artikel() {
     // eslint-disable-next-line
   }, [refreshKey]);
 
-  console.log(dataArtikel)
+  useEffect(() => {
+     axios
+      .get(`${process.env.REACT_APP_BASE_URL}/api/artikel`,
+      {
+          headers: { Authorization: `Bearer ${user.token.value}` },
+      })
+      
+      .then((response) => {
+       const sortedData = response.data.data;
+        setData(sortedData);
+        setDataSorted(sortedData[data.length - 1]);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+      
 
+       axios
+      .get(`${process.env.REACT_APP_BASE_URL}/api/kategori`,
+      {
+          headers: { Authorization: `Bearer ${user.token.value}` },
+      })
+      
+      .then((response) => {
+         setDataKategori(response.data.data)
+         setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+  },[]);
+  
+  console.log(dataSorted)
   return (
     <>
       <Navbar isLogin />
-      {
-        dataArtikel && 
+       {
+        dataSorted && 
+            
+            // return <div className="container">tidak adas</div>;
             <div className="container">
-              <div className="row pl-32 pr-32 py-5">
-                <div className="col-md-18">
-                  <h1 className='text-3xl'>{dataArtikel[0].judul}</h1>
-                  <p className='text-gray-400'>{dataArtikel[0].penulis} {' / '} {formatDate2(dataArtikel[0].updated_at)}</p>
-                  <img src={'https://api.gizibalita.com/img/' + dataArtikel[0].image} alt={dataArtikel[0].judul}  className=' max-w-full'/>
-                  {/* <code className='mt-8'>
-                    {dataArtikel[0].content}
-                  </code> */}
-                  <div dangerouslySetInnerHTML={{ __html: dataArtikel[0].content }} className='mt-8' />
+              <div className="row pl-32 pr-32 py-5" key={dataSorted.id}>
+                <div className="col-md-18 justify-self-auto">
+                  <h1 className='text-3xl'>{dataSorted.judul}</h1>
+                  <p className='text-gray-400'>{dataSorted.penulis} {' / '} {formatDate2(dataSorted.updated_at)}</p>
+                  <img src={'https://api.gizibalita.com/img/' + dataSorted.image}  className='max-w-full'/>
+                  
+                  <div className="grid grid-cols-4 gap-4">
+                    <div className='col-span-3'>
+                      <div dangerouslySetInnerHTML={{ __html: dataSorted.content }} className='mt-4' />
+                    </div>
+                    <div class="flex my-4 space-x-6">
+                      <div class="h-full border-r-2 border-gray-300"></div>
+                      <div>
+                          <div className='flex flex-row'>
+                            <div class="h-4 border-r-2 border-red-500 mr-2"></div>
+                            <h1>Berita Lainnya</h1>
+                          </div>
+                            {
+                              dataKategori.map((kategoris) => {
+                                 const dataNextArtikel = data.filter(data => data.kategori === kategoris.name);
+                                console.log(dataNextArtikel)
+                                return (
+                                  <div>
+                                    <div className='mt-4 flex' key={kategoris.id}>
+                                      <hr class="w-8 border-t-4" style={{marginTop: "9px", marginRight: "5px", color: "red"}}></hr>
+                                      <h1 style={{fontSize: "16px", textTransform: "uppercase"}}>{kategoris.name}</h1>
+                                    </div>
+                                    {
+                                      
+                                      dataNextArtikel.map((dataNextArtikel, index) => (
+                                        <div key={index}>
+                                          <h1 style={{fontSize: "14px", marginTop: "10px"}}>{dataNextArtikel.judul}</h1>
+                                          <a onClick={(e) => {
+                                            e.preventDefault();
+                                            setDataSorted(dataNextArtikel);
+                                          }}>
+                                            <div className='justify-normal' dangerouslySetInnerHTML={{ __html: limitWords(dataNextArtikel.content,15) }} />
+                                          </a>
+                                        </div>
+                                      ))
+                                    }
+                                   
+                                  </div>
+                                )
+                              })
+                            }
+                            {/* {
+                              data.map((data) => (
+                                <div >
+                                  <h1 style={{fontSize: "14px", marginTop: "10px"}}>{data.judul}</h1>
+                                  <div dangerouslySetInnerHTML={{ __html: limitWords(data.content, 20) }} />
+                                </div>
+                              ))
+                            } */}
+                           
+                      </div>
+                    </div>
+                  </div>
+                   
+                  
                 </div>
               </div>
             </div>
+        
       }
       
     </>

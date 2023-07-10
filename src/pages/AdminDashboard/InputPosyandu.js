@@ -7,10 +7,10 @@ export default function InputPosyandu() {
   const [form] = Form.useForm();
   const [refreshKey, setRefreshKey] = useState(0);
   const [dataSource, setDataSource] = useState([]);
-  const [dataSourceCounter, setDataSourceCounter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
   const [dataDesa, setDataDesa] = useState([]);
+   const [searchText, setSearchedText] = useState("");
 
   function deletePosyandu(id) {
     axios
@@ -28,6 +28,10 @@ export default function InputPosyandu() {
       title: "Nama Posyandu",
       dataIndex: "nama",
       key: "nama",
+      filteredValue: [searchText],
+      onFilter: (value, record) => {
+        return String(record.nama).toLowerCase().includes(value.toLowerCase())
+      }
     },
     {
       title: "Alamat",
@@ -50,7 +54,6 @@ export default function InputPosyandu() {
       .get(`${process.env.REACT_APP_BASE_URL}/api/posyandu`)
       .then((response) => {
         setDataSource(response.data.data);
-        setDataSourceCounter(response.data.data);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -159,19 +162,12 @@ export default function InputPosyandu() {
                             <h2 className="text-sm font-semibold">Daftar Posyandu</h2>
                           </div>
                            <div className="flex justify-end items-center">
-                            <Button onClick={() => setDataSource(dataSourceCounter)}>
-                              <FiRotateCcw size={20}/>
-                            </Button>
-                            <Input onChange={
-                              (e) => {
-                                setDataSource(dataSource.filter(
-                                  (item) => {
-                                    return item.nama.toLowerCase().includes(e.target.value.toLowerCase())
-                                  }
-                                ))
-                                
-                              }
-                            }/>
+                             <Input.Search
+                              placeholder="Search here ..."
+                              onSearch={(value) => {
+                                setSearchedText(value)
+                              }}
+                            />
                           </div>
                         </div>
 

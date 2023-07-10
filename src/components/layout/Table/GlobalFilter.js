@@ -1,13 +1,12 @@
 function GlobalFilter(props) {
   const { preGlobalFilteredRows, globalFilter, setGlobalFilter } = props;
-  const count = preGlobalFilteredRows.length;
 
   return (
     <div class="input-group">
       <input 
         value={globalFilter || ''}
         onChange={(e) => setGlobalFilter(e.target.value)}
-        placeholder={`${count} data...`}
+        placeholder={`Cari data`}
         class="form-control py-4 border-right-0 border" style={{alignContent:"center", boxShadow:"0px 6px 0px 0px #ffb4b4", border:"1px solid #b14444"}}/>
       
 </div>

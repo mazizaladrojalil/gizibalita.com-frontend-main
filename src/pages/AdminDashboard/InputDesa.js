@@ -3,14 +3,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Container from 'react-bootstrap/Container';
 import { FiRotateCcw } from "react-icons/fi";
+import './Search.css';
 
 export default function InputDesa() {
   const [form] = Form.useForm();
   const [refreshKey, setRefreshKey] = useState(0);
   const [dataSource, setDataSource] = useState([]);
-  const [dataSourceCounter, setDataSourceCounter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
+  const [searchText, setSearchedText] = useState("");
 
   function deleteDesa(id) {
     axios
@@ -28,6 +29,10 @@ export default function InputDesa() {
       title: "Nama Desa",
       dataIndex: "name",
       key: "name",
+      filteredValue: [searchText],
+      onFilter: (value, record) => {
+        return String(record.name).toLowerCase().includes(value.toLowerCase())
+      }
     },
     {
       title: "Action",
@@ -45,7 +50,6 @@ export default function InputDesa() {
       .get(`${process.env.REACT_APP_BASE_URL}/api/desa`)
       .then((response) => {
         setDataSource(response.data.data);
-        setDataSourceCounter(response.data.data);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -102,6 +106,7 @@ export default function InputDesa() {
               </Form.Item>
               <Col span={24}>
                 {!isLoading && (
+                  <>
                   <Table
                     // title={() => <h1>Daftar Desa</h1>}
                     title={
@@ -111,19 +116,12 @@ export default function InputDesa() {
                             <h2 className="text-sm font-semibold">Daftar Desa</h2>
                           </div>
                            <div className="flex justify-end items-center">
-                            <Button onClick={() => setDataSource(dataSourceCounter)}>
-                              <FiRotateCcw size={20}/>
-                            </Button>
-                            <Input onChange={
-                              (e) => {
-                                setDataSource(dataSource.filter(
-                                  (item) => {
-                                    return item.name.includes(e.target.value)
-                                  }
-                                ))
-                                
-                              }
-                            }/>
+                            <Input.Search
+                              placeholder="Search here ..."
+                              onSearch={(value) => {
+                                setSearchedText(value)
+                              }}
+                            />
                           </div>
                         </div>
 
@@ -134,6 +132,7 @@ export default function InputDesa() {
                     loading={isLoading}
                     pagination={{ pageSize: 5 }}
                   />
+                  </>
                 )}
 
               </Col>
