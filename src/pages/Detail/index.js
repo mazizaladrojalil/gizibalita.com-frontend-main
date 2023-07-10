@@ -614,18 +614,8 @@ export default function Detail() {
             const sortedData = response.data.data.sort((a, b) =>
               a.date.localeCompare(b.date)
             );
-            // const sortedData = data.sort((a, b) => {
-            //   let da = new Date(a.date),
-            //     db = new Date(b.date);
-            //   return db - da;
-            // });
-            // const sortedTable = data.sort((a, b) => {
-            //   let da = new Date(a.date),
-            //     db = new Date(b.date);
-            //   return da - db;
-            // });
-
             setData(sortedData);
+            console.log(data);
             setIsLoading(false);
           })
           .catch((err) => {
@@ -651,6 +641,7 @@ export default function Detail() {
           )
           .then((response) => {
             setDataAnak(response.data.data);
+            // console.log(dataAnak)
           })
           .catch((err) => {
             console.log(err);

@@ -174,6 +174,7 @@ export default function FormDetailPerkembanganAnak(props) {
       let antropologiData = null;
       const determineMonth = `${monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
         }`;
+        
       if (data.gender === "LAKI_LAKI") {
         dataBeratTinggiBadanPria.forEach((item) => {
 

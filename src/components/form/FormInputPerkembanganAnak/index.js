@@ -45,8 +45,11 @@ export default function FormInputPerkembanganAnak(props) {
   const [zScoreLK, setZScoreLK] = useState(0);
   const [zScoreBBPB, setZScoreBBPB] = useState(0);
   const [tanggalPengukuran, setTanggalPengukuran] = useState("");
+  const [beratBadanState, setBeratBadanState] = useState("");
+  const [tinggiBadanState, setTinggiBadanState] = useState("");
 
   const handleZScore = (beratBadan) => {
+    setBeratBadanState(beratBadan);
     if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
       let antropologiData = null;
       if (data.gender === "LAKI_LAKI") {
@@ -93,8 +96,85 @@ export default function FormInputPerkembanganAnak(props) {
     }
   };
 
+  const handleZScorePBBB = (beratBadan, tinggiBadan) => {
+    let result;
+    if (tinggiBadan - Math.floor(tinggiBadan) === 0.5) {
+      result = tinggiBadan;
+    } else if (tinggiBadan - Math.floor(tinggiBadan) === 0 || tinggiBadan - Math.floor(tinggiBadan) < 0.5) {
+      result = Math.floor(tinggiBadan);
+    } else {
+      result = Math.floor(tinggiBadan) + 0.5;
+    }
+    if (zScoreTB !== null && zScoreBB !== null) {
+      console.log("ini hasilnya", result)
+      if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
+        let antropologiData = null;
+        let umurAnak = `${monthDiff(
+          moment(data.tanggal_lahir),
+          moment(tanggalPengukuran)
+        )}`;
+        if (data.gender === "LAKI_LAKI") {
+          if (umurAnak >= 0 && umurAnak <= 24) {
+
+            dataBeratTinggiBadanPria24Bulan.forEach((item) => {
+              // console.log(tinggiBadan.toFixed(1).toString(),"dan", parseFloat(item.pb))
+              if (parseFloat(item.pb) === result) {
+                antropologiData = item;
+                console.log("p2")
+              } else { }
+
+            })
+            if (antropologiData.pb === antropologiData.pb) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          } else if (umurAnak > 24 && umurAnak <= 60) {
+            dataBeratTinggiBadanPria60Bulan.forEach((item) => {
+              if (item.pb === tinggiBadan) {
+                antropologiData = item;
+              }
+            })
+            if (antropologiData.pb === tinggiBadan) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          }
+        } else {
+          if (umurAnak >= 0 && umurAnak <= 24) {
+            dataBeratTinggiBadanPerempuan24Bulan.forEach((item) => {
+              if (item.pb === tinggiBadan) {
+                antropologiData = item;
+              }
+            })
+            if (antropologiData.pb === tinggiBadan) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          } else if (umurAnak > 24 && umurAnak <= 60) {
+            dataBeratTinggiBadanPerempuan60Bulan.forEach((item) => {
+              if (item.pb === tinggiBadan) {
+                antropologiData = item;
+              }
+            })
+            if (antropologiData.pb === tinggiBadan) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          }
+        }
+      } else {
+        setZScoreTB(0);
+      }
+    }
+  };
+
   useEffect(() => {
     if (zScoreTB !== null && zScoreBB !== null) {
+      console.log(data)
       if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
         let antropologiData = null;
         let umurAnak = `${monthDiff(
@@ -104,15 +184,16 @@ export default function FormInputPerkembanganAnak(props) {
         if (data.gender === "LAKI_LAKI") {
           if (umurAnak >= 0 && umurAnak <= 24) {
             dataBeratTinggiBadanPria24Bulan.forEach((item) => {
-              if (item.pb === data.tinggiBadan) {
-                antropologiData = item;
-              }
+              // if (item.pb === data.tinggiBadan) {
+              //   antropologiData = item;
+              // }
+
             })
-            if (antropologiData.pb === data.tinggiBadan) {
-              setZScoreBBPB(
-                determineAmbangBatasPBBB(data.tinggiBadan, data.beratBadan, antropologiData)
-              );
-            }
+            // if (antropologiData.pb === data.tinggiBadan) {
+            //   setZScoreBBPB(
+            //     determineAmbangBatasPBBB(data.tinggiBadan, data.beratBadan, antropologiData)
+            //   );
+            // }
           } else if (umurAnak > 24 && umurAnak <= 60) {
             dataBeratTinggiBadanPria60Bulan.forEach((item) => {
               if (item.pb === data.tinggiBadan) {
@@ -157,6 +238,7 @@ export default function FormInputPerkembanganAnak(props) {
   }, [zScoreTB, zScoreBB])
 
   const handleZScoreTinggiBadan = (tinggiBadan) => {
+    setTinggiBadanState(tinggiBadan);
     if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
       let antropologiData = null;
       if (data.gender === "LAKI_LAKI") {
@@ -179,6 +261,7 @@ export default function FormInputPerkembanganAnak(props) {
           setZScoreTB(
             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
           );
+          handleZScorePBBB(beratBadanState, tinggiBadan);
         }
       } else {
         dataTinggiBadanByUmurPerempuan.forEach((item) => {
@@ -200,11 +283,15 @@ export default function FormInputPerkembanganAnak(props) {
           setZScoreTB(
             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
           );
+          handleZScorePBBB(beratBadanState, tinggiBadan);
         }
       }
     } else {
       setZScoreTB(0);
+      handleZScorePBBB(beratBadanState, tinggiBadan);
     }
+
+
   };
 
   const handleZScoreLingkarKepala = (lingkarKepala) => {
@@ -276,7 +363,7 @@ export default function FormInputPerkembanganAnak(props) {
                 z_score_berat: zScoreBB,
                 z_score_tinggi: zScoreTB,
                 z_score_lingkar_kepala: zScoreLK,
-                z_score_gizi : zScoreBBPB
+                z_score_gizi: zScoreBBPB
               },
               {
                 headers: { Authorization: `Bearer ${user.token.value}` },
@@ -319,14 +406,14 @@ export default function FormInputPerkembanganAnak(props) {
                 z_score_berat: zScoreBB,
                 z_score_tinggi: zScoreTB,
                 z_score_lingkar_kepala: zScoreLK,
-                z_score_gizi : zScoreBBPB,
+                z_score_gizi: zScoreBBPB,
               },
               {
                 headers: { Authorization: `Bearer ${user.token.value}` },
               }
             )
             .then((response) => {
-              
+
               messageApi.open({
                 type: "success",
                 content: "Data berhasil tersimpan",
@@ -467,6 +554,18 @@ export default function FormInputPerkembanganAnak(props) {
                 <Input
                   style={{ color: "#6e6e6e" }}
                   value={`${zScoreTB} SD`}
+                  disabled
+                />
+              </Form.Item>
+
+              <Form.Item
+                label="Z-Score Gizi"
+                name="ZScoreGizi"
+                valuePropName
+              >
+                <Input
+                  style={{ color: "#6e6e6e" }}
+                  value={`${zScoreBBPB} SD`}
                   disabled
                 />
               </Form.Item>
