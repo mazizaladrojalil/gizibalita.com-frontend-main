@@ -68,3 +68,29 @@ export const determineAmbangBatasLingkarKepala = (
     return zScoreMinusOneSD;
   }
 };
+
+export const determineAmbangBatasPBBB = (
+  TinggiBadan,
+  BeratBadan,
+  antropologiData
+) => {
+  if (BeratBadan === null) {
+    return null;
+  }
+
+  if (BeratBadan >= parseFloat(antropologiData.median)) {
+    const referenceSD = parseFloat(antropologiData.SD1pos);
+    const zScorePlusOneSD =
+      (BeratBadan - parseFloat(antropologiData.median)) /
+      (referenceSD - parseFloat(antropologiData.median));
+
+    return zScorePlusOneSD;
+  } else if (BeratBadan < parseFloat(antropologiData.median)) {
+    const referenceSD = parseFloat(antropologiData.SD1neg);
+    const zScoreMinusOneSD =
+      (BeratBadan - parseFloat(antropologiData.median)) /
+      (parseFloat(antropologiData.median) - referenceSD);
+    return zScoreMinusOneSD;
+  }
+};
+

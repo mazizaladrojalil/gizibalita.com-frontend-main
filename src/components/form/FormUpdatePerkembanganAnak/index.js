@@ -10,16 +10,22 @@ import {
 } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import dataBeratBadanByUmurPria from "../../../json/ZScoreBeratBadanLakiLaki.json";
 import dataBeratBadanByUmurPerempuan from "../../../json/ZScoreBeratBadanPerempuan.json";
 import dataTinggiBadanByUmurPria from "../../../json/ZScorePanjangBadanLakiLaki.json";
 import dataTinggiBadanByUmurPerempuan from "../../../json/ZScorePanjangBadanPerempuan.json";
 import dataLingkarKepalaByUmurPria from "../../../json/ZScoreLingkarKepalaLakiLaki.json";
 import dataLingkarKepalaByUmurPerempuan from "../../../json/ZScoreLingkarKepalaPerempuan.json";
+import dataBeratTinggiBadanPria24Bulan from "../../../json/ZScoreBeratTinggiBadanLakiLaki24.json";
+import dataBeratTinggiBadanPria60Bulan from "../../../json/ZScoreBeratTinggiBadanLakiLaki60.json";
+import dataBeratTinggiBadanPerempuan24Bulan from "../../../json/ZScoreBeratTinggiBadanPerempuan24.json";
+import dataBeratTinggiBadanPerempuan60Bulan from "../../../json/ZScoreBeratTinggiBadanPerempuan60.json";
 import {
   determineAmbangBatas,
   determineAmbangBatasLingkarKepala,
   determineAmbangBatasTinggiBadan,
+  determineAmbangBatasPBBB,
 } from "../../../utilities/determineAmbangBatas";
 import axios from "axios";
 import { monthDiff } from "../../../utilities/calculateMonth";
@@ -38,7 +44,9 @@ export default function FormUpdatePerkembanganAnak(props) {
   const [zScoreBB, setZScoreBB] = useState(0);
   const [zScoreTB, setZScoreTB] = useState(0);
   const [zScoreLK, setZScoreLK] = useState(0);
+  const [zScoreBBPB, setZScoreBBPB] = useState(0);
   const [tanggalPengukuran, setTanggalPengukuran] = useState(null);
+
 
   useEffect(() => {
     if (isOpen) {
@@ -51,25 +59,34 @@ export default function FormUpdatePerkembanganAnak(props) {
       handleZScore(data.berat);
       handleZScoreTinggiBadan(data.tinggi);
       handleZScoreLingkarKepala(data.lingkar_kepala);
+      console.log("pantek")
     }
     // eslint-disable-next-line
   }, [isOpen, data]);
-  console.log(data)
+
+  
+
+
+
+
   const handleZScore = (beratBadan) => {
     const datePengukuran = form.getFieldValue(tanggalPengukuran);
-
+    console.log("HII222")
     if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
-      const determineMonth = `${
-        monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
-      }`;
+      const determineMonth = `${monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
+        }`;
 
       if (profil.gender === "LAKI_LAKI") {
         dataBeratBadanByUmurPria.forEach((item) => {
           if (item.bulan === determineMonth) {
             antropologiData = item;
+
           }
+          // console.log("test1", item.bulan)
+
         });
+
 
         if (antropologiData?.bulan === determineMonth) {
           setZScoreBB(determineAmbangBatas(beratBadan, antropologiData));
@@ -94,9 +111,8 @@ export default function FormUpdatePerkembanganAnak(props) {
     const datePengukuran = form.getFieldValue(tanggalPengukuran);
     if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
-      const determineMonth = `${
-        monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
-      }`;
+      const determineMonth = `${monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
+        }`;
 
       if (data.gender === "LAKI_LAKI") {
         dataTinggiBadanByUmurPria.forEach((item) => {
@@ -133,9 +149,8 @@ export default function FormUpdatePerkembanganAnak(props) {
 
     if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
-      const determineMonth = `${
-        monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
-      }`;
+      const determineMonth = `${monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
+        }`;
 
       if (data.gender === "LAKI_LAKI") {
         dataLingkarKepalaByUmurPria.forEach((item) => {
@@ -175,6 +190,7 @@ export default function FormUpdatePerkembanganAnak(props) {
         console.log(values)
 
         if (user && user.user.role === "KADER_POSYANDU") {
+          console.log(zScoreBB)
           axios
             .put(
               `${process.env.REACT_APP_BASE_URL}/api/posyandu/statistik-anak/${data.id}`,
@@ -186,6 +202,7 @@ export default function FormUpdatePerkembanganAnak(props) {
                 z_score_berat: zScoreBB,
                 z_score_tinggi: zScoreTB,
                 z_score_lingkar_kepala: zScoreLK,
+                z_score_gizi: "2",
               },
               {
                 headers: { Authorization: `Bearer ${user.token.value}` },
@@ -270,7 +287,7 @@ export default function FormUpdatePerkembanganAnak(props) {
             type="button"
             onClick={onCancel}
             className="batal_btn"
-            >
+          >
             Batal
           </button>,
           <button
@@ -278,7 +295,7 @@ export default function FormUpdatePerkembanganAnak(props) {
             type="submit"
             onClick={onOK}
             className="simpan_btn"
-            >
+          >
             Simpan
           </button>,
         ]}

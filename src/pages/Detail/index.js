@@ -614,18 +614,8 @@ export default function Detail() {
             const sortedData = response.data.data.sort((a, b) =>
               a.date.localeCompare(b.date)
             );
-            // const sortedData = data.sort((a, b) => {
-            //   let da = new Date(a.date),
-            //     db = new Date(b.date);
-            //   return db - da;
-            // });
-            // const sortedTable = data.sort((a, b) => {
-            //   let da = new Date(a.date),
-            //     db = new Date(b.date);
-            //   return da - db;
-            // });
-
             setData(sortedData);
+            console.log(data);
             setIsLoading(false);
           })
           .catch((err) => {
@@ -651,6 +641,7 @@ export default function Detail() {
           )
           .then((response) => {
             setDataAnak(response.data.data);
+            // console.log(dataAnak)
           })
           .catch((err) => {
             console.log(err);
@@ -741,6 +732,10 @@ export default function Detail() {
       title: "Status - LK/U",
       key: "statusLK",
       dataIndex: ["statistik", "lingkar_kepala"],
+    },{
+      title: "Status - Gizi",
+      key: "statusGizi",
+      dataIndex: ["statistik", "gizi"],
     },
     // {
     //   title: "Action",
@@ -799,14 +794,14 @@ export default function Detail() {
             <Col span={10}>
               <h6 className="dashboard">{dataAnak.nama}</h6>
               <h6 className="dashboard" style={{ fontSize: "25px" }}>{`${moment().diff(moment(dataAnak.tanggal_lahir), "month")} Bulan`}</h6>
-              <button class="cssbuttons-io-button" onClick={() => setIsOpenModalInputPerkembanganAnak(true)}
+              {/* <button class="cssbuttons-io-button" onClick={() => setIsOpenModalInputPerkembanganAnak(true)}
                 type="button" style={{ marginBottom: "20px" }}>Data Perkembangan Anak
                 <div class="icon">
                   <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M31 7C31 3.41015 28.0899 0.5 24.5 0.5C20.9101 0.5 18 3.41015 18 7V17.75H7.25C3.66015 17.75 0.75 20.6601 0.75 24.25C0.75 27.8398 3.66015 30.75 7.25 30.75H18V41.5C18 45.0899 20.9101 48 24.5 48C28.0899 48 31 45.0899 31 41.5V30.75H41.75C45.3399 30.75 48.25 27.8399 48.25 24.25C48.25 20.6601 45.3399 17.75 41.75 17.75H31V7Z" fill="#FF9999" />
                   </svg>
                 </div>
-              </button>
+              </button> */}
             </Col>
             <Col >
               <Image style={{ width: "150px" }} src={bayi} rounded />

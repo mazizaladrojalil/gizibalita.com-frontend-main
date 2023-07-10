@@ -2,7 +2,7 @@ import { Button, Col, Form, Input, message, Row, Select, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Container from 'react-bootstrap/Container';
-import { FiRotateCcw } from "react-icons/fi";
+
 export default function InputPosyandu() {
   const [form] = Form.useForm();
   const [refreshKey, setRefreshKey] = useState(0);
@@ -154,6 +154,7 @@ export default function InputPosyandu() {
               <Col span={24}>
                 {!isLoading && (
                   <Table
+<<<<<<< HEAD
                     // title={() => <h1>Daftar Posyandu</h1>}
                     title={
                       () => (
@@ -173,6 +174,9 @@ export default function InputPosyandu() {
 
                       )
                     }
+=======
+                    title={() => <h1>Daftar Posyandu</h1>}
+>>>>>>> a87da72754e571b4ed315248546eddd119afc338
                     dataSource={dataSource}
                     columns={columns}
                     loading={isLoading}

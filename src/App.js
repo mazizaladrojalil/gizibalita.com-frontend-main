@@ -21,7 +21,7 @@ import PosyanduInput from "./pages/AdminDashboard/InputPosyandu";
 import InputPosyandu from "./pages/AdminDashboard/InputPosyandu";
 import RegisterKaderPosyandu from "./pages/AdminDashboard/RegisterKaderPosyandu.js";
 import RegisterTenkes from "./pages/AdminDashboard/RegisterTenagaKesehatan";
-import ArtikelAdmin from "./pages/AdminDashboard/ArtikelAdmin"
+import InputAcara from "./pages/Desa/input_acara";
 
 const ROLES = {
   'Desa': "DESA",
@@ -36,7 +36,6 @@ const ROUTES = {
   'POSYANDUROUTE': "posyandu",
   'REGISTPOSYANDU': "kader-posyandu",
   'REGISTTENKES': "tenaga-kesehatan",
-  'ARTIKEL': "artikel"
 }
 function App() {
   return (
@@ -111,6 +110,7 @@ function App() {
 
         {/* Role Desa */}
         <Route element={<RequireAuth allowedRoles={[ROLES.Desa]} />}>
+          <Route path="/desa/reminder" element={<InputAcara />} />
           <Route path="/desa/dashboard" element={<Desa />} />
         </Route>
 
@@ -121,7 +121,6 @@ function App() {
             <Route path={ROUTES.POSYANDUROUTE} element={<InputPosyandu />} />
             <Route path={ROUTES.REGISTPOSYANDU} element={<RegisterKaderPosyandu />} />
             <Route path={ROUTES.REGISTTENKES} element={<RegisterTenkes />} />
-             <Route path={ROUTES.ARTIKEL} element={<ArtikelAdmin />} />
           </Route>
         </Route>
         <Route element={<RequireAuth allowedRoles={[ROLES.TK]} />}>
@@ -129,6 +128,7 @@ function App() {
         </Route>
         <Route path="/tenaga-kesehatan/detail/:id" element={<DetailForum />} />
         <Route path="/artikel" element={<Artikel />} />
+
         <Route path="/*" element={<NotFound />} />
 
         <Route path="/*" element={<NotFound />} />
