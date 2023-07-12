@@ -2,11 +2,8 @@ import { Button, Col, Form, Input, message, Row, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Container from 'react-bootstrap/Container';
-<<<<<<< HEAD
 import { FiRotateCcw } from "react-icons/fi";
 import './Search.css';
-=======
->>>>>>> a87da72754e571b4ed315248546eddd119afc338
 
 export default function InputDesa() {
   const [form] = Form.useForm();
@@ -111,7 +108,6 @@ export default function InputDesa() {
                 {!isLoading && (
                   <>
                   <Table
-<<<<<<< HEAD
                     // title={() => <h1>Daftar Desa</h1>}
                     title={
                       () => (
@@ -131,9 +127,6 @@ export default function InputDesa() {
 
                       )
                     }
-=======
-                    title={() => <h1>Daftar Desa</h1>}
->>>>>>> a87da72754e571b4ed315248546eddd119afc338
                     dataSource={dataSource}
                     columns={columns}
                     loading={isLoading}

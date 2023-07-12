@@ -18,10 +18,16 @@ import dataLingkarKepalaByUmurPria from "../../../json/ZScoreLingkarKepalaLakiLa
 import dataLingkarKepalaByUmurPerempuan from "../../../json/ZScoreLingkarKepalaPerempuan.json";
 import dataBeratTinggiBadanPria from "../../../json/ZScoreBeratTinggiBadanLaki.json";
 import dataBeratTinggiBadanPerempuan from "../../../json/ZScoreBeratTinggiBadanPerempuan.json";
+import dataBeratTinggiBadanPria24Bulan from "../../../json/ZScoreBeratTinggiBadanLakiLaki24.json";
+import dataBeratTinggiBadanPria60Bulan from "../../../json/ZScoreBeratTinggiBadanLakiLaki60.json";
+import dataBeratTinggiBadanPerempuan24Bulan from "../../../json/ZScoreBeratTinggiBadanPerempuan24.json";
+import dataBeratTinggiBadanPerempuan60Bulan from "../../../json/ZScoreBeratTinggiBadanPerempuan60.json";
+
 import {
   determineAmbangBatas,
   determineAmbangBatasLingkarKepala,
   determineAmbangBatasTinggiBadan,
+  determineAmbangBatasPBBB,
 } from "../../../utilities/determineAmbangBatas";
 import axios from "axios";
 import { monthDiff } from "../../../utilities/calculateMonth";
@@ -39,6 +45,7 @@ export default function FormDetailPerkembanganAnak(props) {
   const [zScoreBB, setZScoreBB] = useState(0);
   const [zScoreTB, setZScoreTB] = useState(0);
   const [zScoreLK, setZScoreLK] = useState(0);
+  const [zScoreBBPB, setZScoreBBPB] = useState(0);
   const [tanggalPengukuran, setTanggalPengukuran] = useState(null);
 
   useEffect(() => {
@@ -52,6 +59,7 @@ export default function FormDetailPerkembanganAnak(props) {
       handleZScore(data.berat);
       handleZScoreTinggiBadan(data.tinggi);
       handleZScoreLingkarKepala(data.lingkar_kepala);
+      handleZScorePBBB(data.berat, data.tinggi)
     }
     // eslint-disable-next-line
   }, [isOpen, data]);
@@ -87,6 +95,86 @@ export default function FormDetailPerkembanganAnak(props) {
       }
     } else {
       setZScoreBB(0);
+    }
+  };
+
+  const handleZScorePBBB = (beratBadan, tinggiBadan) => {
+    let result;
+    if (tinggiBadan - Math.floor(tinggiBadan) === 0.5) {
+      result = tinggiBadan;
+    } else if (tinggiBadan - Math.floor(tinggiBadan) === 0 || tinggiBadan - Math.floor(tinggiBadan) < 0.5) {
+      result = Math.floor(tinggiBadan);
+    } else {
+      result = Math.floor(tinggiBadan) + 0.5;
+    }
+    if (zScoreTB !== null && zScoreBB !== null) {
+      console.log("ini hasilnya", result)
+      if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
+        let antropologiData = null;
+        let umurAnak = `${monthDiff(
+          moment(data.tanggal_lahir),
+          moment(tanggalPengukuran)
+        )}`;
+        if (data.gender === "LAKI_LAKI") {
+          if (umurAnak >= 0 && umurAnak <= 24) {
+
+            dataBeratTinggiBadanPria24Bulan.forEach((item) => {
+              // console.log(tinggiBadan.toFixed(1).toString(),"dan", parseFloat(item.pb))
+              if (parseFloat(item.pb) === result) {
+                antropologiData = item;
+                console.log("p2")
+              }
+
+            })
+            if (antropologiData !== null) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          } else if (umurAnak > 24 && umurAnak <= 60) {
+            dataBeratTinggiBadanPria60Bulan.forEach((item) => {
+              if (parseFloat(item.pb) === result) {
+                antropologiData = item;
+                console.log("p2")
+              }
+
+            })
+            if (antropologiData !== null) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          }
+        } else {
+          if (umurAnak >= 0 && umurAnak <= 24) {
+            dataBeratTinggiBadanPerempuan24Bulan.forEach((item) => {
+              if (parseFloat(item.pb) === result) {
+                antropologiData = item;
+                console.log("p2")
+              }
+
+            })
+            if (antropologiData !== null) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          } else if (umurAnak > 24 && umurAnak <= 60) {
+            dataBeratTinggiBadanPerempuan60Bulan.forEach((item) => {
+              if (parseFloat(item.pb) === result) {
+                antropologiData = item;
+              }
+            })
+            if (antropologiData !== null) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          }
+        }
+      } else {
+        setZScoreTB(0);
+      }
     }
   };
 
@@ -234,6 +322,7 @@ export default function FormDetailPerkembanganAnak(props) {
                 z_score_berat: zScoreBB,
                 z_score_tinggi: zScoreTB,
                 z_score_lingkar_kepala: zScoreLK,
+                z_score_gizi: zScoreBBPB,
               },
               {
                 headers: { Authorization: `Bearer ${user.token.value}` },
@@ -273,6 +362,7 @@ export default function FormDetailPerkembanganAnak(props) {
                 z_score_berat: zScoreBB,
                 z_score_tinggi: zScoreTB,
                 z_score_lingkar_kepala: zScoreLK,
+                z_score_gizi: zScoreBBPB,
               },
               {
                 headers: { Authorization: `Bearer ${user.token.value}` },

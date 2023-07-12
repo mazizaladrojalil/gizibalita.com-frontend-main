@@ -798,6 +798,18 @@ export default function DetailPosyandu() {
         }
       },
       {
+        Header: "Status - Gizi",
+        accessor: "statusGizi",
+        Cell: ({ row }) => {
+          const statusBB = row.original.statistik.gizi;
+          return (
+            <span>
+              {statusBB}
+            </span>
+          );
+        }
+      },
+      {
         Header: "",
         accessor: "aksi",
         Cell: ({ row }) => {

@@ -46,7 +46,8 @@ export default function FormUpdatePerkembanganAnak(props) {
   const [zScoreLK, setZScoreLK] = useState(0);
   const [zScoreBBPB, setZScoreBBPB] = useState(0);
   const [tanggalPengukuran, setTanggalPengukuran] = useState(null);
-
+  const [beratBadanState, setBeratBadanState] = useState("");
+  const [tinggiBadanState, setTinggiBadanState] = useState("");
 
   useEffect(() => {
     if (isOpen) {
@@ -59,7 +60,6 @@ export default function FormUpdatePerkembanganAnak(props) {
       handleZScore(data.berat);
       handleZScoreTinggiBadan(data.tinggi);
       handleZScoreLingkarKepala(data.lingkar_kepala);
-      console.log("pantek")
     }
     // eslint-disable-next-line
   }, [isOpen, data]);
@@ -70,8 +70,8 @@ export default function FormUpdatePerkembanganAnak(props) {
 
 
   const handleZScore = (beratBadan) => {
+    setBeratBadanState(beratBadan);
     const datePengukuran = form.getFieldValue(tanggalPengukuran);
-    console.log("HII222")
     if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
       const determineMonth = `${monthDiff(moment(data.tanggal_lahir), moment(datePengukuran)) * -1
@@ -107,7 +107,87 @@ export default function FormUpdatePerkembanganAnak(props) {
     }
   };
 
+  const handleZScorePBBB = (beratBadan, tinggiBadan) => {
+    let result;
+    if (tinggiBadan - Math.floor(tinggiBadan) === 0.5) {
+      result = tinggiBadan;
+    } else if (tinggiBadan - Math.floor(tinggiBadan) === 0 || tinggiBadan - Math.floor(tinggiBadan) < 0.5) {
+      result = Math.floor(tinggiBadan);
+    } else {
+      result = Math.floor(tinggiBadan) + 0.5;
+    }
+    if (zScoreTB !== null && zScoreBB !== null) {
+      console.log("ini hasilnya", result)
+      if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
+        let antropologiData = null;
+        let umurAnak = `${monthDiff(
+          moment(data.tanggal_lahir),
+          moment(tanggalPengukuran)
+        )}`;
+        if (data.gender === "LAKI_LAKI") {
+          if (umurAnak >= 0 && umurAnak <= 24) {
+            dataBeratTinggiBadanPria24Bulan.forEach((item) => {
+              // console.log(tinggiBadan.toFixed(1).toString(),"dan", parseFloat(item.pb))
+              if (parseFloat(item.pb) === result) {
+                antropologiData = item;
+                console.log("p2")
+              }
+
+            })
+            if (antropologiData !== null) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          } else if (umurAnak > 24 && umurAnak <= 60) {
+            dataBeratTinggiBadanPria60Bulan.forEach((item) => {
+              if (parseFloat(item.pb) === result) {
+                antropologiData = item;
+                console.log("p2")
+              }
+
+            })
+            if (antropologiData !== null) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          }
+        } else {
+          if (umurAnak >= 0 && umurAnak <= 24) {
+            dataBeratTinggiBadanPerempuan24Bulan.forEach((item) => {
+              if (parseFloat(item.pb) === result) {
+                antropologiData = item;
+                console.log("p2")
+              }
+
+            })
+            if (antropologiData !== null) {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          } else if (umurAnak > 24 && umurAnak <= 60) {
+            dataBeratTinggiBadanPerempuan60Bulan.forEach((item) => {
+              if(parseFloat(item.pb) === result) {
+                antropologiData = item;
+              }
+            })
+            if  (antropologiData !== null)  {
+              setZScoreBBPB(
+                determineAmbangBatasPBBB(tinggiBadan, beratBadan, antropologiData)
+              );
+            }
+          }
+        }
+      } else {
+        setZScoreTB(0);
+      }
+    }
+  };
+
   const handleZScoreTinggiBadan = (tinggiBadan) => {
+    setTinggiBadanState(tinggiBadan);
     const datePengukuran = form.getFieldValue(tanggalPengukuran);
     if (datePengukuran !== null && datePengukuran !== "") {
       let antropologiData = null;
@@ -122,6 +202,7 @@ export default function FormUpdatePerkembanganAnak(props) {
         });
 
         if (antropologiData?.bulan === determineMonth) {
+          handleZScorePBBB(beratBadanState, tinggiBadanState);
           setZScoreTB(
             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
           );
@@ -134,12 +215,15 @@ export default function FormUpdatePerkembanganAnak(props) {
         });
 
         if (antropologiData?.bulan === determineMonth) {
+          handleZScorePBBB(beratBadanState, tinggiBadanState);
           setZScoreTB(
             determineAmbangBatasTinggiBadan(tinggiBadan, antropologiData)
           );
+          
         }
       }
     } else {
+      handleZScorePBBB(beratBadanState, tinggiBadan);
       setZScoreTB(0);
     }
   };

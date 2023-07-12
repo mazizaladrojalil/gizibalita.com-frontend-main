@@ -10,7 +10,7 @@ export default function InputPosyandu() {
   const [isLoading, setIsLoading] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
   const [dataDesa, setDataDesa] = useState([]);
-   const [searchText, setSearchedText] = useState("");
+  const [searchText, setSearchedText] = useState("");
 
   function deletePosyandu(id) {
     axios
@@ -154,7 +154,6 @@ export default function InputPosyandu() {
               <Col span={24}>
                 {!isLoading && (
                   <Table
-<<<<<<< HEAD
                     // title={() => <h1>Daftar Posyandu</h1>}
                     title={
                       () => (
@@ -162,8 +161,8 @@ export default function InputPosyandu() {
                           <div className="flex justify-start items-center">
                             <h2 className="text-sm font-semibold">Daftar Posyandu</h2>
                           </div>
-                           <div className="flex justify-end items-center">
-                             <Input.Search
+                          <div className="flex justify-end items-center">
+                            <Input.Search
                               placeholder="Search here ..."
                               onSearch={(value) => {
                                 setSearchedText(value)
@@ -174,9 +173,6 @@ export default function InputPosyandu() {
 
                       )
                     }
-=======
-                    title={() => <h1>Daftar Posyandu</h1>}
->>>>>>> a87da72754e571b4ed315248546eddd119afc338
                     dataSource={dataSource}
                     columns={columns}
                     loading={isLoading}
