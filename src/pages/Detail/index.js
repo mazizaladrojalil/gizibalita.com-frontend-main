@@ -18,6 +18,11 @@ import dataTinggiBadanByUmurPria from "../../json/ZScorePanjangBadanLakiLaki.jso
 import dataTinggiBadanByUmurPerempuan from "../../json/ZScorePanjangBadanPerempuan.json";
 import dataLingkarKepalaByUmurPria from "../../json/ZScoreLingkarKepalaLakiLaki.json";
 import dataLingkarKepalaByUmurPerempuan from "../../json/ZScoreLingkarKepalaPerempuan.json";
+import dataBeratTinggiBadanPria24Bulan from "../../json/ZScoreBeratTinggiBadanLakiLaki24.json";
+import dataBeratTinggiBadanPria60Bulan from "../../json/ZScoreBeratTinggiBadanLakiLaki60.json";
+import dataBeratTinggiBadanPerempuan24Bulan from "../../json/ZScoreBeratTinggiBadanPerempuan24.json";
+import dataBeratTinggiBadanPerempuan60Bulan from "../../json/ZScoreBeratTinggiBadanPerempuan60.json";
+
 import Navbar from "../../components/layout/Navbar";
 import { Col, Row, Space, Table } from "antd";
 import FormInputPerkembanganAnak from "../../components/form/FormInputPerkembanganAnak";
@@ -106,6 +111,31 @@ export default function Detail() {
   // const labels = Array.from(Array(61).keys());
 
   const labels = Array.from(Array(61).keys());
+  // const label_PB = [];
+  // for (let i = 45; i <= 110; i += 0.5) {
+  //   console.log(i);
+  // }
+  // const label_PB = [];
+  // dataBeratTinggiBadanPria24Bulan.forEach((item) => {
+  //   label_PB.push(item.pb);
+  // });
+
+  const label_PB_24 = [];
+  let value = 45.0;
+
+  while (value <= 110.0) {
+    label_PB_24.push(value); // Push the value rounded to 1 decimal place
+    value += 0.5;
+  }
+
+  const label_PB_60 = [];
+  value = 65.0;
+
+  while (value <= 110.0) {
+    label_PB_60.push(value); // Push the value rounded to 1 decimal place
+    value += 0.5;
+  }
+
   function datasetChart(type) {
     const dataset = [];
     for (let i = 0; i < data.length; i++) {
@@ -164,9 +194,307 @@ export default function Detail() {
           result.push(null);
         }
       }
+
+      return result;
+    } else if (type === "gizi") {
+      const dataset_gizi = [];
+
+      for (let i = 0; i < data.length; i++) {
+        let floor;
+        if (data[i].tinggi - Math.floor(data[i].tinggi) === 0.5) {
+          floor = data[i].tinggi;
+        } else if (data[i].tinggi - Math.floor(data[i].tinggi) === 0 || data[i].tinggi - Math.floor(data[i].tinggi) < 0.5) {
+          floor = Math.floor(data[i].tinggi);
+        } else {
+          floor = Math.floor(data[i].tinggi) + 0.5;
+        }
+        dataset_gizi.push(floor);
+      }
+      // buatlah 60 array dari bulan "dataset"
+      console.log("test", dataset_gizi)
+      const result = [];
+
+      let j = 0;
+      if (dataset[0] >= 0 && dataset[0] <= 24) {
+        if (dataAnak.gender === "LAKI_LAKI") {
+          dataBeratTinggiBadanPria24Bulan.forEach((item) => {
+            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
+            if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
+              result.push(Number(data[j].berat));
+              j++;
+            } else {
+              result.push(null)
+            }
+          })
+        } else {
+          dataBeratTinggiBadanPerempuan24Bulan.forEach((item) => {
+            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
+            if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
+              result.push(Number(data[j].berat));
+              j++;
+            } else {
+              result.push(null)
+            }
+          })
+        }
+      } else if (dataAnak[0] > 24 && dataAnak[0] <= 60) {
+        if (dataAnak.gender === "LAKI_LAKI") {
+          dataBeratTinggiBadanPria60Bulan.forEach((item) => {
+            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
+            if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
+              result.push(Number(data[j].berat));
+              j++;
+            } else {
+              result.push(null)
+            }
+          })
+        } else {
+          dataBeratTinggiBadanPerempuan60Bulan.forEach((item) => {
+            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
+            if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
+              result.push(Number(data[j].berat));
+              j++;
+            } else {
+              result.push(null)
+            }
+          })
+        }
+      }
+
+      console.log("gizi", result)
       return result;
     }
   }
+
+  const dataChartPriaGizi_0_24 = {
+    labels: label_PB_24,
+    datasets: [
+      {
+        // data: data.map((data) => data.berat),
+        data: datasetChart("gizi"),
+        pointBackgroundColor: "black",
+        borderColor: "black",
+        type: "scatter",
+        showLine: false,
+        pointRadius: 5,
+      },
+      {
+        data: dataBeratTinggiBadanPria24Bulan.map((data) => data.SD3neg),
+        borderColor: "rgb(255, 0, 55)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria24Bulan.map((data) => data.SD2neg),
+        borderColor: "rgb(255, 137, 163)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria24Bulan.map((data) => data.SD1neg),
+        borderColor: "rgb(234, 255, 0)",
+        backgroundColor: "rgba(238, 255, 0, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria24Bulan.map((data) => data.median),
+        borderColor: "rgb(154, 255, 136)",
+        backgroundColor: "rgba(0, 255, 30, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria24Bulan.map((data) => data.SD1pos),
+        borderColor: "rgb(234, 255, 0)",
+        backgroundColor: "rgba(238, 255, 0, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria24Bulan.map((data) => data.SD2pos),
+        borderColor: "rgb(255, 137, 163)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria24Bulan.map((data) => data.SD3pos),
+        borderColor: "rgb(255, 0, 55)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+    ],
+  };
+
+  const dataChartPriaGizi_25_60 = {
+    labels: label_PB_60,
+    datasets: [
+      {
+        // data: data.map((data) => data.berat),
+        data: datasetChart("gizi"),
+        pointBackgroundColor: "black",
+        borderColor: "black",
+        type: "scatter",
+        showLine: false,
+        pointRadius: 5,
+      },
+      {
+        data: dataBeratTinggiBadanPria60Bulan.map((data) => data.SD3neg),
+        borderColor: "rgb(255, 0, 55)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria60Bulan.map((data) => data.SD2neg),
+        borderColor: "rgb(255, 137, 163)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria60Bulan.map((data) => data.SD1neg),
+        borderColor: "rgb(234, 255, 0)",
+        backgroundColor: "rgba(238, 255, 0, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria60Bulan.map((data) => data.median),
+        borderColor: "rgb(154, 255, 136)",
+        backgroundColor: "rgba(0, 255, 30, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria60Bulan.map((data) => data.SD1pos),
+        borderColor: "rgb(234, 255, 0)",
+        backgroundColor: "rgba(238, 255, 0, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria60Bulan.map((data) => data.SD2pos),
+        borderColor: "rgb(255, 137, 163)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPria60Bulan.map((data) => data.SD3pos),
+        borderColor: "rgb(255, 0, 55)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+    ],
+  };
+
+  const dataChartPerempuanGizi_0_24 = {
+    labels: label_PB_24,
+    datasets: [
+      {
+        // data: data.map((data) => data.berat),
+        data: datasetChart("gizi"),
+        pointBackgroundColor: "black",
+        borderColor: "black",
+        type: "scatter",
+        showLine: false,
+        pointRadius: 5,
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan24Bulan.map((data) => data.SD3neg),
+        borderColor: "rgb(255, 0, 55)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan24Bulan.map((data) => data.SD2neg),
+        borderColor: "rgb(255, 137, 163)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan24Bulan.map((data) => data.SD1neg),
+        borderColor: "rgb(234, 255, 0)",
+        backgroundColor: "rgba(238, 255, 0, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan24Bulan.map((data) => data.median),
+        borderColor: "rgb(154, 255, 136)",
+        backgroundColor: "rgba(0, 255, 30, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan24Bulan.map((data) => data.SD1pos),
+        borderColor: "rgb(234, 255, 0)",
+        backgroundColor: "rgba(238, 255, 0, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan24Bulan.map((data) => data.SD2pos),
+        borderColor: "rgb(255, 137, 163)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan24Bulan.map((data) => data.SD3pos),
+        borderColor: "rgb(255, 0, 55)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+    ],
+  };
+
+  const dataChartPerempuanGizi_25_60 = {
+    labels: label_PB_60,
+    datasets: [
+      {
+        // data: data.map((data) => data.berat),
+        data: datasetChart("gizi"),
+        pointBackgroundColor: "black",
+        borderColor: "black",
+        type: "scatter",
+        showLine: false,
+        pointRadius: 5,
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan60Bulan.map((data) => data.SD3neg),
+        borderColor: "rgb(255, 0, 55)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan60Bulan.map((data) => data.SD2neg),
+        borderColor: "rgb(255, 137, 163)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan60Bulan.map((data) => data.SD1neg),
+        borderColor: "rgb(234, 255, 0)",
+        backgroundColor: "rgba(238, 255, 0, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan60Bulan.map((data) => data.median),
+        borderColor: "rgb(154, 255, 136)",
+        backgroundColor: "rgba(0, 255, 30, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan60Bulan.map((data) => data.SD1pos),
+        borderColor: "rgb(234, 255, 0)",
+        backgroundColor: "rgba(238, 255, 0, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan60Bulan.map((data) => data.SD2pos),
+        borderColor: "rgb(255, 137, 163)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+      {
+        data: dataBeratTinggiBadanPerempuan60Bulan.map((data) => data.SD3pos),
+        borderColor: "rgb(255, 0, 55)",
+        backgroundColor: "rgba(255, 0, 55, 0.5)",
+        type: "line",
+      },
+    ],
+  };
+
+
 
 
   const dataChartPriaBB = {
@@ -225,6 +553,9 @@ export default function Detail() {
       },
     ],
   };
+
+
+
 
   const dataChartPerempuanBB = {
     labels: labels,
@@ -471,6 +802,8 @@ export default function Detail() {
     ],
   };
 
+
+
   const optionsBB = {
     responsive: true,
     scales: {
@@ -577,6 +910,44 @@ export default function Detail() {
       title: {
         display: true,
         text: "Lingkar Kepala berdasarkan Umur",
+      },
+    },
+  };
+
+  const optionsGizi = {
+    responsive: true,
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: "Berat badan (kg)",
+        },
+      },
+      x: {
+        title: {
+          display: true,
+          text: "Panjang badan (cm)",
+        },
+        min: 0,
+        max: 200,
+      },
+    },
+    elements: {
+      point: {
+        radius: 0,
+        pointStyle: "circle",
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltips: {
+        enabled: false,
+      },
+      title: {
+        display: true,
+        text: "Berat badan berdasarkan Panjang badan",
       },
     },
   };
@@ -732,7 +1103,7 @@ export default function Detail() {
       title: "Status - LK/U",
       key: "statusLK",
       dataIndex: ["statistik", "lingkar_kepala"],
-    },{
+    }, {
       title: "Status - Gizi",
       key: "statusGizi",
       dataIndex: ["statistik", "gizi"],
@@ -821,6 +1192,7 @@ export default function Detail() {
           <button className="button_detail" onClick={() => handleButtonClick('Content 1')}>Berat Badan</button>
           <button className="button_detail" onClick={() => handleButtonClick('Content 2')}>Tinggi badan</button>
           <button className="button_detail" style={{ width: "190px" }} onClick={() => handleButtonClick('Content 3')}>Lingkar kepala</button>
+          <button className="button_detail" onClick={() => handleButtonClick('Content 4')}>Gizi</button>
         </Col>
 
         {activeContent === 'Content 1' && (
@@ -858,6 +1230,19 @@ export default function Detail() {
                   : dataChartPerempuanLK
               }
               options={optionsLK}
+            />
+          </Col>
+        )}
+
+        {activeContent === 'Content 4' && (
+          <Col className="my-8 border-2 p-4 border-black" span={24}>
+            <Line
+              data={
+                dataAnak.gender === 'LAKI_LAKI'
+                  ? ((moment().diff(moment(dataAnak.tanggal_lahir), "month")) >= 0 && (moment().diff(moment(dataAnak.tanggal_lahir), "month")) <= 24 ? dataChartPriaGizi_0_24 : dataChartPriaGizi_25_60)
+                  : ((moment().diff(moment(dataAnak.tanggal_lahir), "month")) >= 0 && (moment().diff(moment(dataAnak.tanggal_lahir), "month")) <= 24 ? dataChartPerempuanGizi_0_24 : dataChartPerempuanGizi_25_60)
+              }
+              options={optionsGizi}
             />
           </Col>
         )}
