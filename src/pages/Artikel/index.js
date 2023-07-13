@@ -53,7 +53,7 @@ export default function Artikel() {
     function fetchDataAnak() {
 
       axios
-        .get(`${process.env.REACT_APP_BASE_URL}/api/reminder`, {
+        .get(`${process.env.REACT_APP_BASE_URL}/api/artikel`, {
           headers: { Authorization: `Bearer ${user.token.value}` },
         })
         .then((response) => {
@@ -81,7 +81,8 @@ export default function Artikel() {
       .then((response) => {
         const sortedData = response.data.data;
         setData(sortedData);
-        setDataSorted(sortedData[data.length - 1]);
+        setDataSorted(sortedData[sortedData.length - 1]);
+        // setDataSorted(sortedData[0]);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -105,6 +106,8 @@ export default function Artikel() {
   }, []);
 
   console.log(dataSorted)
+  console.log(dataKategori)
+  console.log(data)
   return (
     <>
       <Navbar isLogin />
