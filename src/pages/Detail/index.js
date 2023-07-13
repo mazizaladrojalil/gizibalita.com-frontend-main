@@ -218,7 +218,7 @@ export default function Detail() {
       if (dataset[0] >= 0 && dataset[0] <= 24) {
         if (dataAnak.gender === "LAKI_LAKI") {
           dataBeratTinggiBadanPria24Bulan.forEach((item) => {
-            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
+
             if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
               result.push(Number(data[j].berat));
               j++;
@@ -228,7 +228,7 @@ export default function Detail() {
           })
         } else {
           dataBeratTinggiBadanPerempuan24Bulan.forEach((item) => {
-            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
+            
             if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
               result.push(Number(data[j].berat));
               j++;
@@ -237,10 +237,10 @@ export default function Detail() {
             }
           })
         }
-      } else if (dataAnak[0] > 24 && dataAnak[0] <= 60) {
+      } else if (dataset[0] > 24 && dataset[0] <= 60) {
         if (dataAnak.gender === "LAKI_LAKI") {
           dataBeratTinggiBadanPria60Bulan.forEach((item) => {
-            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
+
             if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
               result.push(Number(data[j].berat));
               j++;
@@ -250,7 +250,7 @@ export default function Detail() {
           })
         } else {
           dataBeratTinggiBadanPerempuan60Bulan.forEach((item) => {
-            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
+
             if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
               result.push(Number(data[j].berat));
               j++;
