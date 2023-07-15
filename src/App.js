@@ -24,6 +24,7 @@ import RegisterTenkes from "./pages/AdminDashboard/RegisterTenagaKesehatan";
 import InputAcara from "./pages/Desa/input_acara";
 import ArtikelAdmin from "./pages/AdminDashboard/ArtikelAdmin"
 import DetailArtikel from "./pages/Admin/DetailArtikel";
+import ArtikelDetail from "./pages/Admin/ArtikelDetail";
 const ROLES = {
   'Desa': "DESA",
   'Posyandu': "KADER_POSYANDU",
@@ -131,7 +132,7 @@ function App() {
         </Route>
         <Route path="/tenaga-kesehatan/detail/:id" element={<DetailForum />} />
         <Route path="/artikel" element={<Artikel />} />
-        <Route path="/artikel/:id" element={<DetailArtikel />} />
+        <Route path="/artikel/:id" element={<ArtikelDetail />} />
 
         <Route path="/*" element={<NotFound />} />
 
