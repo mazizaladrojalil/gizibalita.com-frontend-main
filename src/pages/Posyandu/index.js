@@ -83,7 +83,7 @@ const PosyanduDashboard = () => {
     }
 
     fetchDataAnak();
-   
+
     // eslint-disable-next-line
   }, [refreshKey]);
   const columns = useMemo(() => {
@@ -121,7 +121,7 @@ const PosyanduDashboard = () => {
           );
         },
       },
-       {
+      {
         Header: 'Alamat',
         accessor: 'alamat',
       },
@@ -134,17 +134,17 @@ const PosyanduDashboard = () => {
           const data = row.original;
           return (
             <>
-              <div style={{justifyContent:"space-between", display:"flex"}}>
-                  <button 
-                    class="btnDetail" 
-                    onClick={(e) => navigate(`/kader-posyandu/dashboard/detail/${id}`)}
-                  >
-                      Detail
-                  </button>
+              <div style={{ justifyContent: "space-between", display: "flex" }}>
+                <button
+                  class="btnDetail"
+                  onClick={(e) => navigate(`/kader-posyandu/dashboard/detail/${id}`)}
+                >
+                  Detail
+                </button>
                 {/* </Link> */}
-               
-                <button 
-                  type="button" 
+
+                <button
+
                   class="buttonUpdate"
                   onClick={() => {
                     setDataAnak(data);
@@ -153,7 +153,7 @@ const PosyanduDashboard = () => {
                 >
                   Update
                 </button>
-                <button 
+                <button
                   class="buttonDelete"
                   onClick={() => {
                     Modal.confirm({
@@ -183,13 +183,13 @@ const PosyanduDashboard = () => {
                               fetch();
                             }, 1000);
                           })
-                          
+
                           .catch((err) => {
                             console.log(err);
                             messageApi.open({
                               type: "error",
                               content: "Data gagal dihapus",
-                          });
+                            });
                             setTimeout(() => {
                               window.location.reload();
                             }, 1000);
@@ -207,7 +207,7 @@ const PosyanduDashboard = () => {
                   Delete
                 </button>
               </div>
-            {/* <div className="flex">
+              {/* <div className="flex">
               <CustomButton className="bg-orange-500">
                 Detail
               </CustomButton>
@@ -218,7 +218,7 @@ const PosyanduDashboard = () => {
                 Delete
               </CustomButton>
             </div> */}
-            
+
             </>
           );
         },
@@ -228,25 +228,25 @@ const PosyanduDashboard = () => {
   return (
     <>
       {contextHolder}
-       <div style={{display:"none"}}>
-          <BukuPanduan ref={ref}/>
-        </div>
+      <div style={{ display: "none" }}>
+        <BukuPanduan ref={ref} />
+      </div>
       <BackgroundComponent />
-      <Navbar isLogin kader/>
-      <Row className="justify-content-center align-items-center flex" style={{marginTop:"94px"}}>
+      <Navbar isLogin kader />
+      <Row className="justify-content-center align-items-center flex" style={{ marginTop: "94px" }}>
         <Col>
           <h6 className="dashboard">Hallo {user && user.user.name}</h6>
-          
+
         </Col>
       </Row>
-      <Row className="justify-content-center" style={{marginTop:"30px"}}>
-         
-         {/* <Link to={`/dashboard/detail/${record.id}`}>
+      <Row className="justify-content-center" style={{ marginTop: "30px" }}>
+
+        {/* <Link to={`/dashboard/detail/${record.id}`}>
             <button type="button" class="button3 mx-5">
               Cek Data Anak
             </button>
           </Link> */}
-       
+
         <ReactToPrint
           trigger={() => {
             return (
@@ -258,9 +258,9 @@ const PosyanduDashboard = () => {
           content={() => ref.current}
           documentTitle="Buku Panduan.pdf"
         />
-       
+
       </Row>
-      <Row className="justify-content-center" style={{marginTop:"30px"}}>
+      <Row className="justify-content-center" style={{ marginTop: "30px" }}>
         <Col >
           <Table
             data={data || []}
@@ -268,18 +268,18 @@ const PosyanduDashboard = () => {
             initialState={{
               pageSize: 10,
             }}
-            ButtonCus/>
+            ButtonCus />
         </Col>
       </Row>
-          
-        <Col sm="12" className="d-flex">
-          <FormUpdateDataAnak
-            isOpen={isOpenModalUpdateDataAnak}
-            onCancel={() => setIsOpenModalUpdateDataAnak(false)}
-            fetch={() => setRefreshKey((oldKey) => oldKey + 1)}
-            data={dataAnak}
-          />
-        </Col>
+
+      <Col sm="12" className="d-flex">
+        <FormUpdateDataAnak
+          isOpen={isOpenModalUpdateDataAnak}
+          onCancel={() => setIsOpenModalUpdateDataAnak(false)}
+          fetch={() => setRefreshKey((oldKey) => oldKey + 1)}
+          data={dataAnak}
+        />
+      </Col>
     </>
   )
 }

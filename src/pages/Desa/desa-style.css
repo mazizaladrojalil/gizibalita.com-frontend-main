@@ -69,8 +69,16 @@
     transition-duration: .5s;
 }
 
+.ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+    color: rgb(255 0 0 / 45%)!important;
+}
+
+#btn-desa, [type="reset"]{
+    background-color: rgb(255, 180, 180)!important;
+}
+
 .btn-desa {
-    --bg: #000;
+    --bg: rgb(255, 180, 180);
     --hover-bg: #ff90e8;
     --hover-text: #000;
     color: #fff;

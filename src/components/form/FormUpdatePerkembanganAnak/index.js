@@ -58,8 +58,10 @@ export default function FormUpdatePerkembanganAnak(props) {
         lingkarKepala: data.lingkar_kepala,
       });
       handleZScore(data.berat);
+      handleZScorePBBB(data.berat, data.tinggi);
       handleZScoreTinggiBadan(data.tinggi);
       handleZScoreLingkarKepala(data.lingkar_kepala);
+      
     }
     // eslint-disable-next-line
   }, [isOpen, data]);
@@ -108,6 +110,7 @@ export default function FormUpdatePerkembanganAnak(props) {
   };
 
   const handleZScorePBBB = (beratBadan, tinggiBadan) => {
+    const datePengukuran = form.getFieldValue(tanggalPengukuran);
     let result;
     if (tinggiBadan - Math.floor(tinggiBadan) === 0.5) {
       result = tinggiBadan;
@@ -118,11 +121,11 @@ export default function FormUpdatePerkembanganAnak(props) {
     }
     if (zScoreTB !== null && zScoreBB !== null) {
       console.log("ini hasilnya", result)
-      if (tanggalPengukuran !== null && tanggalPengukuran !== "") {
+      if (datePengukuran !== null && datePengukuran !== "") {
         let antropologiData = null;
         let umurAnak = `${monthDiff(
           moment(data.tanggal_lahir),
-          moment(tanggalPengukuran)
+          moment(datePengukuran)
         )}`;
         if (data.gender === "LAKI_LAKI") {
           if (umurAnak >= 0 && umurAnak <= 24) {
@@ -223,7 +226,7 @@ export default function FormUpdatePerkembanganAnak(props) {
         }
       }
     } else {
-      handleZScorePBBB(beratBadanState, tinggiBadan);
+      handleZScorePBBB(beratBadanState, tinggiBadanState);
       setZScoreTB(0);
     }
   };
@@ -451,6 +454,17 @@ export default function FormUpdatePerkembanganAnak(props) {
                 <Input
                   style={{ color: "#6e6e6e" }}
                   value={`${zScoreTB} SD`}
+                  disabled
+                />
+              </Form.Item>
+              <Form.Item
+                label="Z-Score Gizi"
+                name="ZScoreGizi"
+                valuePropName
+              >
+                <Input
+                  style={{ color: "#6e6e6e" }}
+                  value={`${zScoreBBPB} SD`}
                   disabled
                 />
               </Form.Item>

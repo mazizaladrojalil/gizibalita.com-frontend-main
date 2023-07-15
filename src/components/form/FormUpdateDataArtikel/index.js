@@ -40,12 +40,12 @@ export default function FormUpdateDataArtikel(props) {
       setValueContent(data.content)
     }
 
-     axios
+    axios
       .get(`${process.env.REACT_APP_BASE_URL}/api/kategori`,
-      {
+        {
           headers: { Authorization: `Bearer ${user.token.value}` },
-      })
-      
+        })
+
       .then((response) => {
         setDataKategori(response.data.data);
         setStatePageKateogries(false);
@@ -59,125 +59,125 @@ export default function FormUpdateDataArtikel(props) {
       .validateFields()
       .then((values) => {
         console.log(values)
-      
-        if(!statePageKateogries){
-          if(imageFile){
-              let formData = new FormData();
-              formData.append('judul', values.judul);
-              formData.append('kategori', values.kategori);
-              formData.append('penulis', values.penulis);
-              formData.append('content', valueContent);
-              formData.append('image', imageFile);
 
-              if (user && user.user.role === "ADMIN") {
+        if (!statePageKateogries) {
+          if (imageFile) {
+            let formData = new FormData();
+            formData.append('judul', values.judul);
+            formData.append('kategori', values.kategori);
+            formData.append('penulis', values.penulis);
+            formData.append('content', valueContent);
+            formData.append('image', imageFile);
+
+            if (user && user.user.role === "ADMIN") {
               axios
-                  .post(
-                  `${process.env.REACT_APP_BASE_URL}/api/artikel/${data.id}`,formData,
+                .post(
+                  `${process.env.REACT_APP_BASE_URL}/api/artikel/${data.id}`, formData,
                   {
-                      headers: { Authorization: `Bearer ${user.token.value}` },
+                    headers: { Authorization: `Bearer ${user.token.value}` },
                   }
-                  )
-                  .then((response) => {
+                )
+                .then((response) => {
                   messageApi.open({
-                      type: "success",
-                      content: "Data berhasil tersimpan",
+                    type: "success",
+                    content: "Data berhasil tersimpan",
                   });
                   setTimeout(() => {
-                      onCancel();
-                      setValueContent('');
-                      setImageFile(null);
-                      window.location.reload()
-                      fetch();
+                    onCancel();
+                    setValueContent('');
+                    setImageFile(null);
+                    window.location.reload()
+                    fetch();
                   }, 1000);
-                  })
-                  .catch((err) => {
+                })
+                .catch((err) => {
                   console.log(err);
                   messageApi.open({
-                      type: "error",
-                      content: "Data gagal tersimpan",
+                    type: "error",
+                    content: "Data gagal tersimpan",
                   });
                   setTimeout(() => {
-                      setImageFile(null);
-                      onCancel();
+                    setImageFile(null);
+                    onCancel();
                   }, 1000);
-                  });
-                  
-                  form.resetFields();
-              }
+                });
+
+              form.resetFields();
+            }
           } else {
-              let formData = new FormData();
-              formData.append('judul', values.judul);
-              formData.append('kategori', values.kategori);
-              formData.append('penulis', values.penulis);
-              formData.append('content', valueContent);
+            let formData = new FormData();
+            formData.append('judul', values.judul);
+            formData.append('kategori', values.kategori);
+            formData.append('penulis', values.penulis);
+            formData.append('content', valueContent);
 
-              if (user && user.user.role === "ADMIN") {
+            if (user && user.user.role === "ADMIN") {
               axios
-                  .post(
-                  `${process.env.REACT_APP_BASE_URL}/api/artikel/${data.id}`,formData,
+                .post(
+                  `${process.env.REACT_APP_BASE_URL}/api/artikel/${data.id}`, formData,
                   {
-                      headers: { Authorization: `Bearer ${user.token.value}` },
+                    headers: { Authorization: `Bearer ${user.token.value}` },
                   }
-                  )
-                  .then((response) => {
+                )
+                .then((response) => {
                   messageApi.open({
-                      type: "success",
-                      content: "Data berhasil tersimpan",
+                    type: "success",
+                    content: "Data berhasil tersimpan",
                   });
                   setTimeout(() => {
-                      onCancel();
-                      setValueContent('');
-                      setImageFile(null);
-                      window.location.reload()
-                      fetch();
+                    onCancel();
+                    setValueContent('');
+                    setImageFile(null);
+                    window.location.reload()
+                    fetch();
                   }, 1000);
-                  })
-                  .catch((err) => {
+                })
+                .catch((err) => {
                   console.log(err);
                   messageApi.open({
-                      type: "error",
-                      content: "Data gagal tersimpan",
+                    type: "error",
+                    content: "Data gagal tersimpan",
                   });
                   setTimeout(() => {
-                      setImageFile(null);
-                      onCancel();
+                    setImageFile(null);
+                    onCancel();
                   }, 1000);
-                  });
-                  
-                  form.resetFields();
-              }
+                });
+
+              form.resetFields();
+            }
           }
         } else {
           axios
-          .post(`${process.env.REACT_APP_BASE_URL}/api/kategori`,values,{
+            .post(`${process.env.REACT_APP_BASE_URL}/api/kategori`, values, {
               headers: { Authorization: `Bearer ${user.token.value}` },
-          })
-         .then((response) => {
-                  messageApi.open({
-                      type: "success",
-                      content: "Data berhasil tersimpan",
-                  });
-                  setTimeout(() => {
-                      onCancel();
-                      setValueContent('');
-                      setImageFile(null);
-                      window.location.reload()
-                      fetch();
-                  }, 1000);
-                  })
-                  .catch((err) => {
-                  console.log(err);
-                  messageApi.open({
-                      type: "error",
-                      content: "Data gagal tersimpan",
-                  });
-                  setTimeout(() => {
-                      setImageFile(null);
-                      onCancel();
-                  }, 1000);
-                  });
-                  
-                  form.resetFields();
+            })
+            .then((response) => {
+              messageApi.open({
+                type: "success",
+                content: "Data berhasil tersimpan",
+              });
+              setTimeout(() => {
+                onCancel();
+                setValueContent('');
+                setImageFile(null);
+                window.location.reload()
+                fetch();
+              }, 1000);
+            })
+            .catch((err) => {
+              console.log(err);
+              messageApi.open({
+                type: "error",
+                content: "Data gagal tersimpan",
+              });
+              setTimeout(() => {
+                setImageFile(null);
+                onCancel();
+              }, 1000);
+            });
+
+          form.resetFields();
         }
 
       })
@@ -187,20 +187,20 @@ export default function FormUpdateDataArtikel(props) {
   }
   const kategoris = [
     {
-      nama : "Stungting",
-      value : "Stungting"
+      nama: "Stungting",
+      value: "Stungting"
     },
     {
-      nama : "Gizi",
-      value : "gizi"
+      nama: "Gizi",
+      value: "gizi"
     },
     {
-      nama : "Kesehatan Anak",
-      value : "Kesehatan Anak"
+      nama: "Kesehatan Anak",
+      value: "Kesehatan Anak"
     },
     {
-      nama : "Kesehatan Ibu",
-      value : "KesehatanIbu"
+      nama: "Kesehatan Ibu",
+      value: "KesehatanIbu"
     }
   ];
 
@@ -217,7 +217,7 @@ export default function FormUpdateDataArtikel(props) {
             <button
               key="back"
               type="button"
-              
+
               onClick={onCancel}
               className="batal_btn"
             >
@@ -251,25 +251,25 @@ export default function FormUpdateDataArtikel(props) {
                     <Select.Option value="add">
                       <Button onClick={() => {
                         setStatePageKateogries(true)
-                        
+
                       }}>Tambah Kategori</Button>
                     </Select.Option>
 
                     {
-                      statePageKateogries ?  
-                      <Select.Option>
-                      </Select.Option> :
-                    dataKategori.map((item) => (
-                     
-                      <Select.Option key={item.id} value={item.name} >
-                        {item.name}
-                      </Select.Option>
-                    ))
+                      statePageKateogries ?
+                        <Select.Option>
+                        </Select.Option> :
+                        dataKategori.map((item) => (
+
+                          <Select.Option key={item.id} value={item.name} >
+                            {item.name}
+                          </Select.Option>
+                        ))
                     }
                   </Select>
                 </Form.Item>
-                
-                 {
+
+                {
                   statePageKateogries &&
                   <Form.Item
                     style={{ Width: "100%" }}
@@ -282,7 +282,7 @@ export default function FormUpdateDataArtikel(props) {
                       },
                     ]}
                   >
-                    <Input placeholder="Masukkan Nama Kategori"/>
+                    <Input placeholder="Masukkan Nama Kategori" />
                   </Form.Item>
                 }
 
@@ -290,17 +290,17 @@ export default function FormUpdateDataArtikel(props) {
                   !statePageKateogries &&
                   <div>
                     <Form.Item
-                  style={{ Width: "100%" }}
-                  label="Judul"
-                  name="judul"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Judul masih kosong!",
-                    },
-                  ]}
-                >
-                  <Input placeholder="Masukkan judul"/>
+                      style={{ Width: "100%" }}
+                      label="Judul"
+                      name="judul"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Judul masih kosong!",
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Masukkan judul" />
                     </Form.Item>
                     <Form.Item
                       style={{ Width: "100%" }}
@@ -320,18 +320,18 @@ export default function FormUpdateDataArtikel(props) {
                       label="Unggah cover artikel"
                       name="image"
                     >
-                    
-                    <div className="flex justify-center items-center w-full">
+
+                      <div className="flex justify-center items-center w-full">
                         <label
                           htmlFor="import_pelanggan"
-                          className="flex flex-col justify-center items-center w-full h-64 bg-white rounded-lg border-2 border-dashed cursor-pointer dark:hover:bg-bray-800" style={{borderColor: "#FFB4B4"}}
+                          className="flex flex-col justify-center items-center w-full h-64 bg-white rounded-lg border-2 border-dashed cursor-pointer dark:hover:bg-bray-800" style={{ borderColor: "#FFB4B4" }}
                         >
-                        
-                        {imageFile ? (
-                          <div className="flex flex-col justify-center items-center w-full h-full">
-                            {imageFile?.name}
-                          </div>
-                        ) : (
+
+                          {imageFile ? (
+                            <div className="flex flex-col justify-center items-center w-full h-full">
+                              {imageFile?.name}
+                            </div>
+                          ) : (
                             <div className="flex flex-col justify-center items-center pt-5 pb-6">
                               <svg
                                 aria-hidden="true"
@@ -348,28 +348,28 @@ export default function FormUpdateDataArtikel(props) {
                                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                 ></path>
                               </svg>
-                              <p className="mb-2 text-sm dark:text-gray-400" style={{color: "#b41318"}}>
+                              <p className="mb-2 text-sm dark:text-gray-400" style={{ color: "#b41318" }}>
                                 <span className="font-semibold">
                                   Click to upload
                                 </span>{' '}
-                                  or drag and drop
-                                </p>
-                                <p className="text-xs" style={{color: "#b41318"}}>
-                                  Unggah Cover Digital
-                                </p>
+                                or drag and drop
+                              </p>
+                              <p className="text-xs" style={{ color: "#b41318" }}>
+                                Unggah Cover Digital
+                              </p>
                             </div>
-                        )}
-                        <input
-                          id="import_pelanggan"
-                          type="file"
-                          accept=".jpg, .jpeg, .png"
-                          style={{color: "#b41318"}}
+                          )}
+                          <input
+                            id="import_pelanggan"
+                            type="file"
+                            accept=".jpg, .jpeg, .png"
+                            style={{ color: "#b41318" }}
                             onChange={(e) => {
                               setImageFile(e.target.files[0]);
                             }}
-                        />
-                      </label>
-                    </div>
+                          />
+                        </label>
+                      </div>
                     </Form.Item>
                     <Form.Item
                       style={{ Width: "100%" }}
