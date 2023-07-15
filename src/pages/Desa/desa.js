@@ -234,15 +234,15 @@ export default function Desa() {
                 {/* <Button type="secondary" htmlType="submit"class="button">
                 Export CSV
               </Button> */}
-                <button class="btn-desa" type="submit">
+                <button class="btn-desa" id="btn-desa" type="submit" style={{marginRight:"40px"}}>
                   Export CSV
                 </button>
 
 
-                  <Link href="/desa/reminder" type="button">
-                    <a className="btn-desa">
+                  <Link href="/desa/reminder">
+                    <button class="btn-desa"id="btn-desa"  type="button">
                       Tambah reminder
-                    </a>
+                    </button>
                   </Link>
 
 

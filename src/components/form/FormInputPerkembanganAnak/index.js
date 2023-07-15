@@ -531,17 +531,7 @@ export default function FormInputPerkembanganAnak(props) {
                   disabled
                 />
               </Form.Item>
-              <Form.Item
-                label="Z-Score Gizi"
-                name="ZScoreGizi"
-                valuePropName
-              >
-                <Input
-                  style={{ color: "#6e6e6e" }}
-                  value={`${zScoreBBPB} SD`}
-                  disabled
-                />
-              </Form.Item>
+              
             </Form>
           </Col>
         </Row>

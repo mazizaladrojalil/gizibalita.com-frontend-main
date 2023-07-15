@@ -199,6 +199,9 @@ export default function Detail() {
     } else if (type === "gizi") {
       const dataset_gizi = [];
 
+
+
+
       for (let i = 0; i < data.length; i++) {
         let floor;
         if (data[i].tinggi - Math.floor(data[i].tinggi) === 0.5) {
@@ -211,25 +214,31 @@ export default function Detail() {
         dataset_gizi.push(floor);
       }
       // buatlah 60 array dari bulan "dataset"
-      console.log("test", dataset_gizi)
+      const sortedData = [...new Set(dataset_gizi)].sort();
+      console.log("giiziii", sortedData)
+
       const result = [];
 
       let j = 0;
       if (dataset[0] >= 0 && dataset[0] <= 24) {
         if (dataAnak.gender === "LAKI_LAKI") {
+
           dataBeratTinggiBadanPria24Bulan.forEach((item) => {
-            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
-            if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
+            console.log(parseFloat(sortedData[j]) === parseFloat(item.pb));
+            if (parseFloat(sortedData[j]) === parseFloat(item.pb)) {
               result.push(Number(data[j].berat));
+              console.log(item.pb)
+
               j++;
             } else {
               result.push(null)
             }
+            console.log(j)
           })
         } else {
           dataBeratTinggiBadanPerempuan24Bulan.forEach((item) => {
-            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
-            if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
+            console.log(parseFloat(sortedData[j]) === parseFloat(item.pb));
+            if (parseFloat(sortedData[j]) === parseFloat(item.pb)) {
               result.push(Number(data[j].berat));
               j++;
             } else {
@@ -237,11 +246,11 @@ export default function Detail() {
             }
           })
         }
-      } else if (dataAnak[0] > 24 && dataAnak[0] <= 60) {
+      } else if (dataset[0] > 24 && dataset[0] <= 60) {
         if (dataAnak.gender === "LAKI_LAKI") {
           dataBeratTinggiBadanPria60Bulan.forEach((item) => {
-            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
-            if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
+            console.log(parseFloat(sortedData[j]) === parseFloat(item.pb));
+            if (parseFloat(sortedData[j]) === parseFloat(item.pb)) {
               result.push(Number(data[j].berat));
               j++;
             } else {
@@ -250,8 +259,8 @@ export default function Detail() {
           })
         } else {
           dataBeratTinggiBadanPerempuan60Bulan.forEach((item) => {
-            console.log(parseFloat(dataset_gizi[j]) === parseFloat(item.pb));
-            if (parseFloat(dataset_gizi[j]) === parseFloat(item.pb)) {
+            console.log(parseFloat(sortedData[j]) === parseFloat(item.pb));
+            if (parseFloat(sortedData[j]) === parseFloat(item.pb)) {
               result.push(Number(data[j].berat));
               j++;
             } else {
@@ -1188,7 +1197,7 @@ export default function Detail() {
           <Table columns={columns} dataSource={data} loading={isLoading} />
         </Col>
 
-        <Col>
+        <Col style={{ marginTop: "40px" }}>
           <button className="button_detail" onClick={() => handleButtonClick('Content 1')}>Berat Badan</button>
           <button className="button_detail" onClick={() => handleButtonClick('Content 2')}>Tinggi badan</button>
           <button className="button_detail" style={{ width: "190px" }} onClick={() => handleButtonClick('Content 3')}>Lingkar kepala</button>
