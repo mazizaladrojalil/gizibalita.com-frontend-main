@@ -956,7 +956,7 @@ export default function Detail() {
       },
       title: {
         display: true,
-        text: "Berat badan berdasarkan Panjang badan",
+        text: (moment().diff(moment(dataAnak.tanggal_lahir), "month")) >= 0 && (moment().diff(moment(dataAnak.tanggal_lahir), "month")) <= 24 ? "Berat badan berdasarkan Panjang badan":"Berat badan berdasarkan Tinggi badan", // make this if else condintion by 
       },
     },
   };
@@ -1113,7 +1113,8 @@ export default function Detail() {
       key: "statusLK",
       dataIndex: ["statistik", "lingkar_kepala"],
     }, {
-      title: "Status - Gizi",
+
+      title: (moment().diff(moment(dataAnak.tanggal_lahir), "month")) >= 0 && (moment().diff(moment(dataAnak.tanggal_lahir), "month")) ? "Status- BB/PB" :"Status BB/TB",
       key: "statusGizi",
       dataIndex: ["statistik", "gizi"],
     },
