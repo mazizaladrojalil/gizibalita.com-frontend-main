@@ -185,7 +185,7 @@ export default function SignIn(props) {
               width: "50%",
               height: "90%",
               background: `url(${banner}) no-repeat center`,
-              backgroundSize: '700px',
+              backgroundSize: '600px',
               borderRadius: 10,
               display: 'flex',
               justifyContent: 'center',

@@ -40,7 +40,7 @@ function BasicExample() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end" style={{ backgroundColor: "#FFB4B4" }}>
           <Nav className="ms-auto align-items-center">
-            <Nav.Link href="/dashboard"><h5 style={{ color: "white" }}>Home</h5></Nav.Link>
+            <Nav.Link href="#home"><h5 style={{ color: "white" }}>Home</h5></Nav.Link>
             <Nav.Link href="/"><h5 style={{ color: "white" }}>About</h5></Nav.Link>
           </Nav>
         </Navbar.Collapse>

@@ -18,8 +18,11 @@ export default function InputPosyandu() {
       .then((response) => {
         setRefreshKey((oldKey) => oldKey + 1);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        messageApi.open({
+          type: "error",
+          content: "Error delete posyandu",
+        });
       });
   }
 

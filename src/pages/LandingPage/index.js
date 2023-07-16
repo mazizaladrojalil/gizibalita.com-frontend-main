@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import landingPageImage from "../../assets/img/baby-banner.svg";
 import video from "../../assets/video/video_testing.mp4";
 import "./landingPage.css";
@@ -14,13 +14,17 @@ import { Link } from "react-router-dom";
 
 
 
+
 const BannerBackground = () => {
   const backgroundStyles = {
     backgroundImage: `url(${landingPageImage})`,
-    position: "absolute",
+    backgroundSize: "100% auto",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
     width: "600px",
-    height: "629px",
-    left: "940px",
+    height: "600px",
+    position: "absolute",
+    left: "950px",
     top: "150px",
     zIndex: -1
   }
@@ -46,6 +50,7 @@ const BackgroundComponent = () => {
 
 
 export default function LandingPage() {
+  const link = "../../assets/video/video_testing.mp4";
   return (
     <>
       <BackgroundComponent />
@@ -86,7 +91,7 @@ export default function LandingPage() {
       <BannerBackground />
       <Col sm="12" style={{ justifyContent: 'center', display: "flex", width: "100vw", marginTop: "30px" }}>
         <Row
-          style={{ backgroundColor: "transparent", width: "1600px", alignItems: "center", display: "flex" }}>
+          style={{ backgroundColor: "transparent", width: "1300px", alignItems: "center", display: "flex" }}>
           <Col>
             <Row className="banner" style={{ alignContent: "start", justifyContent: "start", display: "flex" }}>
               {/* <div className="title-banner">
@@ -130,12 +135,14 @@ export default function LandingPage() {
         </Row>
 
       </Col>
-      <Col style={{ justifyContent: 'center', display: "flex", width: "100vw" }}>
-        <div style={{ height: "500px", backgroundColor: "white", width: "1180px", marginTop: "20px", borderRadius: "40px", filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))", justifyContent: "center", display: "flex" }}>
-          <video src={video} loop autoPlay />
-        </div>
+      <sction id="home">
+        <Col style={{ marginTop: "50px", justifyContent: 'center', display: "flex", width: "100vw" }}>
+          <div style={{ height: "500px", backgroundColor: "white", width: "1000px", marginTop: "20px", borderRadius: "40px", filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))", justifyContent: "center", display: "flex" }}>
+            <iframe style={{ borderRadius: "40px" }} src="https://www.youtube.com/embed/bi0krb1qQKs?autoplay=1&loop=1&rel=0&fs=0&controls=0&playlist=bi0krb1qQKs" width="100%" height="100%" title="GEMASTIK 13 Desain Pengalaman Pengguna - 132000200251024 - Tim Bebas - Trolly" frameborder="0"></iframe>
+          </div>
+        </Col>
+      </sction>
 
-      </Col>
 
       <Col style={{ justifyContent: 'center', display: "flex", width: "100vw" }}>
         <img src={bannerImage} style={{ marginTop: "50px" }}></img>
