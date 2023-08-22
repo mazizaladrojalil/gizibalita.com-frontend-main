@@ -145,6 +145,10 @@
 
 }
 
+#main{
+  transform: scale(0.7);
+}
+
 /* Log Out */
 .Btn {
   display: flex;

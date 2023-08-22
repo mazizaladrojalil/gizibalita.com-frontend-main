@@ -19,6 +19,8 @@ export default function InputAcara() {
     const [isLoading, setIsLoading] = useState(true);
     const [messageApi, contextHolder] = message.useMessage();
 
+
+
     const [searchText, setSearchedText] = useState("");
 
     function deleteReminder(id) {
@@ -79,6 +81,22 @@ export default function InputAcara() {
                 setIsLoading(false);
             });
     }, [refreshKey]);
+
+    const handleSearch = (value) => {
+        setSearchedText(value);
+        setIsLoading(true);
+        axios
+            .get(`${process.env.REACT_APP_BASE_URL}/api/reminder`, {
+                headers: { Authorization: `Bearer ${user.token.value}` },
+            })
+            .then((response) => {
+                setData(response.data.data);
+                setIsLoading(false);
+            })
+            .catch((err) => {
+                setIsLoading(false);
+            });
+    };
 
     const onFinish = (values) => {
         console.log("test", moment(values.waktu).format("YYYY-MM-DD"))

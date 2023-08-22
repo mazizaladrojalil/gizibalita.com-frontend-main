@@ -89,7 +89,7 @@ export default function LandingPage() {
         </Row>
       </div> */}
       <BannerBackground />
-      <Col sm="12" style={{ justifyContent: 'center', display: "flex", width: "100vw", marginTop: "30px" }}>
+      <Col sm="12" style={{ justifyContent: 'center', display: "flex", width: "100vw", marginTop: "5px" }}>
         <Row
           style={{ backgroundColor: "transparent", width: "1300px", alignItems: "center", display: "flex" }}>
           <Col>
@@ -97,13 +97,15 @@ export default function LandingPage() {
               {/* <div className="title-banner">
                 TRACK YOUR CHILD&apos;S growth anywhere, anytime
               </div> */}
-              <h2>Track Your Child's Growth</h2>
-              <h2>Anywhere</h2>
-              <h2>Anytime</h2>
-              <div className="description-banner">
-                Keep track of children&apos;s growth and development using GiziBalita
-              </div>
-              {/* <button
+              <div id="main">
+
+                <h2>Track Your Child's Growth</h2>
+                <h2>Anywhere</h2>
+                <h2>Anytime</h2>
+                <div className="description-banner">
+                  Keep track of children&apos;s growth and development using GiziBalita
+                </div>
+                {/* <button
                 type="button"
                 className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
               >
@@ -111,23 +113,26 @@ export default function LandingPage() {
                   Get Started
                 </a>
               </button> */}
-              <Row style={{ width: "300px" }}>
-                <Col sm="6">
-                  <a href="/sign-in">
-                    <button class="button">
-                      Login
-                    </button>
-                  </a>
+                <Row style={{ width: "300px" }}>
+                  <Col sm="6">
+                    <a href="/sign-in">
+                      <button class="button">
+                        Login
+                      </button>
+                    </a>
 
-                </Col>
-                <Col sm="6">
-                  <a href="/sign-up">
-                    <button class="button">
-                      Sign Up
-                    </button>
-                  </a>
-                </Col>
-              </Row>
+                  </Col>
+                  <Col sm="6">
+                    <a href="/sign-up">
+                      <button class="button">
+                        Sign Up
+                      </button>
+                    </a>
+                  </Col>
+                </Row>
+
+              </div>
+
             </Row>
           </Col>
           <Col>
@@ -135,17 +140,15 @@ export default function LandingPage() {
         </Row>
 
       </Col>
-      <sction id="home">
-        <Col style={{ marginTop: "50px", justifyContent: 'center', display: "flex", width: "100vw" }}>
-          <div style={{ height: "500px", backgroundColor: "white", width: "1000px", marginTop: "20px", borderRadius: "40px", filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))", justifyContent: "center", display: "flex" }}>
-            <iframe style={{ borderRadius: "40px" }} src="https://www.youtube.com/embed/bi0krb1qQKs?autoplay=1&loop=1&rel=0&fs=0&controls=0&playlist=bi0krb1qQKs" width="100%" height="100%" title="GEMASTIK 13 Desain Pengalaman Pengguna - 132000200251024 - Tim Bebas - Trolly" frameborder="0"></iframe>
-          </div>
-        </Col>
-      </sction>
 
+      <Col style={{ marginTop: "10px", justifyContent: 'center', display: "flex", width: "100vw" }}>
+        <div id="main" style={{ height: "400px", backgroundColor: "white", width: "800px", borderRadius: "40px", filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))", justifyContent: "center", display: "flex" }}>
+          <iframe  style={{ borderRadius: "40px" }} src="https://www.youtube.com/embed/bi0krb1qQKs?autoplay=1&loop=1&rel=0&fs=0&controls=0&playlist=bi0krb1qQKs" width="100%" height="100%" title="GEMASTIK 13 Desain Pengalaman Pengguna - 132000200251024 - Tim Bebas - Trolly" frameborder="0"></iframe>
+        </div>
+      </Col>
 
-      <Col style={{ justifyContent: 'center', display: "flex", width: "100vw" }}>
-        <img src={bannerImage} style={{ marginTop: "50px" }}></img>
+      <Col  style={{ justifyContent: 'center', display: "flex", width: "100vw" }}>
+        <img src={bannerImage} style={{ marginTop: "50px", width:"50%" }}></img>
       </Col>
 
       <Col style={{ justifyContent: 'center', display: "flex", width: "100vw", backgroundColor: "#FFB4B4", marginTop: "100px" }}>

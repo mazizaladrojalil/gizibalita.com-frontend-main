@@ -12,6 +12,25 @@ import "./posyandu.css";
 import { Link, useNavigate } from "react-router-dom";
 import FormUpdateDataAnak from "../../components/form/FormUpdateDataAnak";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import Dokumen from "../../assets/Dokumentasi Gizi Balita Aplikasi Web.pdf";
+import { saveAs } from 'file-saver';
+
+
+
+const DownloadButton = () => {
+  const handleDownload = () => {
+    // Replace 'path/to/your/pdf/file.pdf' with the actual path to your PDF file
+    const fileName = 'Buku Panduan.pdf'; // Replace with the desired file name
+
+    saveAs(Dokumen, fileName);
+  };
+
+  return (
+    <button onClick={handleDownload} class="button3 mx-5">
+      Baca Panduan
+    </button>
+  );
+};
 
 const BackgroundComponent = () => {
   const backgroundStyles = {
@@ -247,7 +266,7 @@ const PosyanduDashboard = () => {
             </button>
           </Link> */}
 
-        <ReactToPrint
+        {/* <ReactToPrint
           trigger={() => {
             return (
               <button type="button" class="button3 mx-5">
@@ -255,9 +274,11 @@ const PosyanduDashboard = () => {
               </button>
             );
           }}
-          content={() => ref.current}
+          content={() => Dokumen}
           documentTitle="Buku Panduan.pdf"
-        />
+        /> */}
+
+        <DownloadButton />
 
       </Row>
       <Row className="justify-content-center" style={{ marginTop: "30px" }}>

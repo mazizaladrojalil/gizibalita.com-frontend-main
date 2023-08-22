@@ -46,19 +46,20 @@ export default function SignIn(props) {
           "login_data",
           JSON.stringify(response.data.data)
         );
+        console.log(response.data.data);
         setTimeout(() => {
           // if else role user
-          if (role_user === "ORANG_TUA") {
-            navigate("/dashboard/");
-          } else if (role_user === "KADER_POSYANDU") {
-            navigate("/kader-posyandu/dashboard/");
-          } else if (role_user === "TENAGA_KESEHATAN") {
-            navigate("/tenaga-kesehatan/dashboard");
-          } else if (role_user === "DESA") {
-            navigate("/desa/dashboard");
-          } else if (role_user === "ADMIN") {
-            navigate("/admin/dashboard/desa");
-          }
+          // if (role_user === "ORANG_TUA") {
+          //   navigate("/dashboard/");
+          // } else if (role_user === "KADER_POSYANDU") {
+          //   navigate("/kader-posyandu/dashboard/");
+          // } else if (role_user === "TENAGA_KESEHATAN") {
+          //   navigate("/tenaga-kesehatan/dashboard");
+          // } else if (role_user === "DESA") {
+          //   navigate("/desa/dashboard");
+          // } else if (role_user === "ADMIN") {
+          //   navigate("/admin/dashboard/desa");
+          // }
         }, 1000);
       })
       .catch((error) => {

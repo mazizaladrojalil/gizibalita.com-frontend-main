@@ -234,9 +234,6 @@ export default function Dashboard() {
               loading={isLoading}
               pagination={{ pageSize: 7 }}
             />
-
-
-
           </Col>
         </Row>
       </Row>
