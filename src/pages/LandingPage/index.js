@@ -143,12 +143,12 @@ export default function LandingPage() {
 
       <Col style={{ marginTop: "10px", justifyContent: 'center', display: "flex", width: "100vw" }}>
         <div id="main" style={{ height: "400px", backgroundColor: "white", width: "800px", borderRadius: "40px", filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))", justifyContent: "center", display: "flex" }}>
-          <iframe  style={{ borderRadius: "40px" }} src="https://www.youtube.com/embed/bi0krb1qQKs?autoplay=1&loop=1&rel=0&fs=0&controls=0&playlist=bi0krb1qQKs" width="100%" height="100%" title="GEMASTIK 13 Desain Pengalaman Pengguna - 132000200251024 - Tim Bebas - Trolly" frameborder="0"></iframe>
+          <iframe style={{ borderRadius: "40px" }} src="https://www.youtube.com/embed/oYwKLxEDNXU?autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&vq=hd1080" width="100%" height="100%" title="GEMASTIK 13 Desain Pengalaman Pengguna - 132000200251024 - Tim Bebas - Trolly" frameborder="0"></iframe>
         </div>
       </Col>
 
-      <Col  style={{ justifyContent: 'center', display: "flex", width: "100vw" }}>
-        <img src={bannerImage} style={{ marginTop: "50px", width:"50%" }}></img>
+      <Col style={{ justifyContent: 'center', display: "flex", width: "100vw" }}>
+        <img src={bannerImage} style={{ marginTop: "50px", width: "50%" }}></img>
       </Col>
 
       <Col style={{ justifyContent: 'center', display: "flex", width: "100vw", backgroundColor: "#FFB4B4", marginTop: "100px" }}>

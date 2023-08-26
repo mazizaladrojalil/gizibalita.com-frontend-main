@@ -160,7 +160,6 @@ const PosyanduDashboard = () => {
                 >
                   Detail
                 </button>
-                {/* </Link> */}
 
                 <button
 
@@ -214,29 +213,12 @@ const PosyanduDashboard = () => {
                             }, 1000);
                           });
                       },
-                      // onCancel: () => {
-                      //    messageApi.open({
-                      //         type: "error",
-                      //         content: "Data gagal dihapus",
-                      //     });
-                      // },
                     })
                   }}
                 >
                   Delete
                 </button>
               </div>
-              {/* <div className="flex">
-              <CustomButton className="bg-orange-500">
-                Detail
-              </CustomButton>
-              <CustomButton className="bg-green-300">
-                Update
-              </CustomButton>
-              <CustomButton className="bg-red-300">
-                Delete
-              </CustomButton>
-            </div> */}
 
             </>
           );
@@ -259,25 +241,6 @@ const PosyanduDashboard = () => {
         </Col>
       </Row>
       <Row className="justify-content-center" style={{ marginTop: "30px" }}>
-
-        {/* <Link to={`/dashboard/detail/${record.id}`}>
-            <button type="button" class="button3 mx-5">
-              Cek Data Anak
-            </button>
-          </Link> */}
-
-        {/* <ReactToPrint
-          trigger={() => {
-            return (
-              <button type="button" class="button3 mx-5">
-                Baca Panduan
-              </button>
-            );
-          }}
-          content={() => Dokumen}
-          documentTitle="Buku Panduan.pdf"
-        /> */}
-
         <DownloadButton />
 
       </Row>
